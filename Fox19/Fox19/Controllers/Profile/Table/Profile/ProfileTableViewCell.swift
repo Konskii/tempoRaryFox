@@ -71,28 +71,27 @@ class ProfileTableViewCell: UITableViewCell {
         contentView.addSubview(textField)
         contentView.addSubview(separator)
         contentView.addSubview(insetView)
-
-        let constraints = [
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+        
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             label.topAnchor.constraint(equalTo: contentView.topAnchor),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             
             textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 6),
-            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            textField.leadingAnchor.constraint(equalTo: label.leadingAnchor),
+            textField.trailingAnchor.constraint(equalTo: label.trailingAnchor),
             
             separator.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15),
-            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separator.leadingAnchor.constraint(equalTo: label.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: label.trailingAnchor),
             separator.heightAnchor.constraint(equalToConstant: 2),
             
             insetView.heightAnchor.constraint(equalToConstant: 20),
-            insetView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            insetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            insetView.leadingAnchor.constraint(equalTo: label.leadingAnchor),
+            insetView.trailingAnchor.constraint(equalTo: label.trailingAnchor),
             insetView.topAnchor.constraint(equalTo: separator.bottomAnchor),
             insetView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
+        ])
     }
     
     //MARK: - Configuring Cell
@@ -158,7 +157,10 @@ class ProfileTableViewCell: UITableViewCell {
             case 5:
                 label.text = "Статус"
                 var status = ""
-                if let admin = data.isAdmin, let gamer = data.isGamer, let referee = data.isReferee, let trainer = data.isTrainer  {
+                if let admin = data.isAdmin,
+                   let gamer = data.isGamer,
+                   let referee = data.isReferee,
+                   let trainer = data.isTrainer  {
                     if admin {
                         textField.text = "Админ"
                         break

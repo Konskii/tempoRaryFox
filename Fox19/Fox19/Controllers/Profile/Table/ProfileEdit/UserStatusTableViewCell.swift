@@ -79,12 +79,12 @@ class UserStatusTableViewCell: UITableViewCell {
         contentView.addSubview(refereeStatusSwitch)
         contentView.addSubview(refereeStatusLabel)
         
-        let constraints = [
+        NSLayoutConstraint.activate([
             gamerStatusLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            gamerStatusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            gamerStatusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             
             gamerStatusSwitch.centerYAnchor.constraint(equalTo: gamerStatusLabel.centerYAnchor),
-            gamerStatusSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            gamerStatusSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -55),
             
             trainerStatusLabel.topAnchor.constraint(equalTo: gamerStatusLabel.bottomAnchor, constant: 20),
             trainerStatusLabel.leadingAnchor.constraint(equalTo: gamerStatusLabel.leadingAnchor),
@@ -99,14 +99,14 @@ class UserStatusTableViewCell: UITableViewCell {
             refereeStatusSwitch.trailingAnchor.constraint(equalTo: gamerStatusSwitch.trailingAnchor),
             
             contentView.heightAnchor.constraint(equalToConstant: 110)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
+        ])
     }
     
     public func configureSelector() {
         guard let user = delegate?.giveData() else { return }
-        guard let isGamer = user.isGamer, let isTrainer = user.isTrainer, let isReferee = user.isReferee else { return }
+        guard let isGamer = user.isGamer,
+              let isTrainer = user.isTrainer,
+              let isReferee = user.isReferee else { return }
         gamerStatusSwitch.isOn = isGamer
         trainerStatusSwitch.isOn = isTrainer
         refereeStatusSwitch.isOn = isReferee
