@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B22FA5E25CF1C940064D730 /* UniversalNetwokManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */; };
+		3B22FA6125CF20290064D730 /* NewTestUserNetwrokManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */; };
+		3B22FA6425CF20BC0064D730 /* UserNetworkPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */; };
+		3B22FA6725CF321B0064D730 /* UIImage+compressExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6625CF321B0064D730 /* UIImage+compressExtension.swift */; };
 		3E6FB6BE49730E7F8F566119 /* Pods_Fox19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5155CA668CCAA39B908924BC /* Pods_Fox19.framework */; };
 		4C0AF67F2559199E00DCAEAC /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF67E2559199E00DCAEAC /* ProfileEditViewController.swift */; };
 		4C0AF686255A817900DCAEAC /* WelkomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */; };
@@ -36,7 +40,7 @@
 		4C299ECB2555197A00B2E5E6 /* TournamentsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299ECA2555197A00B2E5E6 /* TournamentsNetworkManager.swift */; };
 		4C299ECF255519A000B2E5E6 /* TournamentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299ECE255519A000B2E5E6 /* TournamentsModel.swift */; };
 		4C299EDA2555960000B2E5E6 /* UserGetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299ED9255595FF00B2E5E6 /* UserGetModel.swift */; };
-		4C299EDD2555963F00B2E5E6 /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EDC2555963F00B2E5E6 /* UserNetworkManager.swift */; };
+		4C299EDD2555963F00B2E5E6 /* OldUserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EDC2555963F00B2E5E6 /* OldUserNetworkManager.swift */; };
 		4C299EE7255667F300B2E5E6 /* GamesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EE6255667F300B2E5E6 /* GamesNetworkManager.swift */; };
 		4C299EEA255669C600B2E5E6 /* GameMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EE9255669C600B2E5E6 /* GameMember.swift */; };
 		4C299EED25566A0600B2E5E6 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EEC25566A0600B2E5E6 /* GameModel.swift */; };
@@ -111,6 +115,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalNetwokManager.swift; sourceTree = "<group>"; };
+		3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTestUserNetwrokManager.swift; sourceTree = "<group>"; };
+		3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkPaths.swift; sourceTree = "<group>"; };
+		3B22FA6625CF321B0064D730 /* UIImage+compressExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+compressExtension.swift"; sourceTree = "<group>"; };
 		4C0AF67E2559199E00DCAEAC /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelkomeViewController.swift; sourceTree = "<group>"; };
 		4C0AF688255A987200DCAEAC /* MVCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCTest.swift; sourceTree = "<group>"; };
@@ -139,7 +147,7 @@
 		4C299ECA2555197A00B2E5E6 /* TournamentsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsNetworkManager.swift; sourceTree = "<group>"; };
 		4C299ECE255519A000B2E5E6 /* TournamentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsModel.swift; sourceTree = "<group>"; };
 		4C299ED9255595FF00B2E5E6 /* UserGetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGetModel.swift; sourceTree = "<group>"; };
-		4C299EDC2555963F00B2E5E6 /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
+		4C299EDC2555963F00B2E5E6 /* OldUserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldUserNetworkManager.swift; sourceTree = "<group>"; };
 		4C299EE6255667F300B2E5E6 /* GamesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesNetworkManager.swift; sourceTree = "<group>"; };
 		4C299EE9255669C600B2E5E6 /* GameMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMember.swift; sourceTree = "<group>"; };
 		4C299EEC25566A0600B2E5E6 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -263,7 +271,10 @@
 		4C159D56256A936E0003EC3C /* User */ = {
 			isa = PBXGroup;
 			children = (
-				4C299EDC2555963F00B2E5E6 /* UserNetworkManager.swift */,
+				4C299EDC2555963F00B2E5E6 /* OldUserNetworkManager.swift */,
+				3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */,
+				3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */,
+				3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -516,6 +527,7 @@
 				4C9D415425B6A32500EEF0F9 /* UIColor+Extension.swift */,
 				4C9D415725B6C03400EEF0F9 /* UIImageView+extension.swift */,
 				ACAA99A825CC6ECF0065FAE3 /* UIViewController+alertExtension.swift */,
+				3B22FA6625CF321B0064D730 /* UIImage+compressExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -861,6 +873,7 @@
 				4C299EEA255669C600B2E5E6 /* GameMember.swift in Sources */,
 				4C8CE9682541511000339C62 /* BottoView.swift in Sources */,
 				ACAA99C925CC76A60065FAE3 /* EditGameHeader.swift in Sources */,
+				3B22FA6725CF321B0064D730 /* UIImage+compressExtension.swift in Sources */,
 				5766317C257396DF00BE9DD8 /* Header.swift in Sources */,
 				4C8CE94E253F240800339C62 /* TournamentsViewController.swift in Sources */,
 				4CF1895E2542B54400479481 /* RulesViewController.swift in Sources */,
@@ -892,6 +905,7 @@
 				4C159D93257334000003EC3C /* ChampDetailHeader.swift in Sources */,
 				4C159D9A257354BF0003EC3C /* DetailTableViewCell.swift in Sources */,
 				4CBEB345254EB4DE0042B4EC /* NetworkManager.swift in Sources */,
+				3B22FA6125CF20290064D730 /* NewTestUserNetwrokManager.swift in Sources */,
 				4C30A30B2585BAD700826337 /* AvatarModel.swift in Sources */,
 				4CF189702549292000479481 /* KeychainManager.swift in Sources */,
 				4C299EF325566A5900B2E5E6 /* GameViewController.swift in Sources */,
@@ -902,13 +916,15 @@
 				ACAA99C725CC76A60065FAE3 /* EditGameUpdateModel.swift in Sources */,
 				4CF1894C2542B41500479481 /* PlayersViewController.swift in Sources */,
 				4C299EBA2551349000B2E5E6 /* ClubsNetworkManager.swift in Sources */,
-				4C299EDD2555963F00B2E5E6 /* UserNetworkManager.swift in Sources */,
+				4C299EDD2555963F00B2E5E6 /* OldUserNetworkManager.swift in Sources */,
 				4CF189452542B3E600479481 /* OnePlayerViewController.swift in Sources */,
 				4C299EDA2555960000B2E5E6 /* UserGetModel.swift in Sources */,
 				4C8CE93F253F214600339C62 /* ClubsCollectionViewCell.swift in Sources */,
 				4C9D414B25B5596300EEF0F9 /* DetailGameViewController.swift in Sources */,
 				4C95758F25C292EA00A58985 /* MMessages.swift in Sources */,
+				3B22FA5E25CF1C940064D730 /* UniversalNetwokManager.swift in Sources */,
 				ACAA99B725CC76940065FAE3 /* GameCreateViewController.swift in Sources */,
+				3B22FA6425CF20BC0064D730 /* UserNetworkPaths.swift in Sources */,
 				4CF189622542B56900479481 /* RulesTableViewCell.swift in Sources */,
 				4C159D872570FEB80003EC3C /* ClubReviews.swift in Sources */,
 				4C299ECB2555197A00B2E5E6 /* TournamentsNetworkManager.swift in Sources */,

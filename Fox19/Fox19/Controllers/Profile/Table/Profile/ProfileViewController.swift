@@ -18,6 +18,8 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     ///Чтобы убрать задержку при тапе на изменение аватарки
     private let imagePicker = UIImagePickerController()
     
+    private let networkManager = TestUserNetwrokManager()
+    
     //MARK: - UI Elements
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: self.view.frame, style: .grouped)
@@ -86,46 +88,31 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     
     ///Обновляет данные по пользователю
     private func updateUser() {
-        guard let account = UserDefaults.standard.string(forKey: "number") else {
-            showAlert(title: "Возникла ошибка", message: "account error"); return }
-        guard let token = Keychainmanager.shared.getToken(account: account) else {
-            showAlert(title: "Возникла ошибка", message: "token error"); return }
-        
-        UserNetworkManager.shared.getUser(id: nil, token: token) { [weak self] (result) in
+        networkManager.getCurrentUser() { [weak self] result in
             guard let self = self else { return }
             switch result {
+            case .success(let user):
+                let user = user.results?.first
+                self.user = user
+                if let avatar = user?.avatar, let pathToAvatar = avatar.url {
+                    self.networkManager.downloadImage(pathToImage: pathToAvatar,
+                                                      completion: {
+                                                        result in
+                                                        switch result {
+                                                        case .success(let image):
+                                                            self.userImage = image
+                                                            DispatchQueue.main.async {
+                                                                self.tableView.reloadData()
+                                                            }
+                                                        case .failure(_):
+                                                            //TODO
+                                                            return
+                                                        }
+                                                      })
+                }
+                DispatchQueue.main.async { self.tableView.reloadData()}
             case .failure(let error):
                 self.showAlert(title: "Возникла ошибка", message: "\(error)")
-            case .success(let user):
-                self.user = user
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    private func downloadUserAvatar() {
-        enum Errors: Error {
-            case imageUrl
-        }
-        guard let account = UserDefaults.standard.string(forKey: "number") else {
-            showAlert(title: "Возникла ошибка", message: "account error"); return }
-        guard let token = Keychainmanager.shared.getToken(account: account) else {
-            showAlert(title: "Возникла ошибка", message: "token error"); return }
-        
-        UserNetworkManager.shared.downloadUserAvatar(token: token, id: nil) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(_):
-                //TODO
-                //handle errors while not showning error when user doen't have image
-                return
-            case .success(let image):
-                self.userImage = image
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
             }
         }
     }
@@ -138,7 +125,6 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         updateUser()
-        downloadUserAvatar()
     }
 }
 
@@ -192,27 +178,19 @@ extension ProfileTableViewController: (UIImagePickerControllerDelegate & UINavig
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            
-            guard let account = UserDefaults.standard.string(forKey: "number") else {
-                showAlert(title: "Возникла ошибка", message: "account error"); return }
-            guard let token = Keychainmanager.shared.getToken(account: account) else {
-                showAlert(title: "Возникла ошибка", message: "token error"); return }
-            
             guard let userId = user?.id else { return }
-            UserNetworkManager.shared.putUserAvatar(token: token,
-                                                    image: image,
-                                                    id: userId) { [weak self] result in
+            networkManager.updateUserAvatar(id: userId, avatar: image, completion: {
+                [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case .failure(let error):
-                    self.showAlert(title: "Возникла ошибка", message: "\(error)")
                 case .success(_):
                     self.userImage = image
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    DispatchQueue.main.async { self.tableView.reloadData() }
+                case .failure(let error):
+                    self.showAlert(title: "Dозникла ошибка", message: "\(error)")
                 }
-            }
+                
+            })
         }
         self.dismiss(animated: true, completion: nil)
     }

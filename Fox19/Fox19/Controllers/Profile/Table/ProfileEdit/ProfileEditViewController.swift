@@ -15,6 +15,8 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private var user: User?
     
+    private let networkManager = TestUserNetwrokManager()
+    
     //MARK: - Delegates
     private var delegates: [ManageUpdatedUserProtocol?] = []
     
@@ -110,10 +112,6 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     ///Обновление данных пользователя на новые
     private func updateUser() {
-        guard let account = UserDefaults.standard.string(forKey: "number") else {
-            showAlert(title: "Возникла ошибка", message: "account error"); return }
-        guard let token = Keychainmanager.shared.getToken(account: account) else {
-            showAlert(title: "Возникла ошибка", message: "token error"); return }
         guard let userId = user?.id else {
             showAlert(title: "Возникла ошибка", message: "id error"); return }
         
@@ -146,22 +144,26 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         let isGamer = statusesData[0]
         let isTrainer = statusesData[1]
         let isReferee = statusesData[2]
+        let user = User(id: userId,
+                        phone: self.user?.phone,
+                        email: emailToUpdate,
+                        golfRegistryIdRU: golfRegistryIdRUToUpdate,
+                        about: aboutToUpdate,
+                        name: nameToUpdate,
+                        handicap: self.user?.handicap,
+                        isAdmin: self.user?.isAdmin,
+                        isReferee: isReferee,
+                        isGamer: isGamer,
+                        isTrainer: isTrainer,
+                        avatar: self.user?.avatar)
         
-        UserNetworkManager.shared.putUser(id: userId,
-                                          name: nameToUpdate,
-                                          about: aboutToUpdate,
-                                          email: emailToUpdate,
-                                          golfRegistryIdRU: golfRegistryIdRUToUpdate,
-                                          token: token,
-                                          isGamer: isGamer,
-                                          isTrainer: isTrainer,
-                                          isReferee: isReferee) { [weak self] (result) in
+        networkManager.updateUser(user: user) { [weak self] result in
             guard let self = self else { return }
             switch result {
+            case .success(_):
+                DispatchQueue.main.async { self.navigationController?.popToRootViewController(animated: true) }
             case .failure(let error):
                 self.showAlert(title: "Возникла ошибка", message: "\(error)")
-                DispatchQueue.main.async { self.navigationController?.popToRootViewController(animated: true) }
-            case .success(_):
                 DispatchQueue.main.async { self.navigationController?.popToRootViewController(animated: true) }
             }
         }
