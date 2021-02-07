@@ -62,8 +62,8 @@ class ProfileAvatarHeader: UITableViewHeaderFooterView {
         contentView.addSubview(outerView)
         outerView.addSubview(avatarView)
         contentView.addSubview(changeButton)
-
-        let constraints = [
+        
+        NSLayoutConstraint.activate([
             outerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             outerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             outerView.heightAnchor.constraint(equalToConstant: 142),
@@ -78,9 +78,7 @@ class ProfileAvatarHeader: UITableViewHeaderFooterView {
             changeButton.widthAnchor.constraint(equalToConstant: 40),
             changeButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
             changeButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor)
-        ]
-
-        NSLayoutConstraint.activate(constraints)
+        ])
     }
     
     public func setImage(image: UIImage?) {

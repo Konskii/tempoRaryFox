@@ -15,6 +15,8 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private var user: User?
     
+    private let networkManager = TestUserNetwrokManager()
+    
     //MARK: - Delegates
     private var delegates: [ManageUpdatedUserProtocol?] = []
     
@@ -22,14 +24,15 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK: - UI elements
     private lazy var tableView: UITableView = {
-        let view = UITableView(frame: .zero, style: .grouped)
-        view.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.reusedId)
-        view.register(UserStatusTableViewCell.self, forCellReuseIdentifier: UserStatusTableViewCell.reusedId)
+        let view = UITableView(frame: self.view.frame, style: .grouped)
         view.dataSource = self
         view.delegate = self
         view.separatorStyle = .none
         view.backgroundColor = .white
-        view.showsVerticalScrollIndicator = false
+        view.register(ProfileTableViewCell.self,
+                      forCellReuseIdentifier: ProfileTableViewCell.reusedId)
+        view.register(UserStatusTableViewCell.self,
+                      forCellReuseIdentifier: UserStatusTableViewCell.reusedId)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -90,40 +93,28 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     private func configureNavigationBar() {
         let view = UILabel()
         view.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        view.font = UIFont(name: "Avenir-Medium", size: 15)
         view.text = "РЕДАКТИРОВАНИЕ ПРОФИЛЯ"
+        view.font = UIFont.avenir(fontSize: 15)
         navigationItem.titleView = view
-        view.font = UIFont(name: "Avenir", size: 15)
         
-        navigationItem.setLeftBarButton(UIBarButtonItem(image: UIImage(named: "SearchProfile"), style: .done, target: self, action: #selector(searchTapped)), animated: true)
-        navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "ChangeProfile"), style: .done, target: self, action: #selector(changeProfileTapped)), animated: true)
-        
-        navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "orange")
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "orange")
+        navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "ChangeProfile"),
+                                                         style: .done,
+                                                         target: self,
+                                                         action: #selector(changeProfileTapped)),
+                                         animated: true)
         
         ///Для работы свайпа назад
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         ///Для явного указания цвета статус бара(тк не используем darkMode)
         navigationController?.navigationBar.barTintColor = .white
-    }
-    
-    ///Показывает алерт с ошибкой
-    ///Метод асинхронный.
-    private func errorAlertMessage(message: String) {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "Возникла ошибка", message: "Код ошибки: \(message)", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default)
-            alertController.addAction(action)
-            self.present(alertController, animated: true, completion: nil)
-        }
+        navigationController?.navigationBar.tintColor = UIColor(named: "orange")
     }
     
     ///Обновление данных пользователя на новые
     private func updateUser() {
-        guard let account = UserDefaults.standard.string(forKey: "number") else { errorAlertMessage(message: "account error"); return }
-        guard let token = Keychainmanager.shared.getToken(account: account) else { errorAlertMessage(message: "token error"); return }
-        guard let userId = user?.id else { errorAlertMessage(message: "id error"); return }
-
+        guard let userId = user?.id else {
+            showAlert(title: "Возникла ошибка", message: "id error"); return }
+        
         var nameToUpdate: String?
         var aboutToUpdate: String?
         var emailToUpdate: String?
@@ -131,9 +122,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         
         for i in 0...5 - 1 {
             guard let updateData = delegates[i]?.manageText() else {
-                errorAlertMessage(message: "delegate error")
-                return
-            }
+                showAlert(title: "Возникла ошибка", message: "delegate error"); return }
             
             switch updateData.1?.row {
             case 0:
@@ -149,18 +138,32 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
         
-        guard let statusesData = statusDelegate?.getStatuses() else { errorAlertMessage(message: "status delegate error"); return }
+        guard let statusesData = statusDelegate?.getStatuses() else {
+            showAlert(title: "Возникла ошибка", message: "status delegate error"); return }
         
         let isGamer = statusesData[0]
         let isTrainer = statusesData[1]
         let isReferee = statusesData[2]
+        let user = User(id: userId,
+                        phone: self.user?.phone,
+                        email: emailToUpdate,
+                        golfRegistryIdRU: golfRegistryIdRUToUpdate,
+                        about: aboutToUpdate,
+                        name: nameToUpdate,
+                        handicap: self.user?.handicap,
+                        isAdmin: self.user?.isAdmin,
+                        isReferee: isReferee,
+                        isGamer: isGamer,
+                        isTrainer: isTrainer,
+                        avatar: self.user?.avatar)
         
-        UserNetworkManager.shared.putUser(id: userId, name: nameToUpdate, about: aboutToUpdate, email: emailToUpdate, golfRegistryIdRU: golfRegistryIdRUToUpdate, token: token, isGamer: isGamer, isTrainer: isTrainer, isReferee: isReferee) { (result) in
+        networkManager.updateUser(user: user) { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .failure(let error):
-                self.errorAlertMessage(message: "\(error)")
-                DispatchQueue.main.async { self.navigationController?.popToRootViewController(animated: true) }
             case .success(_):
+                DispatchQueue.main.async { self.navigationController?.popToRootViewController(animated: true) }
+            case .failure(let error):
+                self.showAlert(title: "Возникла ошибка", message: "\(error)")
                 DispatchQueue.main.async { self.navigationController?.popToRootViewController(animated: true) }
             }
         }
@@ -171,7 +174,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(saveButton)
         view.addSubview(tableView)
         
-        let constraints = [
+        NSLayoutConstraint.activate([
             dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
             dismissButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -8),
             dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -17),
@@ -183,12 +186,10 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
             saveButton.heightAnchor.constraint(equalTo: dismissButton.heightAnchor),
             
             tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     //MARK: - Life Cycle
@@ -216,11 +217,14 @@ extension ProfileEditViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         delegates.append(cell)
-        guard user != nil else { errorAlertMessage(message: "Ошибка User"); return cell }
+        guard user != nil else {
+            showAlert(title: "Возникла ошибка", message: "Ошибка User"); return cell }
         cell.delegate = self
         cell.setIndexPath(indexPath: indexPath, isEditingVC: true)
         if indexPath.row == 4 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserStatusTableViewCell.reusedId) as? UserStatusTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: UserStatusTableViewCell.reusedId) as?
+                    UserStatusTableViewCell else { return UITableViewCell() }
             cell.delegate = self
             statusDelegate = cell
             cell.configureSelector()
@@ -275,31 +279,31 @@ extension ProfileEditViewController {
     ///Добавляет наблюдателя для показа/скрытия клавиатуры
     private func manageKeyboardObserver() {
         NotificationCenter.default.addObserver(
-          self,
-          selector: #selector(keyboardWillShow(_:)),
-          name: UIResponder.keyboardWillShowNotification,
-          object: nil)
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
         
         NotificationCenter.default.addObserver(
-          self,
-          selector: #selector(keyboardWillHide(_:)),
-          name: UIResponder.keyboardWillHideNotification,
-          object: nil)
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
     
     ///Устанавливает отступы чтобы скролл вью сдвигалось не перекрывая контент при показе клавиатуры
     private func adjustInsetForKeyboardShow(_ show: Bool, notification: Notification) {
-      guard
-        let userInfo = notification.userInfo,
-        let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
-          as? NSValue
+        guard
+            let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
+                as? NSValue
         else {
-          return
-      }
+            return
+        }
         
-      let adjustmentHeight = (keyboardFrame.cgRectValue.height + 20) * (show ? 1 : -1)
-      tableView.contentInset.bottom += adjustmentHeight
-      tableView.verticalScrollIndicatorInsets.bottom += adjustmentHeight
+        let adjustmentHeight = (keyboardFrame.cgRectValue.height + 20) * (show ? 1 : -1)
+        tableView.contentInset.bottom += adjustmentHeight
+        tableView.verticalScrollIndicatorInsets.bottom += adjustmentHeight
     }
     
     ///Добавляет GestureRecognizer для нажатия на экран
