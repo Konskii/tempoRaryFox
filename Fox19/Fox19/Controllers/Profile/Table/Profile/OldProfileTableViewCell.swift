@@ -15,6 +15,7 @@ protocol ManageUpdatedUserProtocol: class {
 protocol FillProfileCellProtocol: class {
     /// - Returns: пользователь, информацию о котором нужно изменить
     func getDataForCell() -> User?
+    func showMyClubsViewController()
 }
 
 class ProfileTableViewCell: UITableViewCell {
@@ -94,6 +95,10 @@ class ProfileTableViewCell: UITableViewCell {
         ])
     }
     
+    @objc private func showMyClubsVC() {
+        delegate?.showMyClubsViewController()
+    }
+    
     //MARK: - Configuring Cell
     func setData() {
         guard let int = indexPath?.row else { return }
@@ -146,7 +151,11 @@ class ProfileTableViewCell: UITableViewCell {
                 guard let aboutMe = data.about else { return }
                 textField.text = aboutMe
             case 3:
+                isUserInteractionEnabled = true
                 label.text = "Мои клубы"
+                let tap = UITapGestureRecognizer(target: self,
+                                                 action: #selector(showMyClubsVC))
+                addGestureRecognizer(tap)
             case 4:
                 label.text = "Email"
                 guard let email = data.email else { return }

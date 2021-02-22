@@ -209,6 +209,18 @@ extension ProfileTableViewController: FillProfileCellProtocol {
     func getDataForCell() -> User? {
         return user
     }
+    
+    func showMyClubsViewController() {
+        let vc = MyClubsViewController()
+        vc.delegate = self
+    }
 }
 
-
+extension ProfileTableViewController: testProtocol {
+    func showDetailVC(club: Club) {
+        let vc = ClubDetailViewController()
+        vc.setupWithData(club: club, coverImage: #imageLiteral(resourceName: "Avatar"))
+        navigationController?.pushViewController(vc, animated: true)
+        print("wtf")
+    }
+}

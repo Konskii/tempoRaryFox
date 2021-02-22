@@ -247,6 +247,10 @@ extension ProfileEditViewController: FillProfileCellProtocol {
     func getDataForCell() -> User? {
         return user
     }
+    
+    func showMyClubsViewController() {
+        
+    }
 }
 
 //MARK: - SetUserStatusesProtocol

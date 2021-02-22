@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0E783A25E38C1F0049F509 /* NewProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0E783925E38C1F0049F509 /* NewProfileTableViewCell.swift */; };
 		3B22FA5E25CF1C940064D730 /* UniversalNetwokManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */; };
 		3B22FA6125CF20290064D730 /* NewTestUserNetwrokManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */; };
 		3B22FA6425CF20BC0064D730 /* UserNetworkPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */; };
 		3B22FA6725CF321B0064D730 /* UIImage+compressExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6625CF321B0064D730 /* UIImage+compressExtension.swift */; };
-		3E6FB6BE49730E7F8F566119 /* Pods_Fox19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5155CA668CCAA39B908924BC /* Pods_Fox19.framework */; };
+		3B25E8FD25DD7A6300013711 /* MyClubsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B25E8FC25DD7A6300013711 /* MyClubsViewController.swift */; };
 		4C0AF67F2559199E00DCAEAC /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF67E2559199E00DCAEAC /* ProfileEditViewController.swift */; };
 		4C0AF686255A817900DCAEAC /* WelkomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */; };
 		4C0AF689255A987200DCAEAC /* MVCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF688255A987200DCAEAC /* MVCTest.swift */; };
@@ -29,7 +30,7 @@
 		4C159DB02574B2D40003EC3C /* ChampioshipmembersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159DAF2574B2D40003EC3C /* ChampioshipmembersModel.swift */; };
 		4C159DB32574BCCE0003EC3C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159DB22574BCCE0003EC3C /* Alert.swift */; };
 		4C1D5683254290B4002C0F49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5682254290B4002C0F49 /* ProfileViewController.swift */; };
-		4C1D5687254290C8002C0F49 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */; };
+		4C1D5687254290C8002C0F49 /* OldProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5686254290C8002C0F49 /* OldProfileTableViewCell.swift */; };
 		4C1D56942542B0F5002C0F49 /* TournamentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */; };
 		4C299EA6254FD79500B2E5E6 /* SmsVareficationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EA5254FD79500B2E5E6 /* SmsVareficationViewController.swift */; };
 		4C299EAD2550FBAB00B2E5E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EAC2550FBAB00B2E5E6 /* LoginViewController.swift */; };
@@ -99,6 +100,7 @@
 		4CF18979254ABADE00479481 /* WelkomeViewController(old).swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF18977254ABADE00479481 /* WelkomeViewController(old).swift */; };
 		4CF1897A254ABADE00479481 /* SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF18978254ABADE00479481 /* SmsCodeViewController.swift */; };
 		4CF1898C254D26A100479481 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1898B254D26A100479481 /* RootViewController.swift */; };
+		5309441C6605FBCDEC8583D2 /* Pods_Fox19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C74A96FCE2D7323A42FC77F /* Pods_Fox19.framework */; };
 		5766317C257396DF00BE9DD8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766317B257396DF00BE9DD8 /* Header.swift */; };
 		ACAA99A925CC6ECF0065FAE3 /* UIViewController+alertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA99A825CC6ECF0065FAE3 /* UIViewController+alertExtension.swift */; };
 		ACAA99B625CC76940065FAE3 /* GameCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA99AF25CC76940065FAE3 /* GameCreateView.swift */; };
@@ -115,10 +117,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3772EA95C97D7B796886DDC0 /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
+		3B0E783925E38C1F0049F509 /* NewProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileTableViewCell.swift; sourceTree = "<group>"; };
 		3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalNetwokManager.swift; sourceTree = "<group>"; };
 		3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTestUserNetwrokManager.swift; sourceTree = "<group>"; };
 		3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkPaths.swift; sourceTree = "<group>"; };
 		3B22FA6625CF321B0064D730 /* UIImage+compressExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+compressExtension.swift"; sourceTree = "<group>"; };
+		3B25E8FC25DD7A6300013711 /* MyClubsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubsViewController.swift; sourceTree = "<group>"; };
 		4C0AF67E2559199E00DCAEAC /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelkomeViewController.swift; sourceTree = "<group>"; };
 		4C0AF688255A987200DCAEAC /* MVCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCTest.swift; sourceTree = "<group>"; };
@@ -136,7 +141,7 @@
 		4C159DAF2574B2D40003EC3C /* ChampioshipmembersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampioshipmembersModel.swift; sourceTree = "<group>"; };
 		4C159DB22574BCCE0003EC3C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		4C1D5682254290B4002C0F49 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		4C1D5686254290C8002C0F49 /* OldProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldProfileTableViewCell.swift; sourceTree = "<group>"; };
 		4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		4C299EA5254FD79500B2E5E6 /* SmsVareficationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmsVareficationViewController.swift; sourceTree = "<group>"; };
 		4C299EAC2550FBAB00B2E5E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -208,10 +213,9 @@
 		4CF18977254ABADE00479481 /* WelkomeViewController(old).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WelkomeViewController(old).swift"; sourceTree = "<group>"; };
 		4CF18978254ABADE00479481 /* SmsCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmsCodeViewController.swift; sourceTree = "<group>"; };
 		4CF1898B254D26A100479481 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		5155CA668CCAA39B908924BC /* Pods_Fox19.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fox19.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5766317B257396DF00BE9DD8 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		651F22AE40E064C46638F34F /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
-		A6456B4D93F692974847CF92 /* Pods-Fox19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.release.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.release.xcconfig"; sourceTree = "<group>"; };
+		6C74A96FCE2D7323A42FC77F /* Pods_Fox19.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fox19.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABC38E246DF8E861881C769F /* Pods-Fox19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.release.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.release.xcconfig"; sourceTree = "<group>"; };
 		ACAA99A825CC6ECF0065FAE3 /* UIViewController+alertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+alertExtension.swift"; sourceTree = "<group>"; };
 		ACAA99AF25CC76940065FAE3 /* GameCreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCreateView.swift; sourceTree = "<group>"; };
 		ACAA99B025CC76940065FAE3 /* GameCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCreateViewController.swift; sourceTree = "<group>"; };
@@ -231,21 +235,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E6FB6BE49730E7F8F566119 /* Pods_Fox19.framework in Frameworks */,
+				5309441C6605FBCDEC8583D2 /* Pods_Fox19.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0CFE56F0219E438EE68097A9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				5155CA668CCAA39B908924BC /* Pods_Fox19.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		4C0AF691255C0AC100DCAEAC /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,7 +309,9 @@
 			children = (
 				4C1D5682254290B4002C0F49 /* ProfileViewController.swift */,
 				4C30A3102585BB2E00826337 /* ProfileAvatarHeader.swift */,
-				4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */,
+				4C1D5686254290C8002C0F49 /* OldProfileTableViewCell.swift */,
+				3B25E8FC25DD7A6300013711 /* MyClubsViewController.swift */,
+				3B0E783925E38C1F0049F509 /* NewProfileTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -440,7 +438,7 @@
 				4C8CE916253F1C5A00339C62 /* Fox19 */,
 				4C8CE915253F1C5A00339C62 /* Products */,
 				A28762F2044180D0DEDC5194 /* Pods */,
-				0CFE56F0219E438EE68097A9 /* Frameworks */,
+				CCE214CE78754B598DE8A6D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -658,8 +656,8 @@
 		A28762F2044180D0DEDC5194 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				651F22AE40E064C46638F34F /* Pods-Fox19.debug.xcconfig */,
-				A6456B4D93F692974847CF92 /* Pods-Fox19.release.xcconfig */,
+				3772EA95C97D7B796886DDC0 /* Pods-Fox19.debug.xcconfig */,
+				ABC38E246DF8E861881C769F /* Pods-Fox19.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -737,6 +735,14 @@
 			path = Table;
 			sourceTree = "<group>";
 		};
+		CCE214CE78754B598DE8A6D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C74A96FCE2D7323A42FC77F /* Pods_Fox19.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -744,11 +750,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C8CE928253F1C5D00339C62 /* Build configuration list for PBXNativeTarget "Fox19" */;
 			buildPhases = (
-				C6FD3D87ED14E40EBEB98744 /* [CP] Check Pods Manifest.lock */,
+				EE92472D94419AEFA36B0828 /* [CP] Check Pods Manifest.lock */,
 				4C8CE910253F1C5A00339C62 /* Sources */,
 				4C8CE911253F1C5A00339C62 /* Frameworks */,
 				4C8CE912253F1C5A00339C62 /* Resources */,
-				0CFDA632E9E28A28DD08B339 /* [CP] Embed Pods Frameworks */,
+				C7975DA904054CB47142DF71 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -807,7 +813,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0CFDA632E9E28A28DD08B339 /* [CP] Embed Pods Frameworks */ = {
+		C7975DA904054CB47142DF71 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -824,7 +830,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fox19/Pods-Fox19-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C6FD3D87ED14E40EBEB98744 /* [CP] Check Pods Manifest.lock */ = {
+		EE92472D94419AEFA36B0828 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -857,6 +863,7 @@
 				4C8CE91C253F1C5A00339C62 /* ClubsViewController.swift in Sources */,
 				4C299EB22551181F00B2E5E6 /* ClubsModel.swift in Sources */,
 				4C0AF686255A817900DCAEAC /* WelkomeViewController.swift in Sources */,
+				3B25E8FD25DD7A6300013711 /* MyClubsViewController.swift in Sources */,
 				ACAA99C625CC76A60065FAE3 /* EditGameNetworkManager.swift in Sources */,
 				4C299EFC25566AF900B2E5E6 /* DetailView.swift in Sources */,
 				4CF189662542B58A00479481 /* JudgeForExample.swift in Sources */,
@@ -924,11 +931,12 @@
 				4C95758F25C292EA00A58985 /* MMessages.swift in Sources */,
 				3B22FA5E25CF1C940064D730 /* UniversalNetwokManager.swift in Sources */,
 				ACAA99B725CC76940065FAE3 /* GameCreateViewController.swift in Sources */,
+				3B0E783A25E38C1F0049F509 /* NewProfileTableViewCell.swift in Sources */,
 				3B22FA6425CF20BC0064D730 /* UserNetworkPaths.swift in Sources */,
 				4CF189622542B56900479481 /* RulesTableViewCell.swift in Sources */,
 				4C159D872570FEB80003EC3C /* ClubReviews.swift in Sources */,
 				4C299ECB2555197A00B2E5E6 /* TournamentsNetworkManager.swift in Sources */,
-				4C1D5687254290C8002C0F49 /* ProfileTableViewCell.swift in Sources */,
+				4C1D5687254290C8002C0F49 /* OldProfileTableViewCell.swift in Sources */,
 				4C159DB32574BCCE0003EC3C /* Alert.swift in Sources */,
 				4C159D2A25693C7A0003EC3C /* PlayersCell.swift in Sources */,
 				4C299EAD2550FBAB00B2E5E6 /* LoginViewController.swift in Sources */,
@@ -1095,7 +1103,7 @@
 		};
 		4C8CE929253F1C5D00339C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 651F22AE40E064C46638F34F /* Pods-Fox19.debug.xcconfig */;
+			baseConfigurationReference = 3772EA95C97D7B796886DDC0 /* Pods-Fox19.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1118,7 +1126,7 @@
 		};
 		4C8CE92A253F1C5D00339C62 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6456B4D93F692974847CF92 /* Pods-Fox19.release.xcconfig */;
+			baseConfigurationReference = ABC38E246DF8E861881C769F /* Pods-Fox19.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
