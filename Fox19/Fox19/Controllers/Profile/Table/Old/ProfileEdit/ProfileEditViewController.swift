@@ -22,20 +22,23 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK: - UI elements
     private lazy var tableView: UITableView = {
-        let view = UITableView(frame: .zero, style: .grouped)
-        view.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.reusedId)
-        view.register(UserStatusTableViewCell.self, forCellReuseIdentifier: UserStatusTableViewCell.reusedId)
+        let view = UITableView(frame: self.view.frame, style: .grouped)
+        view.register(UINib(nibName: "ProfileCell", bundle: nil),
+                      forCellReuseIdentifier: ProfileCell.reusedId)
+        view.register(UserStatusTableViewCell.self,
+                      forCellReuseIdentifier: UserStatusTableViewCell.reusedId)
         view.dataSource = self
         view.delegate = self
         view.separatorStyle = .none
         view.backgroundColor = .white
         view.showsVerticalScrollIndicator = false
-        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var saveButton: UIButton = {
         let view = UIButton(type: .system)
+        view.backgroundColor = .white
         view.layer.cornerRadius = 8
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor(red: 0.278, green: 0.427, blue: 0.741, alpha: 1).cgColor
@@ -49,6 +52,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private lazy var dismissButton: UIButton = {
         let view = UIButton(type: .system)
+        view.backgroundColor = .white
         view.layer.cornerRadius = 8
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor(red: 0.278, green: 0.427, blue: 0.741, alpha: 1).cgColor
@@ -167,9 +171,9 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func setupConstraints() {
+        view.addSubview(tableView)
         view.addSubview(dismissButton)
         view.addSubview(saveButton)
-        view.addSubview(tableView)
         
         let constraints = [
             dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
@@ -180,12 +184,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
             saveButton.leadingAnchor.constraint(equalTo: dismissButton.leadingAnchor),
             saveButton.bottomAnchor.constraint(equalTo: dismissButton.topAnchor, constant: -8),
             saveButton.trailingAnchor.constraint(equalTo: dismissButton.trailingAnchor),
-            saveButton.heightAnchor.constraint(equalTo: dismissButton.heightAnchor),
-            
-            tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+            saveButton.heightAnchor.constraint(equalTo: dismissButton.heightAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
@@ -212,7 +211,7 @@ extension ProfileEditViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.reusedId, for: indexPath) as? ProfileTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.reusedId, for: indexPath) as? ProfileCell else {
             return UITableViewCell()
         }
         delegates.append(cell)

@@ -81,10 +81,12 @@ class UserStatusTableViewCell: UITableViewCell {
         
         let constraints = [
             gamerStatusLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            gamerStatusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            gamerStatusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            gamerStatusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             
             gamerStatusSwitch.centerYAnchor.constraint(equalTo: gamerStatusLabel.centerYAnchor),
-            gamerStatusSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            gamerStatusSwitch.trailingAnchor.constraint(equalTo: gamerStatusLabel.trailingAnchor, constant: -5),
+    
             
             trainerStatusLabel.topAnchor.constraint(equalTo: gamerStatusLabel.bottomAnchor, constant: 20),
             trainerStatusLabel.leadingAnchor.constraint(equalTo: gamerStatusLabel.leadingAnchor),

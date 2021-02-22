@@ -109,6 +109,8 @@
 		4CF1897A254ABADE00479481 /* SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF18978254ABADE00479481 /* SmsCodeViewController.swift */; };
 		4CF1898C254D26A100479481 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1898B254D26A100479481 /* RootViewController.swift */; };
 		5766317C257396DF00BE9DD8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766317B257396DF00BE9DD8 /* Header.swift */; };
+		ACFA462725E3A2B3008E365F /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA462525E3A2B3008E365F /* ProfileCell.swift */; };
+		ACFA462825E3A2B3008E365F /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACFA462625E3A2B3008E365F /* ProfileCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -218,6 +220,8 @@
 		5766317B257396DF00BE9DD8 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		651F22AE40E064C46638F34F /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
 		A6456B4D93F692974847CF92 /* Pods-Fox19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.release.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.release.xcconfig"; sourceTree = "<group>"; };
+		ACFA462525E3A2B3008E365F /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		ACFA462625E3A2B3008E365F /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,8 +360,8 @@
 		4C1D568125429099002C0F49 /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				4C295CFA258F013F00FA6B82 /* ProfileEdit */,
-				4C295CF9258F013A00FA6B82 /* Profile */,
+				ACFA461D25E398EA008E365F /* New */,
+				ACFA461C25E398E2008E365F /* Old */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -736,6 +740,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		ACFA461C25E398E2008E365F /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				4C295CFA258F013F00FA6B82 /* ProfileEdit */,
+				4C295CF9258F013A00FA6B82 /* Profile */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
+		ACFA461D25E398EA008E365F /* New */ = {
+			isa = PBXGroup;
+			children = (
+				ACFA462525E3A2B3008E365F /* ProfileCell.swift */,
+				ACFA462625E3A2B3008E365F /* ProfileCell.xib */,
+			);
+			path = New;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -798,6 +820,7 @@
 				4C8CE924253F1C5D00339C62 /* LaunchScreen.storyboard in Resources */,
 				4C8CE935253F1CB700339C62 /* Colors.xcassets in Resources */,
 				4C8CE931253F1CA200339C62 /* Assets.xcassets in Resources */,
+				ACFA462825E3A2B3008E365F /* ProfileCell.xib in Resources */,
 				4C8CE91F253F1C5A00339C62 /* Main.storyboard in Resources */,
 				4C8CE96C254161FB00339C62 /* Merriweather-Regular.ttf in Resources */,
 			);
@@ -916,6 +939,7 @@
 				4C159D63256FADA00003EC3C /* GameCreateNetworkManager.swift in Sources */,
 				4CF189452542B3E600479481 /* OnePlayerViewController.swift in Sources */,
 				4C299EDA2555960000B2E5E6 /* UserGetModel.swift in Sources */,
+				ACFA462725E3A2B3008E365F /* ProfileCell.swift in Sources */,
 				4C8CE93F253F214600339C62 /* ClubsCollectionViewCell.swift in Sources */,
 				4C9D414B25B5596300EEF0F9 /* DetailGameViewController.swift in Sources */,
 				4C95758F25C292EA00A58985 /* MMessages.swift in Sources */,

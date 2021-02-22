@@ -20,13 +20,17 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     
     //MARK: - UI Elements
     private lazy var tableView: UITableView = {
-        let view = UITableView(frame: .zero, style: .grouped)
+        let view = UITableView(frame: self.view.frame, style: .grouped)
         view.delegate = self
         view.dataSource = self
         view.separatorStyle = .none
         view.backgroundColor = .white
+        view.rowHeight = UITableView.automaticDimension
+        view.estimatedRowHeight = 93
         view.showsVerticalScrollIndicator = false
-        view.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.reusedId)
+//        view.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.reusedId)
+        view.register(UINib(nibName: "ProfileCell", bundle: nil),
+                      forCellReuseIdentifier: ProfileCell.reusedId)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -93,7 +97,7 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         overrideUserInterfaceStyle = .light
         view.backgroundColor = .white
         configureNavigationBar()
-        setupConstraints()
+        view.addSubview(tableView)
     }
     
     private func configureNavigationBar() {
@@ -177,30 +181,6 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         }
     }
     
-    private func setupConstraints() {
-        view.addSubview(createGameButton)
-        view.addSubview(myGamesButton)
-        view.addSubview(tableView)
-        
-        let constraints = [
-            createGameButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
-            createGameButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -8),
-            createGameButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -17),
-            createGameButton.heightAnchor.constraint(equalToConstant: 42),
-            
-            myGamesButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
-            myGamesButton.bottomAnchor.constraint(equalTo: createGameButton.topAnchor, constant: -8),
-            myGamesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -17),
-            myGamesButton.heightAnchor.constraint(equalToConstant: 42),
-            
-            tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            tableView.bottomAnchor.constraint(equalTo: myGamesButton.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
-    }
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -221,7 +201,7 @@ extension ProfileTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.reusedId, for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.reusedId, for: indexPath) as? ProfileCell else { return UITableViewCell() }
         cell.setIndexPath(indexPath: indexPath, isEditingVC: false)
         cell.delegate = self
         return cell
