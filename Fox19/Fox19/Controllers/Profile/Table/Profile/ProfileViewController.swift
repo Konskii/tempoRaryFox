@@ -12,6 +12,15 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     ///Модель пользователя из которой получаются данные
     private var user: User?
     
+    private var likedClubs = "" {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     ///Аватарка пользователя
     private var userImage: UIImage?
     
@@ -29,7 +38,7 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         view.backgroundColor = .white
         view.register(ProfileTableViewCell.self,
                       forCellReuseIdentifier: ProfileTableViewCell.reusedId)
-//        view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     
@@ -84,6 +93,9 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         ///Для явного указания цвета статус бара(тк не используем darkMode)
         navigationController?.navigationBar.barTintColor = .white
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
     }
     
     ///Обновляет данные по пользователю
@@ -102,7 +114,9 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
                                                         case .success(let image):
                                                             self.userImage = image
                                                             DispatchQueue.main.async {
-                                                                self.tableView.reloadData()
+                                                                self.getLikedClubs() {
+                                                                    self.tableView.reloadData()
+                                                                }
                                                             }
                                                         case .failure(_):
                                                             //TODO
@@ -117,6 +131,24 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         }
     }
     
+    private func getLikedClubs(completion: @escaping () -> Void = {}) {
+        guard let userId = user?.id else { return }
+        networkManager.getLikedClubs(userId: userId) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let likes):
+                var templikes: [String] = []
+                likes.results.forEach({
+                    guard let clubName = $0.clubName else { return }
+                    templikes.append(clubName)
+                })
+                self.likedClubs = templikes.joined(separator: ", ")
+            case .failure(let error):
+                self.showAlert(title: "Возникла ошибка", message: "\(error)")
+            }
+        }
+    }
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +156,7 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         updateUser()
     }
 }
@@ -138,7 +171,11 @@ extension ProfileTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileTableViewCell.reusedId,
                 for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
-        cell.setIndexPath(indexPath: indexPath, isEditingVC: false)
+        if indexPath.row == 3 {
+            cell.setIndexPath(indexPath: indexPath, isEditingVC: false, likes: likedClubs)
+        } else {
+            cell.setIndexPath(indexPath: indexPath, isEditingVC: false)
+        }
         cell.delegate = self
         return cell
     }
@@ -251,5 +288,9 @@ extension ProfileTableViewController: testProtocol {
                 self.showAlert(title: "Возникла ошибка.", message: "\(error)")
             }
         }
+    }
+    
+    func reload() {
+        getLikedClubs()
     }
 }

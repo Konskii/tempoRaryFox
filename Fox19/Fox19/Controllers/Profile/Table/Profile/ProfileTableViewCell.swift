@@ -31,6 +31,8 @@ class ProfileTableViewCell: UITableViewCell {
     ///В зависимости от расположения ячейки(и тип контроллера в котором она используется) выставляются ее данные
     private var indexPath: IndexPath?
     
+    private var likes = ""
+    
     //MARK: - UI Elements
     private lazy var label: UILabel = {
         let view = UILabel()
@@ -153,6 +155,8 @@ class ProfileTableViewCell: UITableViewCell {
             case 3:
                 isUserInteractionEnabled = true
                 label.text = "Мои клубы"
+                textField.text = likes
+                textField.isUserInteractionEnabled = false
                 let tap = UITapGestureRecognizer(target: self,
                                                  action: #selector(showMyClubsVC))
                 addGestureRecognizer(tap)
@@ -197,9 +201,12 @@ class ProfileTableViewCell: UITableViewCell {
         }
     }
     
-    public func setIndexPath(indexPath: IndexPath, isEditingVC: Bool) {
+    public func setIndexPath(indexPath: IndexPath, isEditingVC: Bool, likes: String? = nil) {
         self.indexPath = indexPath
         self.isEditStyle = isEditingVC
+        if let likes = likes {
+            self.likes = likes
+        }
         setData()
     }
     

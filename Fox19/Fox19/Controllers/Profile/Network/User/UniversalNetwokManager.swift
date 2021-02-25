@@ -64,7 +64,6 @@ class UniversalNetwokManager {
                 return
             }
             guard let data = data else { completion(.failure(handleError())); return }
-            print(data)
             guard let parsedData = try? JSONDecoder().decode(T.self, from: data) else {
                 completion(.failure(handleError()))
                 return
@@ -82,7 +81,6 @@ class UniversalNetwokManager {
                 return
             }
             guard let data = data else { completion(.failure(handleError())); return }
-            print(data)
             guard let parsedImage = UIImage(data: data) else {
                 completion(.failure(handleError()))
                 return

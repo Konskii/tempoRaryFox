@@ -34,6 +34,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         view.register(UserStatusTableViewCell.self,
                       forCellReuseIdentifier: UserStatusTableViewCell.reusedId)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     

@@ -2,13 +2,14 @@
 //  MyClubsViewController.swift
 //  Fox19
 //
-//  Created by Евгений Скрипкин on 17.02.2021.
+//  Created by Артём Скрипкин on 17.02.2021.
 //
 
 import UIKit
 
 protocol testProtocol: class {
     func showDetailVC(club: Club)
+    func reload()
 }
 
 class MyClubsViewController: UIViewController {
@@ -30,12 +31,10 @@ class MyClubsViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 if new.count == 0 {
-                    print("zero    \(new)")
                     self.editButton.backgroundColor = .darkGray
                     self.editButton.isEnabled = false
                     self.tableView.isEditing = false
                 } else {
-                    print("not zero     \(new)")
                     self.editButton.backgroundColor = UIColor(red: 0.11, green: 0.173, blue: 0.306, alpha: 1)
                     self.editButton.isEnabled = true
                 }
@@ -50,6 +49,7 @@ class MyClubsViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
+        view.backgroundColor = .white
         view.layer.cornerRadius = 25
         view.dataSource = self
         view.delegate = self
@@ -112,7 +112,10 @@ class MyClubsViewController: UIViewController {
     }
     
     @objc private func hide() {
-        dismiss(animated: true)
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.delegate?.reload()
+        }
     }
     
     private func setupConstraints() {
@@ -184,6 +187,7 @@ class MyClubsViewController: UIViewController {
             switch result {
             case .success(_):
                 self.getClubs()
+                self.delegate?.reload()
             case .failure(let error):
                 self.showAlert(title: "Возникла ошибка.", message: "\(error)")
             }
@@ -202,6 +206,8 @@ extension MyClubsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "SelectClubCell")
+        cell.backgroundColor = .white
+        cell.textLabel?.textColor = .black
         if clubs.isEmpty {
             cell.textLabel?.text = messageToShow
         } else {
@@ -212,13 +218,6 @@ extension MyClubsViewController: UITableViewDataSource {
 }
 
 extension MyClubsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let club = clubs[indexPath.row]
-        dismiss(animated: true) {
-            self.delegate?.showDetailVC(club: club)
-        }
-    }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         deleteClub(at: indexPath)

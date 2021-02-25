@@ -20,6 +20,8 @@ struct LikedUserId: Codable {
     let id: Int
 }
 struct LikedClubModel: Codable {
+    let userName: String?
+    let clubName: String?
     let id: Int
     let club: LikedClubId
     let user: LikedUserId

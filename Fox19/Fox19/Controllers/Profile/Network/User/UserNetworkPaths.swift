@@ -2,7 +2,7 @@
 //  UserNetworkPaths.swift
 //  Fox19
 //
-//  Created by Евгений Скрипкин on 06.02.2021.
+//  Created by Артём Скрипкин on 06.02.2021.
 //
 
 import Foundation
