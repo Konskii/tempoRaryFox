@@ -45,4 +45,16 @@ class TestUserNetwrokManager: UniversalNetwokManager {
         let request = getRequest(url: url, method: .PUT, body: body)
         dataTask(request: request, completion: completion)
     }
+    
+    func getLikedClubs(userId: Int, completion: @escaping (Result<LikedClubsModel, Error>) -> Void) {
+        guard let url = getUrl(forPath: UserPaths.clubLikes) else { return }
+        let request = getRequest(url: url, method: .GET)
+        dataTask(request: request, completion: completion)
+    }
+    
+    func unlikeClub(likeIdToUnlike clubId: Int, completion: @escaping (Result<LikedClubModel, Error>) -> Void) {
+        guard let url = getUrl(forPath: UserPaths.clubLikes + "/\(clubId)") else { return }
+        let request = getRequest(url: url, method: .DELETE)
+        dataTask(request: request, completion: completion)
+    }
 }

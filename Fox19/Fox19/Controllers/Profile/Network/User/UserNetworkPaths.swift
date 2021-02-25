@@ -9,4 +9,5 @@ import Foundation
 
 enum UserPaths {
     static let user = "/api/user"
+    static let clubLikes = "/api/clublike"
 }

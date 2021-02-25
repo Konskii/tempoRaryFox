@@ -211,16 +211,45 @@ extension ProfileTableViewController: FillProfileCellProtocol {
     }
     
     func showMyClubsViewController() {
-        let vc = MyClubsViewController()
+        let vc = MyClubsViewController(userId: user?.id ?? 0)
         vc.delegate = self
+        present(vc, animated: true)
     }
 }
 
 extension ProfileTableViewController: testProtocol {
     func showDetailVC(club: Club) {
         let vc = ClubDetailViewController()
-        vc.setupWithData(club: club, coverImage: #imageLiteral(resourceName: "Avatar"))
-        navigationController?.pushViewController(vc, animated: true)
-        print("wtf")
+        guard let account = UserDefaults.standard.string(forKey: "number") else { return }
+        guard let clubId = club.id else {
+            self.showAlert(title: "Id клуба отсуствует.", message: "Попробуйте еще раз.")
+            return
+        }
+        ClubsNetworkManager.shared.getImageForClubCover(for: account, clubId: clubId) { (result) in
+            switch result {
+            case .success(let data):
+                let url = data.results?.first?.image
+                ClubsNetworkManager.shared.downloadImageForCover(from: url ?? "",
+                                                                 account: account) {
+                    (result) in
+                    switch result {
+                    case .success(let data):
+                        DispatchQueue.main.async {
+                            guard let coverImage = UIImage(data: data) else {
+                                self.showAlert(title: "Возникла ошибка.",
+                                               message: "Ошибка в изображении клуба")
+                                return
+                            }
+                            vc.setupWithData(club: club, coverImage: coverImage)
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    case .failure(let error):
+                        self.showAlert(title: "Возникла ошибка.", message: "\(error)")
+                    }
+                }
+            case .failure(let error):
+                self.showAlert(title: "Возникла ошибка.", message: "\(error)")
+            }
+        }
     }
 }

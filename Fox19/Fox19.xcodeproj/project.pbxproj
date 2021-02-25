@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B0E783A25E38C1F0049F509 /* NewProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0E783925E38C1F0049F509 /* NewProfileTableViewCell.swift */; };
 		3B22FA5E25CF1C940064D730 /* UniversalNetwokManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */; };
 		3B22FA6125CF20290064D730 /* NewTestUserNetwrokManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */; };
 		3B22FA6425CF20BC0064D730 /* UserNetworkPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */; };
@@ -30,7 +29,7 @@
 		4C159DB02574B2D40003EC3C /* ChampioshipmembersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159DAF2574B2D40003EC3C /* ChampioshipmembersModel.swift */; };
 		4C159DB32574BCCE0003EC3C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159DB22574BCCE0003EC3C /* Alert.swift */; };
 		4C1D5683254290B4002C0F49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5682254290B4002C0F49 /* ProfileViewController.swift */; };
-		4C1D5687254290C8002C0F49 /* OldProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5686254290C8002C0F49 /* OldProfileTableViewCell.swift */; };
+		4C1D5687254290C8002C0F49 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */; };
 		4C1D56942542B0F5002C0F49 /* TournamentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */; };
 		4C299EA6254FD79500B2E5E6 /* SmsVareficationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EA5254FD79500B2E5E6 /* SmsVareficationViewController.swift */; };
 		4C299EAD2550FBAB00B2E5E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EAC2550FBAB00B2E5E6 /* LoginViewController.swift */; };
@@ -114,11 +113,11 @@
 		ACAA99C925CC76A60065FAE3 /* EditGameHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA99C325CC76A60065FAE3 /* EditGameHeader.swift */; };
 		ACAA99CA25CC76A60065FAE3 /* EditGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA99C425CC76A60065FAE3 /* EditGameViewController.swift */; };
 		ACAA99CB25CC76A60065FAE3 /* EditGameUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA99C525CC76A60065FAE3 /* EditGameUserCell.swift */; };
+		ACE0037225E7DA9700A6290F /* LikedClubsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE0037125E7DA9700A6290F /* LikedClubsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3772EA95C97D7B796886DDC0 /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
-		3B0E783925E38C1F0049F509 /* NewProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileTableViewCell.swift; sourceTree = "<group>"; };
 		3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalNetwokManager.swift; sourceTree = "<group>"; };
 		3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTestUserNetwrokManager.swift; sourceTree = "<group>"; };
 		3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkPaths.swift; sourceTree = "<group>"; };
@@ -141,7 +140,7 @@
 		4C159DAF2574B2D40003EC3C /* ChampioshipmembersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampioshipmembersModel.swift; sourceTree = "<group>"; };
 		4C159DB22574BCCE0003EC3C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		4C1D5682254290B4002C0F49 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		4C1D5686254290C8002C0F49 /* OldProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldProfileTableViewCell.swift; sourceTree = "<group>"; };
+		4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		4C299EA5254FD79500B2E5E6 /* SmsVareficationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmsVareficationViewController.swift; sourceTree = "<group>"; };
 		4C299EAC2550FBAB00B2E5E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +227,7 @@
 		ACAA99C325CC76A60065FAE3 /* EditGameHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGameHeader.swift; sourceTree = "<group>"; };
 		ACAA99C425CC76A60065FAE3 /* EditGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGameViewController.swift; sourceTree = "<group>"; };
 		ACAA99C525CC76A60065FAE3 /* EditGameUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGameUserCell.swift; sourceTree = "<group>"; };
+		ACE0037125E7DA9700A6290F /* LikedClubsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedClubsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,8 +269,8 @@
 			children = (
 				4C299EDC2555963F00B2E5E6 /* OldUserNetworkManager.swift */,
 				3B22FA5D25CF1C940064D730 /* UniversalNetwokManager.swift */,
-				3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */,
 				3B22FA6325CF20BC0064D730 /* UserNetworkPaths.swift */,
+				3B22FA6025CF20290064D730 /* NewTestUserNetwrokManager.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -309,9 +309,8 @@
 			children = (
 				4C1D5682254290B4002C0F49 /* ProfileViewController.swift */,
 				4C30A3102585BB2E00826337 /* ProfileAvatarHeader.swift */,
-				4C1D5686254290C8002C0F49 /* OldProfileTableViewCell.swift */,
+				4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */,
 				3B25E8FC25DD7A6300013711 /* MyClubsViewController.swift */,
-				3B0E783925E38C1F0049F509 /* NewProfileTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -366,6 +365,7 @@
 				4C299ED9255595FF00B2E5E6 /* UserGetModel.swift */,
 				4C30A30A2585BAD700826337 /* AvatarModel.swift */,
 				4C30A30D2585BAE100826337 /* UserAvatarPutModel.swift */,
+				ACE0037125E7DA9700A6290F /* LikedClubsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -931,12 +931,11 @@
 				4C95758F25C292EA00A58985 /* MMessages.swift in Sources */,
 				3B22FA5E25CF1C940064D730 /* UniversalNetwokManager.swift in Sources */,
 				ACAA99B725CC76940065FAE3 /* GameCreateViewController.swift in Sources */,
-				3B0E783A25E38C1F0049F509 /* NewProfileTableViewCell.swift in Sources */,
 				3B22FA6425CF20BC0064D730 /* UserNetworkPaths.swift in Sources */,
 				4CF189622542B56900479481 /* RulesTableViewCell.swift in Sources */,
 				4C159D872570FEB80003EC3C /* ClubReviews.swift in Sources */,
 				4C299ECB2555197A00B2E5E6 /* TournamentsNetworkManager.swift in Sources */,
-				4C1D5687254290C8002C0F49 /* OldProfileTableViewCell.swift in Sources */,
+				4C1D5687254290C8002C0F49 /* ProfileTableViewCell.swift in Sources */,
 				4C159DB32574BCCE0003EC3C /* Alert.swift in Sources */,
 				4C159D2A25693C7A0003EC3C /* PlayersCell.swift in Sources */,
 				4C299EAD2550FBAB00B2E5E6 /* LoginViewController.swift in Sources */,
@@ -957,6 +956,7 @@
 				4CF189582542B4BA00479481 /* UserForExample.swift in Sources */,
 				4C95758625C28EDD00A58985 /* ChatViewController.swift in Sources */,
 				4C30A3112585BB2E00826337 /* ProfileAvatarHeader.swift in Sources */,
+				ACE0037225E7DA9700A6290F /* LikedClubsModel.swift in Sources */,
 				4C8CE961254150EF00339C62 /* TopView.swift in Sources */,
 				ACAA99B825CC76940065FAE3 /* GameCreateNetworkManager.swift in Sources */,
 				ACAA99C825CC76A60065FAE3 /* UpdatedGameModel.swift in Sources */,

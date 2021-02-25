@@ -69,7 +69,6 @@ class UniversalNetwokManager {
                 completion(.failure(handleError()))
                 return
             }
-            print(request.url)
             completion(.success(parsedData))
         }.resume()
     }
