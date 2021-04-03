@@ -12,24 +12,29 @@ class GameCollectionCell: UICollectionViewCell {
     static let reuseid = "GameCollectionCell"
     private(set) var clubImageView = UIImageView()
     private let locationPointer = UIImageView(image: UIImage(named: "Pointer"))
-    private let flagImageView = UIImageView(image: UIImage(named: "flag"))
-    private let reserveImageView = UIImageView(image: UIImage(named: "reserve"))
-    private let userImageView = UIImageView(image: UIImage(named: "person"))
+ //   private let flagImageView = UIImageView(image: UIImage(named: "flag"))
+   // private let reserveImageView = UIImageView(image: UIImage(named: "reserve"))
+  //  private let userImageView = UIImageView(image: UIImage(named: "person"))
     private let locationLabel = UILabel(text: "НАЗВАНИЕ ГОЛЬФ-КЛУБА",
                                         font: .avenir(fontSize: 12),
                                         textColor: .white)
-    private let numberOfLunokLabel = UILabel(text: "18 лунок",
-                                             font: .avenir(fontSize: 13),
-                                             textColor: .white)
+   // private let numberOfLunokLabel = UILabel(text: "18 лунок",
+//                                             font: .avenir(fontSize: 13),
+//                                             textColor: .white)
     
-    private let reserveLabel = UILabel(text: "Забронированно",
-                                       font: .avenir(fontSize: 13),
-                                       textColor: .white)
+//    private let reserveLabel = UILabel(text: "Забронированно",
+//                                       font: .avenir(fontSize: 13),
+//                                       textColor: .white)
     
-     private let priceLabel = UILabel(text:  "5000/4 рублей",
-                                     font: .avenir(fontSize: 13),
-                                     textColor: .white)
+//     private let priceLabel = UILabel(text:  "5000/4 рублей",
+//                                     font: .avenir(fontSize: 13),
+//                                     textColor: .white)
+    private let dateLabel = UILabel(text: "",
+                                    font: .avenir(fontSize: 15),
+                                    textColor: .white)
     private let joinTheGameButton = UIButton(title: "Присоедениться к игре", textColor: #colorLiteral(red: 0.1764705882, green: 0.2470588235, blue: 0.4, alpha: 1), buttonImageColor: #colorLiteral(red: 1, green: 0.537254902, blue: 0, alpha: 1))
+    
+   private var playersImage: [UIImageView] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,12 +46,18 @@ class GameCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        //Подумать
+    }
+    
     func cellConfigurator(game: GamesModel.Game) {
         locationLabel.text = game.club?.title?.uppercased()
-        numberOfLunokLabel.text = "\(game.holes ?? 0) лунок"
-        priceLabel.text = "\(game.memberPrice ?? 0)/\(game.gamersCount ?? 0) рублей"
-        reserveLabel.text = game.reserved ?? false ? "Забронированно" : "Не забронированно"
+    //    numberOfLunokLabel.text = "\(game.holes ?? 0) лунок"
+      //  priceLabel.text = "\(game.memberPrice ?? 0)/\(game.gamersCount ?? 0) рублей"
+       // reserveLabel.text = game.reserved ?? false ? "Забронированно" : "Не забронированно"
         
+        dateLabel.text = "Дата проведения: \(game.date ?? ""),  время: \(game.time?.dropLast(3) ?? "")"
         guard let account = UserDefaults.standard.string(forKey: "number") else { return }
         guard let token = Keychainmanager.shared.getToken(account: account) else { return }
 
@@ -73,8 +84,9 @@ class GameCollectionCell: UICollectionViewCell {
             switch result {
             case .success(let members):
                 DispatchQueue.main.async { [self] in
+                    print("making people")
                     guard let players = members.results?.count, players != 0 else { return }
-                    var playersImage: [UIImageView] = []
+                  //  var playersImage: [UIImageView] = []
                         for player in 1...players {
                             let xPosition = (player - 1) * 21
                             let image = UIImageView(imageName: "user", playerGandicap: "\(members.results?[player - 1].user?.handicap ?? 0)")
@@ -110,30 +122,33 @@ class GameCollectionCell: UICollectionViewCell {
         
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        flagImageView.translatesAutoresizingMaskIntoConstraints = false
-        flagImageView.clipsToBounds = true
+     //   flagImageView.translatesAutoresizingMaskIntoConstraints = false
+       // flagImageView.clipsToBounds = true
         
-        numberOfLunokLabel.translatesAutoresizingMaskIntoConstraints = false
+       // numberOfLunokLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        reserveImageView.translatesAutoresizingMaskIntoConstraints = false
-        reserveImageView.clipsToBounds = true
+    //    reserveImageView.translatesAutoresizingMaskIntoConstraints = false
+      //  reserveImageView.clipsToBounds = true
         
-        reserveLabel.translatesAutoresizingMaskIntoConstraints = false
+    //    reserveLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        userImageView.translatesAutoresizingMaskIntoConstraints = false
-        userImageView.clipsToBounds = true
+    //    userImageView.translatesAutoresizingMaskIntoConstraints = false
+      //  userImageView.clipsToBounds = true
         
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        //priceLabel.translatesAutoresizingMaskIntoConstraints = false
         joinTheGameButton.translatesAutoresizingMaskIntoConstraints = false
+        joinTheGameButton.isEnabled = false
         
         clubImageView.addSubview(locationPointer)
         clubImageView.addSubview(locationLabel)
-        clubImageView.addSubview(flagImageView)
-        clubImageView.addSubview(numberOfLunokLabel)
-        clubImageView.addSubview(reserveImageView)
-        clubImageView.addSubview(reserveLabel)
-        clubImageView.addSubview(userImageView)
-        clubImageView.addSubview(priceLabel)
+        clubImageView.addSubview(dateLabel)
+       // clubImageView.addSubview(flagImageView)
+        //clubImageView.addSubview(numberOfLunokLabel)
+     //   clubImageView.addSubview(reserveImageView)
+      //  clubImageView.addSubview(reserveLabel)
+    //    clubImageView.addSubview(userImageView)
+       // clubImageView.addSubview(priceLabel)
         addSubview(clubImageView)
         addSubview(joinTheGameButton)
     }
@@ -153,23 +168,27 @@ class GameCollectionCell: UICollectionViewCell {
             locationLabel.topAnchor.constraint(equalTo: clubImageView.topAnchor, constant: 25),
             locationLabel.leadingAnchor.constraint(equalTo: locationPointer.trailingAnchor, constant: 7),
             
-            flagImageView.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -12),
-            flagImageView.leadingAnchor.constraint(equalTo: clubImageView.leadingAnchor, constant: 14),
+            dateLabel.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -12),
+            dateLabel.leadingAnchor.constraint(equalTo: clubImageView.leadingAnchor, constant: 14),
             
-            numberOfLunokLabel.leadingAnchor.constraint(equalTo: flagImageView.trailingAnchor, constant: 11),
-            numberOfLunokLabel.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -10),
+        //    flagImageView.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -12),
+          //  flagImageView.leadingAnchor.constraint(equalTo: clubImageView.leadingAnchor, constant: 14),
+
+            //numberOfLunokLabel.leadingAnchor.constraint(equalTo: flagImageView.trailingAnchor, constant: 11),
+            //numberOfLunokLabel.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -10),
+
             
-            reserveImageView.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -12),
-            reserveImageView.leadingAnchor.constraint(equalTo: numberOfLunokLabel.trailingAnchor, constant: 25),
+         //   reserveImageView.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -12),
+        //    reserveImageView.leadingAnchor.constraint(equalTo: numberOfLunokLabel.trailingAnchor, constant: 25),
             
-            reserveLabel.leadingAnchor.constraint(equalTo: reserveImageView.trailingAnchor, constant: 11),
-            reserveLabel.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -10),
+        //    reserveLabel.leadingAnchor.constraint(equalTo: reserveImageView.trailingAnchor, constant: 11),
+      //      reserveLabel.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -10),
             
-            userImageView.trailingAnchor.constraint(equalTo: clubImageView.trailingAnchor, constant: -13),
-            userImageView.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -13),
+       //     userImageView.trailingAnchor.constraint(equalTo: clubImageView.trailingAnchor, constant: -13),
+         //   userImageView.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -13),
             
-            priceLabel.trailingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: -5),
-            priceLabel.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -10),
+           // priceLabel.trailingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: -5),
+            //priceLabel.bottomAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: -10),
             
             joinTheGameButton.topAnchor.constraint(equalTo: clubImageView.bottomAnchor, constant: 15),
             joinTheGameButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),

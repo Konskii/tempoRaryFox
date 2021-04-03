@@ -6,18 +6,27 @@
 //
 
 import UIKit
+import Cosmos
 
 class TopView: UIView {
 
+    private let orangeColor = UIColor(red: 242/255, green: 122/255, blue: 42/255, alpha: 1)
+    
     private let locationPointer = UIImageView()
     private let locationLabel = UILabel()
     private let titleLabel = UILabel()
-    private let starsImageView = UIImageView()
+    private let starsratingView = CosmosView()
     private let reviewsLabel = UILabel()
+    private let reviewButton = UIButton(type: .system)
     private let separator = UIView()
     private let descriptionLabel = UILabel()
     private let separatorBottom = UIView()
     private let photoPageLabel = UILabel()
+    
+    private var reviews: [Review] = []
+    
+    var didTapMakeReviewButton: (() -> Void)?
+    var didTapShowReviews: (([Review]) -> Void)?
     
     var imageViews = [UIImageView]()
     
@@ -26,7 +35,7 @@ class TopView: UIView {
         locationPointer.image = UIImage(named: "ColorPointer")
         locationPointer.clipsToBounds = true
 
-        locationLabel.text = "Нет данных в АПИ"
+        locationLabel.text = "Нет данных"
         locationLabel.textColor = UIColor(red: 45/255, green: 63/255, blue: 102/255, alpha: 1)
         locationLabel.font = UIFont(name: "Avenir-Medium", size: 12)
         
@@ -36,11 +45,25 @@ class TopView: UIView {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.sizeToFit()
         
-        starsImageView.image = UIImage(named: "Stars")
+        starsratingView.settings.emptyImage = UIImage(named: "emptyStar")
+        starsratingView.settings.filledImage = UIImage(named: "filledStar")
+        starsratingView.settings.starSize = 17
+        starsratingView.settings.fillMode = .precise
+        starsratingView.settings.updateOnTouch = false
+        starsratingView.rating = 0
         
         reviewsLabel.text = "0 отзывов"
         reviewsLabel.textColor = UIColor(red: 190/255, green: 194/255, blue: 206/255, alpha: 1)
         reviewsLabel.font = UIFont(name: "Avenir-Medium", size: 13)
+        reviewsLabel.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(showReviews))
+        reviewsLabel.addGestureRecognizer(gesture)
+        
+        reviewButton.setTitle("Оставить отзыв", for: .normal)
+        reviewButton.titleLabel?.font = UIFont(name: "Avenir-Medium", size: 15)
+        reviewButton.setTitleColor(UIColor(red: 28/255, green: 44/255, blue: 78/255, alpha: 1), for: .normal)
+        reviewButton.addTarget(self, action: #selector(leaveReview), for: .touchUpInside)
+      
         
         separator.backgroundColor = UIColor(red: 240/255, green: 241/255, blue: 244/255, alpha: 1)
         
@@ -58,8 +81,9 @@ class TopView: UIView {
         addSubview(locationPointer)
         addSubview(locationLabel)
         addSubview(titleLabel)
-        addSubview(starsImageView)
+        addSubview(starsratingView)
         addSubview(reviewsLabel)
+        addSubview(reviewButton)
         addSubview(separator)
         addSubview(descriptionLabel)
         addSubview(separatorBottom)
@@ -68,8 +92,9 @@ class TopView: UIView {
         locationPointer.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        starsImageView.translatesAutoresizingMaskIntoConstraints = false
+        starsratingView.translatesAutoresizingMaskIntoConstraints = false
         reviewsLabel.translatesAutoresizingMaskIntoConstraints = false
+        reviewButton.translatesAutoresizingMaskIntoConstraints = false
         separator.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         separatorBottom.translatesAutoresizingMaskIntoConstraints = false
@@ -88,11 +113,13 @@ class TopView: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             
-            starsImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-            starsImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            starsratingView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            starsratingView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             
-            reviewsLabel.centerYAnchor.constraint(equalTo: starsImageView.centerYAnchor),
-            reviewsLabel.leadingAnchor.constraint(equalTo: starsImageView.trailingAnchor, constant: 18),
+            reviewsLabel.centerYAnchor.constraint(equalTo: starsratingView.centerYAnchor),
+            reviewsLabel.leadingAnchor.constraint(equalTo: starsratingView.trailingAnchor, constant: 15),
+            reviewButton.centerYAnchor.constraint(equalTo: starsratingView.centerYAnchor),
+            reviewButton.leadingAnchor.constraint(equalTo: reviewsLabel.trailingAnchor, constant: 15),
             
             separator.heightAnchor.constraint(equalToConstant: 1),
             separator.topAnchor.constraint(equalTo: reviewsLabel.bottomAnchor, constant: 20),
@@ -114,6 +141,7 @@ class TopView: UIView {
         ])
     }
     
+    //MARK: - SetupTopView with Data
     func setupTopView(controllerWidth width: CGFloat, club: Club) -> CGFloat {
         
         if let account = UserDefaults.standard.string(forKey: "number") {
@@ -121,7 +149,10 @@ class TopView: UIView {
                 switch result {
                 case .success(let reviews):
                     DispatchQueue.main.async {
-                        self.reviewsLabel.text = "\(reviews.results.count) отзыв(ов)"
+                        if let reviewsCount = reviews.results?.count, let result = reviews.results {
+                            self.reviewsLabel.text = "\(reviewsCount) отзыв(ов)"
+                            self.reviews = result
+                        }
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -129,7 +160,8 @@ class TopView: UIView {
             }
         }
         
-        
+        starsratingView.rating = Double(club.rate ?? 0)
+        locationLabel.text = club.city?.name
         descriptionLabel.text = club.description
         titleLabel.text = club.title
         
@@ -158,6 +190,20 @@ class TopView: UIView {
         let height = locationLabelHeight + mainLableHeight + reviewsLabelHeight + mainTextLabelHeight + photoPageLabelHeight + 13 + 12 + 18 + 20 + 1 + 26 + 19 + 1 + 21
         
         return height
+    }
+    
+    func updateReviews(with review: Review, and club: Club) {
+        reviews.append(review)
+        reviewsLabel.text = "\(reviews.count) отзыв(ов)"
+        starsratingView.rating = Double(club.rate ?? 0)
+    }
+    
+    @objc private func leaveReview() {
+        didTapMakeReviewButton?()
+    }
+    
+    @objc private func showReviews() {
+        didTapShowReviews?(reviews)
     }
     
     required init?(coder: NSCoder) {

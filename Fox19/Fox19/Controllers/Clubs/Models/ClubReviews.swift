@@ -7,14 +7,30 @@
 
 struct ClubReviews:Codable {
     
-    let results: [Reviews]
+    let results: [Review]?
 }
 
-struct Reviews:Codable {
-    let date: String?
+struct Review:Codable, Hashable {
     let id: Int?
-    let name: String?
+   // let name: String?
     let description: String?
-    let rate: Int?
+    let dateOnly: String?
+    let timeOnly: String?
+    let answer: String?
+    let fieldRate: Int?
+    let infraRate: Int?
+    let serviceRate: Int?
+    let user: User?
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
+struct PostReview:Codable {
+    let description: String
+    let fieldRate: Float
+    let infraRate: Float
+    let serviceRate: Float
+    
+}

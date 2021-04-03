@@ -18,19 +18,12 @@ class TournamentsViewController: UIViewController {
     
     private var tournamernts: TournamentsModel?
     private var collectionView: UICollectionView!
+    private var isKeyboardShow = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getTournamentsList()
-        
-        let attributesGray: [NSAttributedString.Key: Any] = [
-            .foregroundColor: titleColor,
-            .font: UIFont(name: "avenir", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .medium)
-        ]
-        navigationItem.title = "ТУРНИРЫ"
-        navigationController?.navigationBar.titleTextAttributes = attributesGray
-        
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionViewLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.register(TournamentsCollectionViewCell.self, forCellWithReuseIdentifier: TournamentsCollectionViewCell.reusedID)
@@ -39,17 +32,18 @@ class TournamentsViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        //Navigation Bar section
-        
-        let imagePointerButton = UIImage(named: "ColorPointer")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: imagePointerButton, style: .plain, target: self, action: #selector(pointerSearch))
-        
-        let imageMenuButton = UIImage(named: "ColorMenu")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: imageMenuButton, style: .plain, target: self, action: #selector(menuButton))
-        
-        navigationController?.navigationBar.tintColor = orangeColor
-        navigationController?.navigationBar.barTintColor = .white
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        setupNavBarControlles()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func createCompositionViewLayout() -> UICollectionViewLayout {
@@ -84,7 +78,61 @@ class TournamentsViewController: UIViewController {
     }
     
     private func setupNavBarControlles() {
+        navigationItem.title = "Турниры"
+        let imagePointerButton = UIImage(named: "ColorPointer")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: imagePointerButton, style: .plain, target: self, action: #selector(pointerSearch))
         
+        let imageMenuButton = UIImage(named: "ColorMenu")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: imageMenuButton, style: .plain, target: self, action: #selector(menuButton))
+        
+        navigationController?.navigationBar.tintColor = orangeColor
+        navigationController?.navigationBar.barTintColor = .white
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundImage = UIImage(named: "Rectangle")
+        navBarAppearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont(name: "Merriweather-Regular", size: 30) ?? UIFont.systemFont(ofSize: 30, weight: .medium)
+        ]
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        setupSearchBar()
+    }
+    
+    private func setupSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "ПОИСК"
+        searchController.searchBar.searchTextField.leftView?.tintColor = orangeColor
+        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.searchTextField.backgroundColor = .white
+        navigationItem.searchController = searchController
+    }
+    
+    private func initializeHideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func dismissMyKeyboard() {
+        navigationItem.searchController?.searchBar.endEditing(true)
+    }
+    
+    @objc private func showKeyboard() {
+        initializeHideKeyboard()
+        isKeyboardShow = true
+    }
+    @objc private func hideKeyboard() {
+        isKeyboardShow = false
+        view.gestureRecognizers = []
     }
     
     @objc func pointerSearch() {
@@ -93,6 +141,11 @@ class TournamentsViewController: UIViewController {
     
     @objc func menuButton() {
         print("Open Menu")
+    }
+}
+
+extension TournamentsViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     }
 }
 

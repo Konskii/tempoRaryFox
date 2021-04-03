@@ -47,10 +47,10 @@ class GameCreateView: UIView {
     
     private lazy var gameNameField: UITextField = {
         let view = UITextField()
-        view.delegate = self
         view.textColor = UIColor(red: 0.119, green: 0.143, blue: 0.194, alpha: 1)
         view.font = UIFont(name: "Avenir", size: 17)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
         let separator = UIImageView(image: UIImage(named: "ProfileSeparator"))
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -74,10 +74,10 @@ class GameCreateView: UIView {
     
     private lazy var gameDescriptionField: UITextField = {
         let view = UITextField()
-        view.delegate = self
         view.textColor = UIColor(red: 0.119, green: 0.143, blue: 0.194, alpha: 1)
         view.font = UIFont(name: "Avenir", size: 17)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
         let separator = UIImageView(image: UIImage(named: "ProfileSeparator"))
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -153,22 +153,18 @@ class GameCreateView: UIView {
         return view
     }()
     
-    private lazy var playersCountField: UITextField = {
-        let view = UITextField()
-        view.delegate = self
-        view.keyboardType = .numberPad
-        view.textColor = UIColor(red: 0.119, green: 0.143, blue: 0.194, alpha: 1)
-        view.font = UIFont(name: "Avenir", size: 17)
+    private lazy var playersCountSegmentControll: UISegmentedControl = {
+        let view = UISegmentedControl()
+        view.insertSegment(withTitle: "2", at: 0, animated: true)
+        view.insertSegment(withTitle: "3", at: 1, animated: true)
+        view.insertSegment(withTitle: "4", at: 2, animated: true)
+        view.selectedSegmentIndex = 0
+        view.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor(red: 0.11, green: 0.173, blue: 0.306, alpha: 1)], for: .normal)
+        if let orangeColor = UIColor(named: "orange") {
+            view.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : orangeColor], for: .selected)
+        }
+        view.addTarget(self, action: #selector(checkIsFilled), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-        let separator = UIImageView(image: UIImage(named: "ProfileSeparator"))
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(separator)
-        separator.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 4).isActive = true
-        separator.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        separator.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        separator.heightAnchor.constraint(equalToConstant: 2).isActive = true
-        
         return view
     }()
     
@@ -209,13 +205,13 @@ class GameCreateView: UIView {
     
     private lazy var guestPriceField: UITextField = {
         let view = UITextField()
-        view.delegate = self
         view.keyboardType = .numberPad
         view.textColor = UIColor(red: 0.119, green: 0.143, blue: 0.194, alpha: 1)
         view.font = UIFont(name: "Avenir", size: 17)
         view.placeholder = "Стоимость"
         view.textAlignment = .right
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
         let separator = UIImageView(image: UIImage(named: "ProfileSeparator"))
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -239,13 +235,13 @@ class GameCreateView: UIView {
     
     private lazy var memberPriceField: UITextField = {
         let view = UITextField()
-        view.delegate = self
         view.keyboardType = .numberPad
         view.textColor = UIColor(red: 0.119, green: 0.143, blue: 0.194, alpha: 1)
         view.font = UIFont(name: "Avenir", size: 17)
         view.placeholder = "Стоимость"
         view.textAlignment = .right
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
         let separator = UIImageView(image: UIImage(named: "ProfileSeparator"))
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -255,40 +251,6 @@ class GameCreateView: UIView {
         separator.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         separator.heightAnchor.constraint(equalToConstant: 2).isActive = true
         
-        return view
-    }()
-    
-    private lazy var fieldStatusLabel: UILabel = {
-        let view = UILabel()
-        view.textColor = UIColor(red: 0.745, green: 0.761, blue: 0.808, alpha: 1)
-        view.font = UIFont(name: "Avenir", size: 15)
-        view.text = "Статус поля"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var shieldImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "security")
-        view.tintColor = UIColor(red: 0.178, green: 0.247, blue: 0.4, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var reservationLabel: UILabel = {
-        let view = UILabel()
-        view.textColor = UIColor(red: 0.178, green: 0.247, blue: 0.4, alpha: 1)
-        view.font = UIFont(name: "Avenir", size: 13)
-        view.text = "Забронировать"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var reservationSwitch: UISwitch = {
-        let view = UISwitch()
-        view.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
-        view.onTintColor = UIColor(named: "orange")
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -304,7 +266,7 @@ class GameCreateView: UIView {
         addSubview(selectedClubLabel)
         addSubview(holesSegmentControll)
         addSubview(playersCountLabel)
-        addSubview(playersCountField)
+        addSubview(playersCountSegmentControll)
         addSubview(dateAndTimeLabel)
         addSubview(datePicker)
         addSubview(pricesLabel)
@@ -312,14 +274,10 @@ class GameCreateView: UIView {
         addSubview(guestPriceField)
         addSubview(memberPriceLabel)
         addSubview(memberPriceField)
-        addSubview(fieldStatusLabel)
-        addSubview(shieldImageView)
-        addSubview(reservationLabel)
-        addSubview(reservationSwitch)
         
         let constraints = [
             widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-            heightAnchor.constraint(equalToConstant: 920),
+            heightAnchor.constraint(equalToConstant: 820),
             
             gameNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 38),
             gameNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
@@ -353,11 +311,11 @@ class GameCreateView: UIView {
             playersCountLabel.topAnchor.constraint(equalTo: holesSegmentControll.bottomAnchor, constant: 40),
             playersCountLabel.leadingAnchor.constraint(equalTo: gameNameLabel.leadingAnchor),
             
-            playersCountField.topAnchor.constraint(equalTo: playersCountLabel.bottomAnchor, constant: 10),
-            playersCountField.leadingAnchor.constraint(equalTo: gameNameLabel.leadingAnchor),
-            playersCountField.trailingAnchor.constraint(equalTo: gameNameField.trailingAnchor),
+            playersCountSegmentControll.topAnchor.constraint(equalTo: playersCountLabel.bottomAnchor, constant: 10),
+            playersCountSegmentControll.leadingAnchor.constraint(equalTo: gameNameLabel.leadingAnchor),
+            playersCountSegmentControll.trailingAnchor.constraint(equalTo: gameNameField.trailingAnchor),
             
-            dateAndTimeLabel.topAnchor.constraint(equalTo: playersCountField.bottomAnchor, constant: 30),
+            dateAndTimeLabel.topAnchor.constraint(equalTo: playersCountSegmentControll.bottomAnchor, constant: 30),
             dateAndTimeLabel.leadingAnchor.constraint(equalTo: gameNameLabel.leadingAnchor),
             
             datePicker.topAnchor.constraint(equalTo: dateAndTimeLabel.bottomAnchor, constant: 10),
@@ -378,19 +336,7 @@ class GameCreateView: UIView {
             
             memberPriceField.topAnchor.constraint(equalTo: guestPriceField.bottomAnchor, constant: 20),
             memberPriceField.leadingAnchor.constraint(equalTo: memberPriceLabel.trailingAnchor, constant: 5),
-            memberPriceField.trailingAnchor.constraint(equalTo: gameNameField.trailingAnchor),
-            
-            fieldStatusLabel.topAnchor.constraint(equalTo: memberPriceField.bottomAnchor, constant: 70),
-            fieldStatusLabel.leadingAnchor.constraint(equalTo: gameNameLabel.leadingAnchor),
-            
-            reservationSwitch.topAnchor.constraint(equalTo: fieldStatusLabel.bottomAnchor, constant: 35),
-            reservationSwitch.trailingAnchor.constraint(equalTo: gameNameField.trailingAnchor),
-            
-            shieldImageView.centerYAnchor.constraint(equalTo: reservationSwitch.centerYAnchor),
-            shieldImageView.leadingAnchor.constraint(equalTo: gameNameLabel.leadingAnchor),
-            
-            reservationLabel.leadingAnchor.constraint(equalTo: shieldImageView.trailingAnchor, constant: 7),
-            reservationLabel.centerYAnchor.constraint(equalTo: shieldImageView.centerYAnchor)
+            memberPriceField.trailingAnchor.constraint(equalTo: gameNameField.trailingAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
@@ -401,33 +347,23 @@ class GameCreateView: UIView {
         delegate?.needToShowSelectClubVC()
     }
     
-    @objc func switchValueDidChange(sender:UISwitch!) {
-        if sender.isOn {
-            shieldImageView.image = UIImage(named: "reservationOn")
-            reservationLabel.text = "Забронированно"
-        } else {
-            shieldImageView.image = UIImage(named: "reservationOff")
-            reservationLabel.text = "Забронировать"
-        }
-    }
-    
     //MARK: - Methods
-    private func checkIsFilled() {
+    @objc private func checkIsFilled() {
         guard let gameName = gameNameField.text, gameNameField.text != "" else { delegate?.dataFilled(data: nil); return }
         guard let gameDescription = gameDescriptionField.text, gameDescriptionField.text != "" else { delegate?.dataFilled(data: nil); return }
-        guard let gamePlayersCount = playersCountField.text, playersCountField.text != "" else { delegate?.dataFilled(data: nil); return }
         guard let gameGuestPrice = guestPriceField.text, guestPriceField.text != "" else { delegate?.dataFilled(data: nil); return }
         guard let gameMemberPrice = memberPriceField.text, memberPriceField.text != "" else { delegate?.dataFilled(data: nil); return }
         guard let id = userID else { delegate?.dataFilled(data: nil); return }
         guard let intGuestPrice = Int(gameGuestPrice) else { delegate?.dataFilled(data: nil); return }
         guard let intMemberPrice = Int(gameMemberPrice) else { delegate?.dataFilled(data: nil); return }
-        guard let intGamersCount = Int(gamePlayersCount) else { delegate?.dataFilled(data: nil); return }
+        let gamePlayersCount = playersCountSegmentControll.selectedSegmentIndex + 2
+        
         var holes = 9
         if holesSegmentControll.selectedSegmentIndex == 0 {
             holes = 18
         }
         
-        delegate?.dataFilled(data: .init(date: date, description: gameDescription, time: time, name: gameName, guestPrice: intGuestPrice, memberPrice: intMemberPrice, userId: id, clubId: selectedClubId, holes: holes, gamersCount: intGamersCount, reserved: reservationSwitch.isOn))
+        delegate?.dataFilled(data: .init(date: date, description: gameDescription, time: time, name: gameName, guestPrice: intGuestPrice, memberPrice: intMemberPrice, userId: id, clubId: selectedClubId, holes: holes, gamersCount: gamePlayersCount, reserved: false))
     }
     
     private func setCurrentUserId() {
@@ -453,6 +389,11 @@ class GameCreateView: UIView {
         date += dateFormatter.string(from: datePicker.date)
         dateFormatter.dateFormat = "HH:mm:ss"
         time = dateFormatter.string(from: datePicker.date)
+        checkIsFilled()
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        checkIsFilled()
     }
 
     //MARK: - Inits
@@ -465,13 +406,6 @@ class GameCreateView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-//MARK: - UITextFieldDelegate
-extension GameCreateView: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        checkIsFilled()
     }
 }
 

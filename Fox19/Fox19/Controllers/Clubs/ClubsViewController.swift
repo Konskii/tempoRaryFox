@@ -12,46 +12,76 @@ class ClubsViewController: UIViewController, UIGestureRecognizerDelegate {
     private let orangeColor = UIColor(red: 242/255, green: 122/255, blue: 42/255, alpha: 1)
     private let titleColor = UIColor(red: 28/255, green: 44/255, blue: 78/255, alpha: 1)
     
-    enum Section {
+    enum Section: Int {
         case main
     }
     
     private var clubs: ClubsModel?
     private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Club>!
+    
+    private var isKeyboardShow = false
+    private var isBookMark = false
+    private var likedClubs: [LikedClubsModel.LikedClubs] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         //TODO: сделать используя это свойство
-    //    hidesBottomBarWhenPushed = true
+       //hidesBottomBarWhenPushed = true
         setupCollectionView()
         checkClubs()
+        createDataSource()
+        reloadData()
+     //   initializeHideKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     //   UIApplication.shared.statusBarStyle = .lightContent
-
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         setupNavBar()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func showKeyboard() {
+        initializeHideKeyboard()
+        isKeyboardShow = true
+    }
+    @objc private func hideKeyboard() {
+        isKeyboardShow = false
+    }
+ 
+    private func initializeHideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func dismissMyKeyboard() {
+        navigationItem.searchController?.searchBar.endEditing(true) 
+    }
+    
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionViewLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         collectionView.register(ClubsCollectionViewCell.self, forCellWithReuseIdentifier: ClubsCollectionViewCell.reusedID)
-        collectionView.register(ClubsSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ClubsSectionHeader.reuserID)
         
         view.addSubview(collectionView)
         
         collectionView.backgroundColor = .white
-        collectionView.dataSource = self
         collectionView.delegate = self
         setupSearchBar()
     }
     
     private func setupNavBar() {
         let imagePointerButton = UIImage(named: "Close")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: imagePointerButton, style: .plain, target: self, action: #selector(closeSomething))
+       // navigationItem.leftBarButtonItem = UIBarButtonItem(image: imagePointerButton, style: .plain, target: self, action: #selector(closeSomething))
         
         let imageMenuButton = UIImage(named: "NavBookmark")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: imageMenuButton, style: .plain, target: self, action: #selector(bookmarSomething))
@@ -59,7 +89,7 @@ class ClubsViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.navigationBar.tintColor = orangeColor
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Гольф - клубы"
+        navigationItem.title = "Клубы"
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
@@ -70,7 +100,6 @@ class ClubsViewController: UIViewController, UIGestureRecognizerDelegate {
         ]
         navBarAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.white
-            
         ]
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
@@ -79,21 +108,37 @@ class ClubsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func checkClubs() {
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
-        guard let token = Keychainmanager.shared.getToken(account: number) else { return }
-        print("!\(token) !")
         ClubsNetworkManager.shared.getAllClubs(for: number) { (result) in
             switch result {
             case .success(let clubs):
-                DispatchQueue.main.async {
-                    self.clubs = clubs
-                    self.collectionView.reloadData()
+                ClubsNetworkManager.shared.getLikedClubs(for: number) { (result) in
+                    switch result {
+                    case .success(let likedClubs):
+                        DispatchQueue.main.async {
+                            self.likedClubs = likedClubs.results ?? []
+                            self.clubs = clubs
+                            for index in 0...clubs.results.count - 1 {
+                                var likeId = 0
+                             let isLike = likedClubs.results?.contains(where: { (likeClub) -> Bool in
+                                if   likeClub.club?.id == self.clubs?.results[index].id {
+                                    likeId = likeClub.id ?? 0
+                                    return true
+                                } else { return false }
+                                                              })
+                                self.clubs?.results[index].like = isLike
+                                self.clubs?.results[index].likeId = likeId
+                            }
+                            self.reloadData()
+                        }
+                    case .failure( let error):
+                        print(error)
+                    }
                 }
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
     
     private func createCompositionViewLayout() -> UICollectionViewLayout {
         
@@ -107,13 +152,36 @@ class ClubsViewController: UIViewController, UIGestureRecognizerDelegate {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 15, bottom: 14, trailing: 15)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind: UICollectionView.elementKindSectionHeader,
-                                                                 alignment: .top)
-        section.boundarySupplementaryItems = [header]
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
+    }
+    
+    private func createDataSource() {
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, user) -> UICollectionViewCell? in
+            guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknow section kind") }
+            switch section {
+            case .main:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClubsCollectionViewCell.reusedID, for: indexPath) as? ClubsCollectionViewCell else {
+                    fatalError("Cant cast cell")
+                }
+                cell.delegate = self
+                if let clubs = self.clubs {
+                    cell.cellSetup(with: clubs.results[indexPath.item], index: indexPath.item)
+                }
+                cell.contentView.isUserInteractionEnabled = false
+                return cell
+            }
+        })
+    }
+    
+    private func reloadData(with searchText: String? = nil) {
+       guard let filtered = (clubs?.results.filter { (club) -> Bool in
+            club.contains(filter: searchText)
+       }) else { return }
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Club>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(filtered, toSection: .main)
+        dataSource?.apply(snapShot,animatingDifferences: true)
     }
     
     private func setupSearchBar() {
@@ -122,6 +190,7 @@ class ClubsViewController: UIViewController, UIGestureRecognizerDelegate {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "ПОИСК"
         searchController.searchBar.searchTextField.leftView?.tintColor = orangeColor
+        searchController.searchBar.showsCancelButton = false
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.backgroundColor = .white
         navigationItem.searchController = searchController
@@ -132,54 +201,107 @@ class ClubsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func bookmarSomething() {
-        print("Bookmarking")
-    }
-}
-extension ClubsViewController: UICollectionViewDataSource {
-    
-    func collectionView(_  collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ClubsSectionHeader.reuserID, for: indexPath) as! ClubsSectionHeader
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return clubs?.results.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClubsCollectionViewCell.reusedID, for: indexPath) as! ClubsCollectionViewCell
-        cell.delegate = self
-        
-        if let clubs = clubs {
-            cell.cellSetup(with: clubs.results[indexPath.item])
+      guard let filtered = (clubs?.results.filter { (club) -> Bool in
+            guard let isLike = club.like, isLike == true else { return false }
+            return true
+       }) else { return }
+        isBookMark.toggle()
+        if isBookMark {
+            var snapShot = NSDiffableDataSourceSnapshot<Section, Club>()
+            snapShot.appendSections([.main])
+            snapShot.appendItems(filtered, toSection: .main)
+            dataSource?.apply(snapShot,animatingDifferences: true)
+        } else {
+            reloadData()
         }
-    //    Если убрать строку, то кнопка не будет работать, не знаю почему так.
-         cell.contentView.isUserInteractionEnabled = false
-    
-        return cell
+     
     }
 }
 
 extension ClubsViewController: UICollectionViewDelegate {
 }
 
+extension ClubsViewController: ClubDetailDelegate {
+    func updatrClubRate(with rate: Float, itemIndex: Int) {
+        self.clubs?.results[itemIndex].rate = rate
+        collectionView.reloadData()
+    }
+    
+    func updateClubLike(itemIndex: Int, club: Club) {
+        self.clubs?.results[itemIndex] = club
+        collectionView.reloadData()
+    }
+}
+
 extension ClubsViewController: CelTapHandlerProtocol {
-    func imageButtonTap(clubData: Club, coverImage: UIImage) {
-        
+    
+    func imageButtonTap(clubData: Club, coverImage: UIImage, itemIndex: Int) {
+        if isKeyboardShow {
+            navigationItem.searchController?.searchBar.endEditing(true)
+            isKeyboardShow = false
+        } else {
             let view = ClubDetailViewController()
-            view.setupWithData(club: clubData, coverImage: coverImage)
+            view.setupWithData(club: clubData, coverImage: coverImage, itemIndex: itemIndex)
+            view.delegate = self
             navigationController?.pushViewController(view, animated: true)
+        }
     }
 
-    func bookmarkButtonPressed(button: UIButton) {
-        let checkIt = button.image(for: .normal) == UIImage(named: "Bookmark")
-        let image = checkIt ? UIImage(named: "ColorBookmark") : UIImage(named: "Bookmark")
-        button.setImage(image, for: .normal)
+    func bookmarkButtonPressed(button: UIButton, club: Club, index: Int) {
+        guard let number = UserDefaults.standard.string(forKey: "number") else { return }
+        guard let clubLike = club.like else { return }
+        guard let clubLikeID = club.likeId else { return }
+        guard let clubID = club.id else { return }
+        if clubLike {
+            ClubsNetworkManager.shared.deleteClubLike(for: number, likeId: clubLikeID) { (result) in
+                switch result {
+                case .success(let code):
+                    DispatchQueue.main.async {
+                        var text = ""
+                        if code == 200 {
+                            text = "Клуб удален из избранного"
+                            let image = UIImage(named: "Bookmark")
+                            button.setImage(image, for: .normal)
+                            self.clubs?.results[index].like = false
+                            self.collectionView.reloadData()
+                        } else {
+                            text = "Возникла ошибка попробуйте еще раз или позже \(code) no delete"
+                        }
+                        let alert = UIAlertController(title: nil, message: text, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        } else {
+            ClubsNetworkManager.shared.addLikeToClub(for: number, clubId: clubID, userId: 244) { (result) in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        var text = ""
+                            text = "Клуб добавлен в избранное"
+                            let image = UIImage(named: "ColorBookmark")
+                            button.setImage(image, for: .normal)
+                            self.clubs?.results[index].like = true
+                            self.clubs?.results[index].likeId = data.id
+                            self.collectionView.reloadData()
+                        
+                        let alert = UIAlertController(title: nil, message: text, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 
 extension ClubsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        reloadData(with: searchText)
     }
 }

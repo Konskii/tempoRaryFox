@@ -2,7 +2,7 @@
 //  UIImage+compressExtension.swift
 //  Fox19
 //
-//  Created by Евгений Скрипкин on 07.02.2021.
+//  Created by Mykhailo Romanovskyi on 08.02.2021.
 //
 
 import UIKit

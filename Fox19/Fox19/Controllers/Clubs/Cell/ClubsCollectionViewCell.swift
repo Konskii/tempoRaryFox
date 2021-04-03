@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Cosmos
+
 protocol CelTapHandlerProtocol: class {
-    func bookmarkButtonPressed(button: UIButton)
-    func imageButtonTap(clubData: Club, coverImage: UIImage)
+    func bookmarkButtonPressed(button: UIButton, club: Club, index:Int)
+    func imageButtonTap(clubData: Club, coverImage: UIImage, itemIndex:Int)
 }
 
 class ClubsCollectionViewCell: UICollectionViewCell {
@@ -21,12 +23,13 @@ class ClubsCollectionViewCell: UICollectionViewCell {
     private var coverImage = UIImage()
     private let locationLabel = UILabel()
     private let clubNameLabel = UILabel()
-    private let starsImageView = UIImageView()
+    private let starsCosmosViewRating = CosmosView()
     private let bookMarkButton = UIButton()
     
     private let locationPointer = UIImageView(image: UIImage(named: "Pointer"))
     
     private var club: Club!
+    private var itemIndex: Int!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,21 +51,27 @@ class ClubsCollectionViewCell: UICollectionViewCell {
         clubNameLabel.textColor = .white
         clubNameLabel.font = UIFont(name: "Avenir Next Bold", size: 17)
         
-        starsImageView.image = UIImage(named: "Stars")
+        //starsImageView.image = UIImage(named: "Stars")
+        starsCosmosViewRating.settings.emptyImage = UIImage(named: "emptyStar")
+        starsCosmosViewRating.settings.filledImage = UIImage(named: "filledStar")
+        starsCosmosViewRating.settings.starSize = 22
+        starsCosmosViewRating.settings.fillMode = .precise
+        starsCosmosViewRating.settings.updateOnTouch = false
+        starsCosmosViewRating.rating = 0
         
         addSubview(coverImageButton)
         addSubview(bookMarkButton)
         addSubview(locationPointer)
         addSubview(locationLabel)
         addSubview(clubNameLabel)
-        addSubview(starsImageView)
+        addSubview(starsCosmosViewRating)
         
         coverImageButton.translatesAutoresizingMaskIntoConstraints = false
         bookMarkButton.translatesAutoresizingMaskIntoConstraints = false
         locationPointer.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         clubNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        starsImageView.translatesAutoresizingMaskIntoConstraints = false
+        starsCosmosViewRating.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             coverImageButton.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -94,14 +103,19 @@ class ClubsCollectionViewCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            starsImageView.bottomAnchor.constraint(equalTo: coverImageButton.bottomAnchor, constant: -12),
-            starsImageView.leadingAnchor.constraint(equalTo: coverImageButton.leadingAnchor, constant: 13)
+            starsCosmosViewRating.bottomAnchor.constraint(equalTo: coverImageButton.bottomAnchor, constant: -12),
+            starsCosmosViewRating.leadingAnchor.constraint(equalTo: coverImageButton.leadingAnchor, constant: 13)
         ])
     }
     
-    func cellSetup(with result: Club) {
+    func cellSetup(with result: Club, index: Int) {
+        self.itemIndex = index
         club = result
+        starsCosmosViewRating.rating = Double(result.rate ?? 0)
         clubNameLabel.text = result.title
+        locationLabel.text = result.city?.name
+        let image = result.like ?? false ? UIImage(named: "ColorBookmark") : UIImage(named: "Bookmark")
+        bookMarkButton.setImage(image, for: .normal)
         
         guard let account = UserDefaults.standard.string(forKey: "number") else { return }
         ClubsNetworkManager.shared.getImageForClubCover(for: account, clubId: result.id ?? 0) { (result) in
@@ -126,11 +140,11 @@ class ClubsCollectionViewCell: UICollectionViewCell {
     }
     @objc func imageButtonPresed() {
         guard let club = club else { return }
-        delegate?.imageButtonTap(clubData: club, coverImage: coverImage)
+        delegate?.imageButtonTap(clubData: club, coverImage: coverImage, itemIndex: itemIndex)
     }
     
     @objc func bookmarkPressed() {
-        delegate?.bookmarkButtonPressed(button: bookMarkButton)
+        delegate?.bookmarkButtonPressed(button: bookMarkButton, club: club, index: itemIndex)
     }
 
     required init?(coder: NSCoder) {

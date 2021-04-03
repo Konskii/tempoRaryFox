@@ -57,7 +57,7 @@ class EditGameNetworkManager {
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
-                print(response)
+              //  print(response)
                 return
             }
             

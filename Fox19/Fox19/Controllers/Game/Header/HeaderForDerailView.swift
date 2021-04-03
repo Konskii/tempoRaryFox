@@ -12,7 +12,7 @@ class HeaderForDerailView: UIView {
     private let imageView = UIImageView()
     private let locationPointer = UIImageView(image: UIImage(named: "orangePointer"))
     private let flagImageView = UIImageView(image: UIImage(named: "orangeFlag"))
-    private let reserveImageView = UIImageView(image: UIImage(named: "orangeReserve"))
+   // private let reserveImageView = UIImageView(image: UIImage(named: "orangeReserve"))
     private let userImageView = UIImageView(image: UIImage(named: "orangePerson"))
     private let locationLabel = UILabel(text: "НАЗВАНИЕ ГОЛЬФ-КЛУБА",
                                         font: .avenir(fontSize: 12),
@@ -21,9 +21,9 @@ class HeaderForDerailView: UIView {
                                              font: .avenir(fontSize: 13),
                                              textColor: .blueForHeaderLabels())
     
-    private let reserveLabel = UILabel(text: "Забронированно",
-                                       font: .avenir(fontSize: 13),
-                                       textColor: .blueForHeaderLabels())
+  //  private let reserveLabel = UILabel(text: "Забронированно",
+//                                       font: .avenir(fontSize: 13),
+//                                       textColor: .blueForHeaderLabels())
     
     private let priceLabel = UILabel(text:  "5000/4 р",
                                      font: .avenir(fontSize: 13),
@@ -55,11 +55,11 @@ class HeaderForDerailView: UIView {
         addSubview(separator)
         
         addSubview(flagImageView)
-        addSubview(reserveImageView)
+     //   addSubview(reserveImageView)
         addSubview(userImageView)
         
         addSubview(numberOfLunokLabel)
-        addSubview(reserveLabel)
+   //     addSubview(reserveLabel)
         addSubview(priceLabel)
         addSubview(separatorBottom)
         
@@ -76,10 +76,10 @@ class HeaderForDerailView: UIView {
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         
         flagImageView.translatesAutoresizingMaskIntoConstraints = false
-        reserveImageView.translatesAutoresizingMaskIntoConstraints = false
+     //   reserveImageView.translatesAutoresizingMaskIntoConstraints = false
         userImageView.translatesAutoresizingMaskIntoConstraints = false
         numberOfLunokLabel.translatesAutoresizingMaskIntoConstraints = false
-        reserveLabel.translatesAutoresizingMaskIntoConstraints = false
+   //     reserveLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -99,17 +99,17 @@ class HeaderForDerailView: UIView {
             separator.leadingAnchor.constraint(equalTo: leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            flagImageView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 16),
-            flagImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            numberOfLunokLabel.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 16),
+            numberOfLunokLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             
-            numberOfLunokLabel.centerYAnchor.constraint(equalTo: flagImageView.centerYAnchor),
-            numberOfLunokLabel.leadingAnchor.constraint(equalTo: flagImageView.trailingAnchor, constant: 9),
+            flagImageView.centerYAnchor.constraint(equalTo: numberOfLunokLabel.centerYAnchor),
+            flagImageView.leadingAnchor.constraint(equalTo: numberOfLunokLabel.trailingAnchor, constant: 5),
             
-            reserveImageView.centerYAnchor.constraint(equalTo: flagImageView.centerYAnchor),
-            reserveImageView.leadingAnchor.constraint(equalTo: numberOfLunokLabel.trailingAnchor, constant: 30),
+        //    reserveImageView.centerYAnchor.constraint(equalTo: flagImageView.centerYAnchor),
+          //  reserveImageView.leadingAnchor.constraint(equalTo: numberOfLunokLabel.trailingAnchor, constant: 30),
             
-            reserveLabel.leadingAnchor.constraint(equalTo: reserveImageView.trailingAnchor, constant: 11),
-            reserveLabel.centerYAnchor.constraint(equalTo: flagImageView.centerYAnchor),
+            //reserveLabel.leadingAnchor.constraint(equalTo: reserveImageView.trailingAnchor, constant: 11),
+            //reserveLabel.centerYAnchor.constraint(equalTo: flagImageView.centerYAnchor),
 
             userImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -13),
            userImageView.centerYAnchor.constraint(equalTo: flagImageView.centerYAnchor),
@@ -135,8 +135,8 @@ class HeaderForDerailView: UIView {
     func setupHeaderWithData(mainImage: UIImage?, game: GamesModel.Game) {
         imageView.image = mainImage
         locationLabel.text = game.club?.title?.uppercased()
-        numberOfLunokLabel.text = "\(game.holes ?? 0) лунок"
-        reserveLabel.text = game.reserved ?? false ? "Забронированно" : "Не забронированно"
+        numberOfLunokLabel.text = "\(game.holes ?? 0)"
+       // reserveLabel.text = game.reserved ?? false ? "Забронированно" : "Не забронированно"
         priceLabel.text = "\(game.memberPrice ?? 0)/\(game.gamersCount ?? 0) рублей"
         mainTextLabel.text = game.description
     }

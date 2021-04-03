@@ -54,6 +54,8 @@ struct GamesModel:Codable, Hashable {
     
     struct Game:Codable,Hashable {
         let title: String?
+        let date: String?
+        let time: String?
         let holes: Int?
         let gamersCount: Int?
         let reserved: Bool?
@@ -71,6 +73,14 @@ struct GamesModel:Codable, Hashable {
         static func == (lhs: Game, rhs: Game) -> Bool {
             return lhs.id == rhs.id
         }
-
+//        
+//        func contains(filter: String?) -> Bool {
+//            guard let filter = filter else {  return true }
+//            guard let name = name else {  return true }
+//            
+//            if filter.isEmpty { return true }
+//            let lowerCaseFiltere = filter.lowercased()
+//            return name.lowercased().contains(lowerCaseFiltere)
+//        }
     }
 }

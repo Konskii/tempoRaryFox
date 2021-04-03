@@ -10,6 +10,7 @@ import UIKit
 class ChampDetailFooter: UIView {
     
     let joinToChampButton = UIButton(type: .system)
+    var joinButtonTappedDelegate: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +27,7 @@ class ChampDetailFooter: UIView {
     
     @objc func joinButtonTapped() {
         print("JoinButtonTappet")
+        joinButtonTappedDelegate?()
     }
     
     required init?(coder: NSCoder) {

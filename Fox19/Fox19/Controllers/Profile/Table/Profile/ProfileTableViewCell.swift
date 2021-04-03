@@ -15,6 +15,7 @@ protocol ManageUpdatedUserProtocol: class {
 protocol FillProfileCellProtocol: class {
     /// - Returns: пользователь, информацию о котором нужно изменить
     func getDataForCell() -> User?
+    func showMyClubsViewController()
 }
 
 class ProfileTableViewCell: UITableViewCell {
@@ -30,12 +31,15 @@ class ProfileTableViewCell: UITableViewCell {
     ///В зависимости от расположения ячейки(и тип контроллера в котором она используется) выставляются ее данные
     private var indexPath: IndexPath?
     
+    private var likes = ""
+    
     //MARK: - UI Elements
     private lazy var label: UILabel = {
         let view = UILabel()
         view.backgroundColor = .white
         view.font = UIFont(name: "Avenir-Book", size: 17)
         view.textColor = .lightGray
+        view.adjustsFontSizeToFitWidth = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -46,6 +50,12 @@ class ProfileTableViewCell: UITableViewCell {
         view.spellCheckingType = .no
         view.backgroundColor = .white
         view.font = UIFont(name: "Avenir-Black", size: 17)
+        view.adjustsFontSizeToFitWidth = true
+        let bar = UIToolbar()
+        let done = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(hideKeyboard))
+        bar.setItems([done], animated: true)
+        bar.sizeToFit()
+        view.inputAccessoryView = bar
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -92,6 +102,10 @@ class ProfileTableViewCell: UITableViewCell {
             insetView.topAnchor.constraint(equalTo: separator.bottomAnchor),
             insetView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    @objc private func showMyClubsVC() {
+        delegate?.showMyClubsViewController()
     }
     
     //MARK: - Configuring Cell
@@ -146,7 +160,13 @@ class ProfileTableViewCell: UITableViewCell {
                 guard let aboutMe = data.about else { return }
                 textField.text = aboutMe
             case 3:
-                label.text = "Мои клубы"
+                isUserInteractionEnabled = true
+                label.text = "Избранные клубы"
+                textField.text = likes
+                textField.isUserInteractionEnabled = false
+                let tap = UITapGestureRecognizer(target: self,
+                                                 action: #selector(showMyClubsVC))
+                addGestureRecognizer(tap)
             case 4:
                 label.text = "Email"
                 guard let email = data.email else { return }
@@ -188,10 +208,17 @@ class ProfileTableViewCell: UITableViewCell {
         }
     }
     
-    public func setIndexPath(indexPath: IndexPath, isEditingVC: Bool) {
+    public func setIndexPath(indexPath: IndexPath, isEditingVC: Bool, likes: String? = nil) {
         self.indexPath = indexPath
         self.isEditStyle = isEditingVC
+        if let likes = likes {
+            self.likes = likes
+        }
         setData()
+    }
+    
+    @objc private func hideKeyboard() {
+        endEditing(true)
     }
     
     //MARK: - Inits

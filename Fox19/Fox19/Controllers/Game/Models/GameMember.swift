@@ -6,11 +6,11 @@
 //
 // MARK: - GameMember
 struct GameMembers: Codable {
-    let results: [GameMember]?
+    var results: [GameMember]?
 }
 
 struct GameMember: Codable {
-    let id: Int
+    let id: Int?
     let status: String?
-    let user: User?
+    var user: User?
 }

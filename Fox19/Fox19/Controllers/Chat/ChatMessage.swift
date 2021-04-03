@@ -7,7 +7,8 @@
 
 struct ChatMessage: Codable {
     
-    let results: [Result]
+    let results: [Result]?
+    
     struct Result: Codable {
         let id: Int?
         let text: String?
@@ -17,12 +18,11 @@ struct ChatMessage: Codable {
         struct CreatedAt: Codable {
             let locale: String?
         }
+        
     }
-    
 }
 
 //MARK: - Response Data
-
 struct ResponseFromServer: Codable {
     let type: String
     let data: ResponseData

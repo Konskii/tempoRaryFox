@@ -12,9 +12,12 @@ class ChampDetailHeader: UIView {
     private let locationPointer = UIImageView()
     private let locationLabel = UILabel()
     private let titleLabel = UILabel()
-    private let dateLabel = UILabel()
+   // private let dateLabel = UILabel()
+    private let dateLabel = UIDatePicker()
     private let separator = UIView()
     private let descriptionLabel = UILabel()
+    
+    private var champDate: Date?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,8 +49,11 @@ class ChampDetailHeader: UIView {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.sizeToFit()
         
-        dateLabel.textColor = UIColor(red: 45/255, green: 63/255, blue: 102/255, alpha: 1)
-        dateLabel.font = UIFont(name: "Avenir-Light", size: 13)
+        dateLabel.datePickerMode = .date
+        dateLabel.locale = .current
+        dateLabel.addTarget(self, action: #selector(dateControl), for: .valueChanged)
+//        dateLabel.textColor = UIColor(red: 45/255, green: 63/255, blue: 102/255, alpha: 1)
+//        dateLabel.font = UIFont(name: "Avenir-Light", size: 13)
         
         separator.backgroundColor = UIColor(red: 240/255, green: 241/255, blue: 244/255, alpha: 1)
         
@@ -83,18 +89,25 @@ class ChampDetailHeader: UIView {
         ])
     }
     
+    @objc private func dateControl() {
+        guard let date = champDate else { return }
+        dateLabel.date = date
+    }
+    
     func setupVeiwWithData(tournament data: Tournament) {
-        locationLabel.text = "Нет в АПИ"
-        
+        locationLabel.text = data.club?.city?.name
+
         if let date = data.date?.value  {
             let dataFormater = DateFormatter()
             dataFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
             if let dateObj = dataFormater.date(from: date) {
                 dataFormater.dateFormat = "dd-MM-YYYY"
-                dateLabel.text = dataFormater.string(from: dateObj)
+              //  dateLabel.text = dataFormater.string(from: dateObj)
+                dateLabel.setDate(dateObj, animated: true)
+                champDate = dateObj
             }
         }
-        
+
         titleLabel.text = data.title
       descriptionLabel.text = data.description
     }
@@ -109,9 +122,10 @@ class ChampDetailHeader: UIView {
                                                             font: titleLabel.font,
                                                             width: width - 50)
         
-        let dateLabelHeight = DynamicalLabelSize.height(text: dateLabel.text,
-                                                            font: dateLabel.font,
-                                                            width: width)
+//        let dateLabelHeight = DynamicalLabelSize.height(text: dateLabel.text,
+//                                                            font: dateLabel.font,
+//                                                            width: width)
+        let dateLabelHeight: CGFloat = 30
         
         let descriptionLabelHeight = DynamicalLabelSize.height(text: descriptionLabel.text,
                                                             font: descriptionLabel.font,

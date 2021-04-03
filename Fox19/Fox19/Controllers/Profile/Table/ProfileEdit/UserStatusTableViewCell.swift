@@ -23,6 +23,10 @@ class UserStatusTableViewCell: UITableViewCell {
     
     weak var delegate: SetUserStatusesProtocol?
     
+    private var handicapValues: [Double] = []
+    
+    private var currentHandicapNumber: Int = 0
+    
     //MARK: - UI Elements
     private lazy var gamerStatusSwitch: UISwitch = {
         let view = UISwitch()
@@ -54,21 +58,32 @@ class UserStatusTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var refereeStatusSwitch: UISwitch = {
-        let view = UISwitch()
-        view.onTintColor = UIColor(named: "orange")
+    private lazy var stepper: UIStepper = {
+        let view = UIStepper()
+        view.maximumValue = 54.0
+        view.minimumValue = +10.0
+        view.stepValue = 0.1
+        view.addTarget(self,
+                       action: #selector(changeValue),
+                       for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var refereeStatusLabel: UILabel = {
+    private lazy var handicapLabel: UILabel = {
         let view = UILabel()
-        view.text = "Судья"
+        view.text = "Гандикап:"
         view.font = UIFont(name: "Avenir-Black", size: 17)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    private lazy var handicapValue: UILabel = {
+        let view = UILabel()
+        view.font = UIFont(name: "Avenir-Book", size: 17)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     //MARK: - Methods
     private func setupConstraints() {
@@ -76,8 +91,9 @@ class UserStatusTableViewCell: UITableViewCell {
         contentView.addSubview(gamerStatusLabel)
         contentView.addSubview(trainerStatusSwitch)
         contentView.addSubview(trainerStatusLabel)
-        contentView.addSubview(refereeStatusSwitch)
-        contentView.addSubview(refereeStatusLabel)
+        contentView.addSubview(handicapLabel)
+        contentView.addSubview(handicapValue)
+        contentView.addSubview(stepper)
         
         NSLayoutConstraint.activate([
             gamerStatusLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
@@ -92,30 +108,49 @@ class UserStatusTableViewCell: UITableViewCell {
             trainerStatusSwitch.centerYAnchor.constraint(equalTo: trainerStatusLabel.centerYAnchor),
             trainerStatusSwitch.trailingAnchor.constraint(equalTo: gamerStatusSwitch.trailingAnchor),
             
-            refereeStatusLabel.topAnchor.constraint(equalTo: trainerStatusLabel.bottomAnchor, constant: 20),
-            refereeStatusLabel.leadingAnchor.constraint(equalTo: gamerStatusLabel.leadingAnchor),
+            handicapLabel.topAnchor.constraint(equalTo: trainerStatusLabel.bottomAnchor, constant: 30),
+            handicapLabel.leadingAnchor.constraint(equalTo: gamerStatusLabel.leadingAnchor),
             
-            refereeStatusSwitch.centerYAnchor.constraint(equalTo: refereeStatusLabel.centerYAnchor),
-            refereeStatusSwitch.trailingAnchor.constraint(equalTo: gamerStatusSwitch.trailingAnchor),
+            handicapValue.leadingAnchor.constraint(equalTo: gamerStatusLabel.leadingAnchor),
+            handicapValue.topAnchor.constraint(equalTo: handicapLabel.bottomAnchor, constant: 15),
             
-            contentView.heightAnchor.constraint(equalToConstant: 110)
+            stepper.trailingAnchor.constraint(equalTo: gamerStatusSwitch.trailingAnchor),
+            stepper.centerYAnchor.constraint(equalTo: handicapValue.centerYAnchor),
+            
+            contentView.heightAnchor.constraint(equalToConstant: 150)
         ])
     }
     
     public func configureSelector() {
         guard let user = delegate?.giveData() else { return }
         guard let isGamer = user.isGamer,
-              let isTrainer = user.isTrainer,
-              let isReferee = user.isReferee else { return }
+              let isTrainer = user.isTrainer else { return }
         gamerStatusSwitch.isOn = isGamer
         trainerStatusSwitch.isOn = isTrainer
-        refereeStatusSwitch.isOn = isReferee
+        handicapValue.text = "\(user.handicap ?? 0.0)"
+        handicapValues.forEach({ if let handic = user.handicap, handic == $0 { print($0)}})
+    }
+    
+    @objc private func changeValue() {
+        
+        print(stepper.value)
     }
     
     //MARK: - Inits
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
+        var val: Double = 0.0
+        var tenVal: Double = 10.1
+        
+        for _ in 0...100 {
+            tenVal -= 0.1
+            handicapValues += [Double("+" + tenVal.removeZerosFromEnd()) ?? 0]
+        }
+        for _ in 0...539 {
+            val += 0.1
+            handicapValues += [Double(val.removeZerosFromEnd()) ?? 0]
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -129,7 +164,6 @@ extension UserStatusTableViewCell: ManageUpdatedUserStatusProtocol {
         return [
             gamerStatusSwitch.isOn,
             trainerStatusSwitch.isOn,
-            refereeStatusSwitch.isOn
         ]
     }
 }

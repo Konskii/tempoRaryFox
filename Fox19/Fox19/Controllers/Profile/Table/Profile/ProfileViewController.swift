@@ -12,6 +12,15 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     ///Модель пользователя из которой получаются данные
     private var user: User?
     
+    private var likedClubs = "" {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     ///Аватарка пользователя
     private var userImage: UIImage?
     
@@ -29,7 +38,7 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         view.backgroundColor = .white
         view.register(ProfileTableViewCell.self,
                       forCellReuseIdentifier: ProfileTableViewCell.reusedId)
-//        view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     
@@ -37,6 +46,14 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     
     ///LogOut с удалением токена из связки
     @objc private func logOutTapped() {
+        let action = UIAlertAction(title: "Нет", style: .cancel)
+        showAlert(title: "Выйти?",
+                  firstButtonText: "Да",
+                  handler: {_ in self.logOut()},
+                  additionalActions: [action])
+    }
+    
+    private func logOut() {
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
         guard let token = Keychainmanager.shared.getToken(account: number) else { return }
         
@@ -84,6 +101,9 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         ///Для явного указания цвета статус бара(тк не используем darkMode)
         navigationController?.navigationBar.barTintColor = .white
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
     }
     
     ///Обновляет данные по пользователю
@@ -102,7 +122,9 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
                                                         case .success(let image):
                                                             self.userImage = image
                                                             DispatchQueue.main.async {
-                                                                self.tableView.reloadData()
+                                                                self.getLikedClubs() {
+                                                                    self.tableView.reloadData()
+                                                                }
                                                             }
                                                         case .failure(_):
                                                             //TODO
@@ -117,6 +139,24 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         }
     }
     
+    private func getLikedClubs(completion: @escaping () -> Void = {}) {
+        guard let userId = user?.id else { return }
+        networkManager.getLikedClubs(userId: userId) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let likes):
+                var templikes: [String] = []
+                likes.results?.forEach({
+                    guard let clubName = $0.clubName else { return }
+                    templikes.append(clubName)
+                })
+                self.likedClubs = templikes.joined(separator: ", ")
+            case .failure(let error):
+                self.showAlert(title: "Возникла ошибка", message: "\(error)")
+            }
+        }
+    }
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +164,7 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         updateUser()
     }
 }
@@ -138,7 +179,11 @@ extension ProfileTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileTableViewCell.reusedId,
                 for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
-        cell.setIndexPath(indexPath: indexPath, isEditingVC: false)
+        if indexPath.row == 3 {
+            cell.setIndexPath(indexPath: indexPath, isEditingVC: false, likes: likedClubs)
+        } else {
+            cell.setIndexPath(indexPath: indexPath, isEditingVC: false)
+        }
         cell.delegate = self
         return cell
     }
@@ -209,6 +254,52 @@ extension ProfileTableViewController: FillProfileCellProtocol {
     func getDataForCell() -> User? {
         return user
     }
+    
+    func showMyClubsViewController() {
+        let vc = MyClubsViewController(userId: user?.id ?? 0)
+        vc.delegate = self
+        present(vc, animated: true)
+    }
 }
 
-
+extension ProfileTableViewController: testProtocol {
+    func showDetailVC(club: Club) {
+        let vc = ClubDetailViewController()
+        guard let account = UserDefaults.standard.string(forKey: "number") else { return }
+        guard let clubId = club.id else {
+            self.showAlert(title: "Id клуба отсуствует.", message: "Попробуйте еще раз.")
+            return
+        }
+        ClubsNetworkManager.shared.getImageForClubCover(for: account, clubId: clubId) { (result) in
+            switch result {
+            case .success(let data):
+                let url = data.results?.first?.image
+                ClubsNetworkManager.shared.downloadImageForCover(from: url ?? "",
+                                                                 account: account) {
+                    (result) in
+                    switch result {
+                    case .success(let data):
+                        DispatchQueue.main.async {
+                            guard let coverImage = UIImage(data: data) else {
+                                self.showAlert(title: "Возникла ошибка.",
+                                               message: "Ошибка в изображении клуба")
+                                return
+                            }
+                            //MARK: - TODO Проверить зачем тут вызов идет??
+                            vc.setupWithData(club: club, coverImage: coverImage, itemIndex: 0)
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    case .failure(let error):
+                        self.showAlert(title: "Возникла ошибка.", message: "\(error)")
+                    }
+                }
+            case .failure(let error):
+                self.showAlert(title: "Возникла ошибка.", message: "\(error)")
+            }
+        }
+    }
+    
+    func reload() {
+        getLikedClubs()
+    }
+}

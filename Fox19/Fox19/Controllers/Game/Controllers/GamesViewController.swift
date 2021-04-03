@@ -14,9 +14,7 @@ class GamesViewControllerTest: UIViewController {
         case main
     }
     
-    var games: [GamesModel.Game] = [
-        GamesModel.Game(title: "Test", holes: 7, gamersCount: 5, reserved: false, memberPrice: 0, guestPrice: 566, description: "skjdfksjfdskdfn", club: nil, user: nil, id: 6)
-    ]
+    var games: [GamesModel.Game] = []
     
     private var currentUser: User?
     
@@ -35,9 +33,15 @@ class GamesViewControllerTest: UIViewController {
         getCurrentUser()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         getGamesData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       // setupNavigationController()
+     //   getGamesData()
     }
 }
 
@@ -52,6 +56,7 @@ extension GamesViewControllerTest {
             case .success(let result):
                 DispatchQueue.main.async {
                     self.games = result.results
+                    self.collectionView.reloadData()
                     self.reloadData()
                 }
             case .failure(let error):
@@ -105,23 +110,45 @@ extension GamesViewControllerTest {
 }
 
 //MARK: - Setup Navigation Controller
-extension GamesViewControllerTest {
+extension GamesViewControllerTest: UISearchBarDelegate {
     private func setupNavigationController() {
-        let attributesGray: [NSAttributedString.Key: Any] = [
-            .foregroundColor: titleColor,
-            .font: UIFont(name: "avenir", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .medium)
-        ]
-        navigationItem.title = "ИГРЫ"
-        navigationController?.navigationBar.titleTextAttributes = attributesGray
+        navigationController?.navigationBar.tintColor = orangeColor
         navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundImage = UIImage(named: "Rectangle")
+        navBarAppearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont(name: "Merriweather-Regular", size: 30) ?? UIFont.systemFont(ofSize: 30, weight: .medium)
+        ]
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        setupSearchBar()
+        navigationItem.title = "Игры"
+
         let imageSearchButton = UIImage(named: "SearchNav")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: imageSearchButton, style: .plain, target: self, action: #selector(searchInGames))
         
         let imageSettingButton = UIImage(named: "filters")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: imageSettingButton, style: .plain, target: self, action: #selector(filtrersInGames))
-        navigationController?.navigationBar.tintColor = orangeColor
+    }
+    
+    private func setupSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "ПОИСК"
+        searchController.searchBar.searchTextField.leftView?.tintColor = orangeColor
+        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.searchTextField.backgroundColor = .white
+        navigationItem.searchController = searchController
     }
     
     @objc private func searchInGames() {

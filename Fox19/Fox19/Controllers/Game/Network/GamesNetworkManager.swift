@@ -46,17 +46,11 @@ class GamesNetworkManager {
                                             method: httpMethod.GET.rawValue,
                                             header: headerForJson,
                                             body: nil) else { return }
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             if let error = error {
                 competiton(.failure(error))
             }
-            
-//            if let response = response as? HTTPURLResponse {
-//                print(response.statusCode)
-//            }
-            
             if let data = data {
                 do {
                     let games = try JSONDecoder().decode(GamesModel.self, from: data)
@@ -197,30 +191,34 @@ class GamesNetworkManager {
     
     //MARK: - Add Game
     
-    func addToGame(gameID: Int, userID: Int, competiton: @escaping (Result<GameMembers, Error>) -> Void) {
+    func addToGame(gameID: Int, userID: Int, competiton: @escaping (Result<GameMember, Error>) -> Void) {
         
-        let body = "status=New&user=\(userID)&game=\(gameID)"
-        let bodyData = body.data(using: .utf8)
+        struct PostGamemember: Codable {
+            let user: Int
+        }
+        
+        let body = PostGamemember(user: userID)
+        let data = try? JSONEncoder().encode(body)
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
         guard let token = Keychainmanager.shared.getToken(account: number) else { return }
-        
-        guard let request = generateRequestWithTwoHeaders(for: game + "/\(gameID)" + gamemember,
-                                      method: httpMethod.POST.rawValue,
-                                      body: bodyData,
-                                      token: token) else { return }
+        headerForJson["Authorization"] = "Bearer \(token)"
+        guard let request = generateRequest(for: "/game" + "/\(gameID)/" + "gamemember",
+                                            method: httpMethod.POST.rawValue,
+                                            header: headerForJson,
+                                            body: data) else { return }
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             if let error = error {
                 competiton(.failure(error))
             }
-            
+//            
 //            if let response = response as? HTTPURLResponse {
 //                print(response.statusCode)
 //            }
-                
+//                
             if let data = data {
                 do {
-                    let gameMember = try JSONDecoder().decode(GameMembers.self, from: data)
+                    let gameMember = try JSONDecoder().decode(GameMember.self, from: data)
                     competiton( .success(gameMember))
                 } catch let error {
                     print(error.localizedDescription)

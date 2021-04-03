@@ -28,20 +28,21 @@ class TournamentsNetworkManager {
         
         guard let token = Keychainmanager.shared.getToken(account: account) else { return }
         headerForJosn["Authorization"] = "Bearer \(token)"
-        guard let request = generateRequest(for: championship,
-                                            method: httpMethod.GET.rawValue,
-                                            header: headerForJosn,
-                                            body: nil) else { return }
-        
+        //Old request without include
+//        guard let request = generateRequest(for: championship,
+//                                            method: httpMethod.GET.rawValue,
+//                                            header: headerForJosn,
+//                                            body: nil) else { return }
+        let url = hostPath + championship + "?include=club,club.city"
+        guard let request = generateRequestWithInclude(for: url,
+                                                       method: httpMethod.GET.rawValue,
+                                                       header: headerForJosn,
+                                                       body: nil) else { return }
         session.dataTask(with: request) { (data, response, error) in
             
             if let error = error {
                 completion(.failure(error))
             }
-//            
-//            if let response = response as? HTTPURLResponse {
-//             //   print(response.statusCode)
-//            }
             
             if let data = data {
                 do {
@@ -96,4 +97,22 @@ class TournamentsNetworkManager {
         }
         return request
     }
+    
+    private func generateRequestWithInclude(for action: String, method: String, header: [String: String]?, body: Data?) -> URLRequest? {
+        guard let url = URL(string: action) else {
+            print("It will never heppend")
+            return nil }
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = method
+        
+        if let header = header {
+            request.allHTTPHeaderFields = header
+        }
+        if let body = body {
+            request.httpBody = body
+        }
+        return request
+    }
+
 }

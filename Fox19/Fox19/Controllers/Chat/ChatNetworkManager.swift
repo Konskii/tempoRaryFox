@@ -17,7 +17,7 @@ class ChatNetworkManager {
   //  http://213.159.209.245/api/chat/12/chatmessage
     private let chat = "http://213.159.209.245/api/chat/"
     private var headerForJson = ["Content-Type":"application/json"]
-    
+    private let chats = "http://213.159.209.245/api/chat?include=users"
     private let user = "/user"
     static var shared = ChatNetworkManager()
     private init() {}
@@ -27,6 +27,29 @@ class ChatNetworkManager {
         case GET
         case PUT
         case DELETE
+    }
+    
+    func getAllMyChats(token: String, competiton: @escaping (Result<MyChats, Error>) -> Void) {
+        headerForJson["Authorization"] = "Bearer \(token)"
+        guard let request = generateRequest(for: chats,
+                                            method: httpMethod.GET.rawValue,
+                                            header: headerForJson,
+                                            body: nil) else { return }
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                competiton(.failure(error))
+            }
+          
+            if let data = data {
+                do {
+                    let chats = try JSONDecoder().decode(MyChats.self, from: data)
+                    competiton(.success(chats))
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+        }.resume()
+        
     }
     
     func getChatWithFriend(token: String, friendId: Int, competiton: @escaping (Result<Int, Error>) -> Void) {
@@ -40,20 +63,14 @@ class ChatNetworkManager {
         }
         let body = Body(users: [Body.UId(id: friendId)])
         let bodyData = try? JSONEncoder().encode(body)
-        
         guard let request = generateRequest(for: chat,
                                             method: httpMethod.POST.rawValue,
                                             header: headerForJson,
                                             body: bodyData) else { return }
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 competiton(.failure(error))
             }
-            
-//            if let response = response as? HTTPURLResponse {
-//                print(response.statusCode)
-//            }
             
             if let data = data {
                 do {
@@ -100,24 +117,24 @@ class ChatNetworkManager {
         }
         let body = TextMessage(text: text)
         let bodyData = try? JSONEncoder().encode(body)
-        
+        print(chatId)
         guard let request = generateRequest(for: hostPath + "/chat/\(chatId)/chatmessage",
                                             method: httpMethod.POST.rawValue,
                                             header: headerForJson,
                                             body: bodyData) else { return }
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 competiton(.failure(error))
             }
-            
-            if let response = response as? HTTPURLResponse {
-                print(response.statusCode)
-            }
+//
+//            if let response = response as? HTTPURLResponse {
+//                print(response.statusCode)
+//            }
             
             if let data = data {
                 do {
                     let message =  try JSONDecoder().decode(ChatMessage.Result.self, from: data)
+                    print(message)
                     competiton(.success(message))
                 } catch let error {
                     print(error.localizedDescription)

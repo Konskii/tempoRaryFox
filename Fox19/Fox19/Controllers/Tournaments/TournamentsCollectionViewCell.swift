@@ -83,6 +83,8 @@ class TournamentsCollectionViewCell: UICollectionViewCell {
     
     func cellSetup(with item: Tournament) {
         tournamentLabel.text = item.title
+        
+        locationLabel.text = item.club?.city?.name
 
         guard let date = item.date?.value  else { return }
         let dataFormater = DateFormatter()

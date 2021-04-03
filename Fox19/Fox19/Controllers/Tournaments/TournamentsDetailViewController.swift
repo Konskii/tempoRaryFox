@@ -44,6 +44,23 @@ class TournamentsDetailViewController: UIViewController {
         header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: headerHeight)
         let footer = ChampDetailFooter()
         footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        footer.joinButtonTappedDelegate = {
+            let alert = UIAlertController(title: nil, message: "Связаться с организатором", preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+            let okAction = UIAlertAction(title: "Позвонить", style: .default) { (alert) in
+                 
+                let number = "+5 555 555-55-55"
+                guard let url = URL(string: "tel://\(number.withoutSpaces())"),
+                    UIApplication.shared.canOpenURL(url) else {
+                    return
+                }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            
+            alert.addAction(cancelAction)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
         tableView.tableFooterView = footer
         tableView.tableHeaderView = header
     }
@@ -126,16 +143,16 @@ class TournamentsDetailViewController: UIViewController {
 
 extension TournamentsDetailViewController: UITableViewDataSource, UITableViewDelegate {
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
-         let title = UILabel(frame: CGRect(x: 20, y: 0, width: 100, height: 30))
-      //  title.backgroundColor = .cyan
-        title.text = "Учатсники"
-        title.font = UIFont(name: "Avenir", size: 15)
-        title.textColor = .black
-        header.addSubview(title)
-        return header
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
+//         let title = UILabel(frame: CGRect(x: 20, y: 0, width: 100, height: 30))
+//      //  title.backgroundColor = .cyan
+//        title.text = "Учатсники"
+//        title.font = UIFont(name: "Avenir", size: 15)
+//        title.textColor = .black
+//        header.addSubview(title)
+//        return header
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tap row")
@@ -143,9 +160,11 @@ extension TournamentsDetailViewController: UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if members == nil {
-            return 0
-        } else { return members?.results?.count ?? 0 }
+//        if members == nil {
+//            return 0
+//        } else { return members?.results?.count ?? 0 }
+        return 0
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

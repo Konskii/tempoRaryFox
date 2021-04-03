@@ -15,6 +15,7 @@ class DetailGameViewController: UIViewController {
     private var game: GamesModel.Game? = nil
     private var gameMembers: GameMembers? = nil
     private var currentUser: User
+    private let joinButton = UIButton(title: "Присоедениться к игре", textColor: #colorLiteral(red: 1, green: 0.537254902, blue: 0, alpha: 1), buttonImageColor: #colorLiteral(red: 1, green: 0.537254902, blue: 0, alpha: 1))
     
     init(user: User) {
         currentUser = user
@@ -30,7 +31,7 @@ class DetailGameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupTableView()
-        setupNavigationBar()
+      //  setupNavigationBar()
         
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
         guard let token = Keychainmanager.shared.getToken(account: number) else { return }
@@ -40,12 +41,30 @@ class DetailGameViewController: UIViewController {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.gameMembers = data
+                   let isHave = data.results?.contains(where: { (member) -> Bool in
+                    member.user?.id == self.currentUser.id
+                    })
+
+                    if self.gameMembers?.results?.count == self.game?.gamersCount {
+                        self.joinButton.setTitle("Все месте заняты", for: .normal)
+                        self.joinButton.isEnabled = false
+                    }
+                    
+                    if isHave ?? false {
+                        self.joinButton.setTitle("Вы в игре", for: .normal)
+                        self.joinButton.isEnabled = false
+                    }
                     self.tableView.reloadData()
                 }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
     }
     
     func setupData(image: UIImage?, game:GamesModel.Game) {
@@ -103,6 +122,7 @@ extension DetailGameViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard gameMembers?.results?.count != 0 else { return }
+        guard indexPath.row < gameMembers?.results?.count ?? 0 else { return }
         guard let friendUser = gameMembers?.results?[indexPath.row].user else { return }
         guard currentUser.id != friendUser.id else { return }
         let chatVC = ChatViewController(currentUser: currentUser, friendUser: friendUser)
@@ -140,7 +160,8 @@ extension DetailGameViewController {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 41))
         
         
-        let joinButton = UIButton(title: "Присоедениться к игре", textColor: #colorLiteral(red: 1, green: 0.537254902, blue: 0, alpha: 1), buttonImageColor: #colorLiteral(red: 1, green: 0.537254902, blue: 0, alpha: 1))
+        //let joinButton = UIButton(title: "Присоедениться к игре", textColor: #colorLiteral(red: 1, green: 0.537254902, blue: 0, alpha: 1), buttonImageColor: #colorLiteral(red: 1, green: 0.537254902, blue: 0, alpha: 1))
+        joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
         footerView.addSubview(joinButton)
         joinButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -152,6 +173,24 @@ extension DetailGameViewController {
       
         tableView.tableFooterView = footerView
     }
+    
+    @objc private func joinButtonTapped() {
+        GamesNetworkManager.shared.addToGame(gameID: game?.id ?? 0, userID: currentUser.id ?? 0) { (result) in
+            switch result {
+            case .success(let gameMemeber):
+                DispatchQueue.main.async {
+                    var member = gameMemeber
+                    member.user = self.currentUser
+                    self.gameMembers?.results?.append(member)
+                    self.joinButton.setTitle("Вы в игре", for: .normal)
+                    self.joinButton.isEnabled = false
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 //MARK: - Setup Navigation Bar
@@ -159,17 +198,11 @@ extension DetailGameViewController {
 extension DetailGameViewController {
     
     private func setupNavigationBar() {
-        
-        let titleColor = UIColor(red: 28/255, green: 44/255, blue: 78/255, alpha: 1)
+        navigationItem.largeTitleDisplayMode = .never
         let imageBackBarButtonItem = UIImage(named: "BackArrow")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: imageBackBarButtonItem, style: .plain, target: self, action: #selector(back))
-        
-        let attributesGray: [NSAttributedString.Key: Any] = [
-            .foregroundColor: titleColor,
-            .font: UIFont(name: "avenir", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .medium)
-        ]
+
         navigationItem.title = "ИГРА"
-        navigationController?.navigationBar.titleTextAttributes = attributesGray
     }
     
     @objc private func back() {

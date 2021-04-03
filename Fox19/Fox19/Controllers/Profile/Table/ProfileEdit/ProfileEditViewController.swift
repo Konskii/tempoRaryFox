@@ -34,6 +34,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         view.register(UserStatusTableViewCell.self,
                       forCellReuseIdentifier: UserStatusTableViewCell.reusedId)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     
@@ -94,6 +95,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         let view = UILabel()
         view.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         view.text = "РЕДАКТИРОВАНИЕ ПРОФИЛЯ"
+        view.adjustsFontSizeToFitWidth = true
         view.font = UIFont.avenir(fontSize: 15)
         navigationItem.titleView = view
         
@@ -143,7 +145,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         
         let isGamer = statusesData[0]
         let isTrainer = statusesData[1]
-        let isReferee = statusesData[2]
+        guard let isReferee = user?.isReferee else { return }
         let user = User(id: userId,
                         phone: self.user?.phone,
                         email: emailToUpdate,
@@ -246,6 +248,10 @@ extension ProfileEditViewController: UITableViewDelegate {
 extension ProfileEditViewController: FillProfileCellProtocol {
     func getDataForCell() -> User? {
         return user
+    }
+    
+    func showMyClubsViewController() {
+        
     }
 }
 

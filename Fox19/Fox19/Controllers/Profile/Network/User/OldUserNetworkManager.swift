@@ -1,13 +1,12 @@
 //
-//  UserNetworkManager.swift
+//  OldUserNetworkManager.swift
 //  Fox19
 //
-//  Created by Артём Скрипкин on 04.11.2020.
+//  Created by Mykhailo Romanovskyi on 28.02.2021.
 //
 
-import Foundation
 import UIKit
-class UserNetworkManager {
+class OldUserNetworkManager {
     private let defaultHeaders: [String: String] = [
         "accept": "application/json"
     ]
@@ -34,7 +33,7 @@ class UserNetworkManager {
     
     private let sharedSession = URLSession.shared
     
-    static var shared = UserNetworkManager()
+    static var shared = OldUserNetworkManager()
     
     private init() { }
     
@@ -219,3 +218,4 @@ class UserNetworkManager {
         }.resume()
     }
 }
+

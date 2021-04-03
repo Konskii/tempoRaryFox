@@ -11,11 +11,22 @@ import MessageKit
 import InputBarAccessoryView
 
 class ChatViewController: MessagesViewController {
+    private let orangeColor = UIColor(red: 242/255, green: 122/255, blue: 42/255, alpha: 1)
     private let titleColor = UIColor(red: 28/255, green: 44/255, blue: 78/255, alpha: 1)
     private var messages: [MMessage] = []
     private var currentUser: User
     private var friendUser: User
-    private var chatId: Int = 0
+    private var chatId: Int? = nil
+    var session: URLSession!
+    var webSocketTask: URLSessionWebSocketTask!
+    // let image = UIImageView()
+    
+    init(currentUser: User, friendUser: User, chatId: Int) {
+        self.currentUser = currentUser
+        self.friendUser = friendUser
+        self.chatId = chatId
+        super.init(nibName: nil, bundle: nil)
+    }
     
     init(currentUser: User, friendUser: User) {
         self.currentUser = currentUser
@@ -27,22 +38,18 @@ class ChatViewController: MessagesViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        webSocketTask.cancel(with: .normalClosure, reason: nil)
+        print("Its close")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let attributesGray: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
-            .font: UIFont(name: "avenir", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .medium)
-        ]
-        navigationItem.title = currentUser.name?.uppercased()
-        navigationController?.navigationBar.titleTextAttributes = attributesGray
-       navigationController?.navigationBar.barTintColor =  titleColor
-//        navigationController?.navigationBar.shadowImage = UIImage()
-    //    navigationController?.navigationBar.backgroundColor = titleColor
+//        navigationItem.titleView = navTitleWithImageAndText(for: friendUser)
+//        navigationItem.largeTitleDisplayMode = .never
         
+        setupNavBar()
         configureMessageInputBar()
         messageInputBar.delegate = self
         messagesCollectionView.backgroundColor = .white
@@ -51,38 +58,149 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDisplayDelegate = self
         getChatId()
         openSocketConnection()
+        
+        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
+            layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
+            layout.textMessageSizeCalculator.incomingAvatarSize = .zero
+        }
+    }
+    
+    private func navTitleWithImageAndText(for friendUser: User) -> UIView {
+        
+        let titleView = UIView()
+        
+        let label = UILabel()
+        label.text = friendUser.name
+        label.sizeToFit()
+        label.center = titleView.center
+        label.textColor = .white
+        label.textAlignment = NSTextAlignment.center
+        
+        let image = UIImageView()
+        image.image = UIImage(named: "Avatar")
+        
+        guard let account = UserDefaults.standard.string(forKey: "number") else { return titleView}
+        ClubsNetworkManager.shared.downloadImageForCover(from: friendUser.avatar?.url ?? "", account: account) { (result) in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    image.image = UIImage(data: data)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        let imageAspect = CGFloat(2)
+        
+        let imageX = label.frame.origin.x - label.frame.size.height * imageAspect - 10
+        let imageY = label.frame.origin.y - label.frame.size.height / 2
+        
+        let imageWidth = label.frame.size.height * imageAspect
+        let imageHeight = label.frame.size.height * imageAspect
+        
+        image.layer.cornerRadius = imageWidth / 2
+        image.clipsToBounds = true
+        image.frame = CGRect(x: imageX, y: imageY, width: imageWidth, height: imageHeight)
+        
+        image.contentMode = UIView.ContentMode.scaleAspectFill
+        
+        titleView.addSubview(label)
+        titleView.addSubview(image)
+        
+        titleView.sizeToFit()
+        return titleView
+        
     }
     
     private func insertNewMessage(message: MMessage) {
         guard !messages.contains(message) else { return }
         messages.append(message)
-      //  messages.sort()
+        //  messages.sort()
         messagesCollectionView.reloadData()
     }
     
     private func getChatId() {
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
         guard let token = Keychainmanager.shared.getToken(account: number) else { return }
-        ChatNetworkManager.shared.getChatWithFriend(token: token, friendId: friendUser.id ?? 0) { (result) in
+        print("Now chatid is \(chatId)")
+        if chatId != nil {
+            ChatNetworkManager.shared.getAllMessagesWithFriend(token: token, chatId: chatId!) { (result) in
+                switch result {
+                case .success(let messages):
+                    guard let count = messages.results else { return }
+                    
+                    for chat in count {
+                        print("here mistake?")
+                        self.messages.append(MMessage(chat: chat))
+                    }
+                    DispatchQueue.main.async {
+                        self.messagesCollectionView.reloadData()
+                        self.messagesCollectionView.scrollToBottom(animated: true)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        } else {
+//            ChatNetworkManager.shared.getChatWithFriend(token: token, friendId: self.friendUser.id ?? 0) { (result) in
+//                switch result {
+//                case .success(let id):
+//                    DispatchQueue.main.async {
+//                        self.chatId = id
+//                        self.messagesCollectionView.reloadData()
+//                        self.messagesCollectionView.scrollToBottom(animated: true)
+//                    }
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                }
+//            }
+            ChatNetworkManager.shared.getAllMyChats(token: token) { (result) in
+                switch result {
+                case .success(let chats):
+                    guard let count = chats.results?.count else { return }
+                    if count == 0 {
+                        self.getChat(token: token)
+                    } else {
+                        for index in 0...count - 1 {
+                            let searchIndex = chats.results?[index].users?.firstIndex(of: self.friendUser)
+                            if searchIndex != nil {
+                                DispatchQueue.main.async {
+                                    self.chatId = chats.results?[index].id
+                                    self.getChatId()
+                                }
+                            } else {
+                                ChatNetworkManager.shared.getChatWithFriend(token: token, friendId: self.friendUser.id ?? 0) { (result) in
+                                    switch result {
+                                    case .success(let id):
+                                        DispatchQueue.main.async {
+                                            self.chatId = id
+                                            self.messagesCollectionView.reloadData()
+                                            self.messagesCollectionView.scrollToBottom(animated: true)
+                                        }
+                                    case .failure(let error):
+                                        print(error.localizedDescription)
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    private func getChat(token: String) {
+        ChatNetworkManager.shared.getChatWithFriend(token: token, friendId: self.friendUser.id ?? 0) { (result) in
             switch result {
             case .success(let id):
-             //   print(id)
-                self.chatId = id
-                ChatNetworkManager.shared.getAllMessagesWithFriend(token: token, chatId: id) { (result) in
-                    switch result {
-                    case .success(let chats):
-                       // print(chats.results.count)
-                      //  print(chats.results.first)
-                        for chat in chats.results {
-                            self.messages.append(MMessage(chat: chat))
-                        }
-                        DispatchQueue.main.async {
-                            self.messagesCollectionView.reloadData()
-                            self.messagesCollectionView.scrollToBottom()
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
+                DispatchQueue.main.async {
+                    self.chatId = id
+                    self.messagesCollectionView.reloadData()
+                    self.messagesCollectionView.scrollToBottom(animated: true)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -130,6 +248,10 @@ extension ChatViewController: MessagesDisplayDelegate {
         return isFromCurrentSender(message: message) ?  .white : .black
     }
     
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        avatarView.isHidden = true
+    }
+    
 }
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
@@ -137,6 +259,8 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
         guard let token = Keychainmanager.shared.getToken(account: number) else { return }
+        guard let chatId = chatId else { return }
+        print("Error here")
         ChatNetworkManager.shared.createNewMessage(token: token,
                                                    chatId: chatId,
                                                    text: text) { (result) in
@@ -144,6 +268,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             
             case .success(let message):
                 DispatchQueue.main.async {
+                    print("or here mistake?")
                     self.insertNewMessage(message: MMessage(chat: message))
                     self.messagesCollectionView.reloadData()
                     self.messagesCollectionView.scrollToBottom()
@@ -195,21 +320,24 @@ extension ChatViewController {
     
 }
 
-
+//MARK: - URLSessionWebSocketDelegate
 extension ChatViewController: URLSessionWebSocketDelegate {
     func openSocketConnection() {
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
         guard let token = Keychainmanager.shared.getToken(account: number) else { return }
         let myUrl = "ws://213.159.209.245/ws?access_token=\(token)"
-     //   let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: OperationQueue())
-        let session = URLSession(configuration: .default,
-                                 delegate: self,
-                                 delegateQueue: nil)
+        session = URLSession(configuration: .default,
+                             delegate: self,
+                             delegateQueue: nil)
         
-      //  session.delegate = self
-        let webSocketTask = session.webSocketTask(with: URL(string: myUrl)!)
+        webSocketTask = session.webSocketTask(with: URL(string: myUrl)!)
+        
         webSocketTask.resume()
         readMessage(webSocketTask: webSocketTask)
+    }
+    
+    func closeSocketConnection() {
+        webSocketTask.cancel(with: .goingAway, reason: nil)
     }
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
@@ -217,14 +345,13 @@ extension ChatViewController: URLSessionWebSocketDelegate {
     }
     
     func readMessage(webSocketTask: URLSessionWebSocketTask)  {
-      webSocketTask.receive { result in
+        webSocketTask.receive { result in
             switch result {
             case .failure(let error):
                 print("Failed to receive message: \(error)")
             case .success(let message):
                 switch message {
                 case .string(let text):
-                  //  print("Received text message: \(text)")
                     let data = text.data(using: .utf8)
                     guard let jsonData = data else { return }
                     do {
@@ -245,8 +372,49 @@ extension ChatViewController: URLSessionWebSocketDelegate {
                 @unknown default:
                     fatalError()
                 }
-              self.readMessage(webSocketTask: webSocketTask)
+                self.readMessage(webSocketTask: webSocketTask)
             }
         }
+    }
+}
+
+
+//MARK: - Setup NavBar
+extension ChatViewController {
+    private func setupNavBar() {
+        navigationItem.titleView = navTitleWithImageAndText(for: friendUser)
+        navigationItem.largeTitleDisplayMode = .never
+        
+        navigationController?.navigationBar.tintColor = orangeColor
+        navigationController?.navigationBar.barTintColor = .white
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundImage = UIImage(named: "Rectangle")
+        navBarAppearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont(name: "Merriweather-Regular", size: 30) ?? UIFont.systemFont(ofSize: 30, weight: .medium)
+        ]
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+            
+        ]
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        
+        let imageMenuButton = UIImage(named: "ColorMenu")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: imageMenuButton, style: .plain, target: self, action: #selector(makeReport))
+        
+    }
+    @objc func makeReport() {
+        let alert = UIAlertController(title: nil, message: "Сообщить о проблеме", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cansel", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "Пожаловаться", style: .default, handler: nil)
+        let hellAction = UIAlertAction(title: "Заблокировать пользователя", style: .destructive, handler: nil)
+        
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        alert.addAction(hellAction)
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -16,6 +16,7 @@ struct Tournament: Codable {
     let date: ChampDate?
     let memberPrice: Int?
     let guestPrice: Int?
+    let club: Club?
 }
 
 struct ChampDate: Codable {
