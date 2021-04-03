@@ -121,15 +121,21 @@ class ProfileTableViewCell: UITableViewCell {
                 textField.placeholder = "Иван"
                 textField.text = name
             case 1:
+                label.text = "Фамилия"
+                guard let lastName = data.lastName else { return }
+                textField.textContentType = .middleName
+                textField.placeholder = "Иванов"
+                textField.text = lastName
+            case 2:
                 label.text = "Идентификатор в реестре гольфистов"
                 guard let golfId = data.golfRegistryIdRU else { return }
                 textField.placeholder = "RUXXXXXX"
                 textField.text = golfId
-            case 2:
+            case 3:
                 label.text = "Обо мне"
                 guard let aboutMe = data.about else { return }
                 textField.text = aboutMe
-            case 3:
+            case 4:
                 label.text = "Email"
                 guard let email = data.email else { return }
                 textField.textContentType = .emailAddress
@@ -151,15 +157,20 @@ class ProfileTableViewCell: UITableViewCell {
                 textField.placeholder = "Иван"
                 textField.text = name
             case 1:
+                label.text = "Фамилия"
+                guard let lastName = data.lastName else { return }
+                textField.placeholder = "Иванов"
+                textField.text = lastName
+            case 2:
                 label.text = "Гандикап"
                 guard let handicap = data.handicap else { return }
                 textField.placeholder = "dd.d"
                 textField.text = "\(handicap)"
-            case 2:
+            case 3:
                 label.text = "Обо мне"
                 guard let aboutMe = data.about else { return }
                 textField.text = aboutMe
-            case 3:
+            case 4:
                 isUserInteractionEnabled = true
                 label.text = "Избранные клубы"
                 textField.text = likes
@@ -167,14 +178,14 @@ class ProfileTableViewCell: UITableViewCell {
                 let tap = UITapGestureRecognizer(target: self,
                                                  action: #selector(showMyClubsVC))
                 addGestureRecognizer(tap)
-            case 4:
+            case 5:
                 label.text = "Email"
                 guard let email = data.email else { return }
                 textField.text = email
                 textField.autocorrectionType = .no
                 textField.textContentType = .emailAddress
                 textField.placeholder = "email@email.com"
-            case 5:
+            case 6:
                 label.text = "Статус"
                 var status = ""
                 if let admin = data.isAdmin,
@@ -192,12 +203,12 @@ class ProfileTableViewCell: UITableViewCell {
                     status = statusArray.joined(separator: ", ")
                 }
                 textField.text = status
-            case 6:
+            case 7:
                 label.text = "Номер телефона"
                 guard let phone = data.phone else { return }
                 textField.textContentType = .telephoneNumber
                 textField.text = phone
-            case 7:
+            case 8:
                 label.text = "Идентификатор в реестре гольфистов"
                 guard let golfId = data.golfRegistryIdRU else { return }
                 textField.placeholder = "RUXXXXXX"

@@ -12,7 +12,7 @@ struct GetUserResponse: Codable {
 // MARK: - User
 struct User: Codable, Hashable {
     let id: Int?
-    let phone, email, golfRegistryIdRU, about, name: String?
+    let phone, email, golfRegistryIdRU, about, name, lastName: String?
     let handicap: Double?
     let isAdmin, isReferee, isGamer, isTrainer: Bool?
     let avatar: Avatar?

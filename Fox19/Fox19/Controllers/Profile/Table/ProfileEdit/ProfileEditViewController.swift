@@ -121,6 +121,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         var aboutToUpdate: String?
         var emailToUpdate: String?
         var golfRegistryIdRUToUpdate: String?
+        var lastNameToUpdate: String?
         
         for i in 0...5 - 1 {
             guard let updateData = delegates[i]?.manageText() else {
@@ -130,10 +131,12 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
             case 0:
                 nameToUpdate = updateData.0
             case 1:
-                golfRegistryIdRUToUpdate = updateData.0
+                lastNameToUpdate = updateData.0
             case 2:
-                aboutToUpdate = updateData.0
+                golfRegistryIdRUToUpdate = updateData.0
             case 3:
+                aboutToUpdate = updateData.0
+            case 4:
                 emailToUpdate = updateData.0
             default:
                 break
@@ -152,6 +155,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
                         golfRegistryIdRU: golfRegistryIdRUToUpdate,
                         about: aboutToUpdate,
                         name: nameToUpdate,
+                        lastName: lastNameToUpdate,
                         handicap: self.user?.handicap,
                         isAdmin: self.user?.isAdmin,
                         isReferee: isReferee,
@@ -211,7 +215,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
 //MARK: - Table View Data Source
 extension ProfileEditViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -223,7 +227,7 @@ extension ProfileEditViewController: UITableViewDataSource {
             showAlert(title: "Возникла ошибка", message: "Ошибка User"); return cell }
         cell.delegate = self
         cell.setIndexPath(indexPath: indexPath, isEditingVC: true)
-        if indexPath.row == 4 {
+        if indexPath.row == 5 {
             guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: UserStatusTableViewCell.reusedId) as?
                     UserStatusTableViewCell else { return UITableViewCell() }

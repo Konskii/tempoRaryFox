@@ -172,14 +172,14 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
 //MARK: - Table View Data Source
 extension ProfileTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        8
+        9
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileTableViewCell.reusedId,
                 for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
-        if indexPath.row == 3 {
+        if indexPath.row == 4 {
             cell.setIndexPath(indexPath: indexPath, isEditingVC: false, likes: likedClubs)
         } else {
             cell.setIndexPath(indexPath: indexPath, isEditingVC: false)
