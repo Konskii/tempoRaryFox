@@ -13,11 +13,16 @@ class UniversalNetwokManager {
     private let scheme = "http"
     private let host = "213.159.209.245"
     
-    func getUrl(forPath path: String) -> URL? {
+    func getUrl(forPath path: String, include: String? = nil) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = scheme
         urlComponents.host = host
         urlComponents.path = path
+        if let include = include {
+            urlComponents.queryItems = [
+            URLQueryItem(name: "include", value: include)
+            ]
+        }
         return urlComponents.url
     }
     

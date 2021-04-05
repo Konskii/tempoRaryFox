@@ -44,16 +44,18 @@ class TestUserNetwrokManager: UniversalNetwokManager {
         let request = getRequest(url: url, method: .PUT, body: body)
         dataTask(request: request, completion: completion)
     }
-    
-    func getLikedClubs(userId: Int, completion: @escaping (Result<LikedClubsModel, Error>) -> Void) {
-        guard let url = getUrl(forPath: UserPaths.clubLikes) else { return }
+
+    func getMemberedClubs(userId: Int, completion: @escaping (Result<MemberedClubsModel, Error>) -> Void) {
+        guard let url = getUrl(forPath: UserPaths.user + "/\(userId)" + UserPaths.memberedClubs, include: "club") else { return }
         let request = getRequest(url: url, method: .GET)
         dataTask(request: request, completion: completion)
     }
     
-    func unlikeClub(likeIdToUnlike clubId: Int, completion: @escaping (Result<LikedClubsModel.LikedClubs, Error>) -> Void) {
-        guard let url = getUrl(forPath: UserPaths.clubLikes + "/\(clubId)") else { return }
+    func leaveClub(memberId: Int, completion: @escaping (Result<MemberedClubsModel, Error>) -> Void) {
+        guard let url = getUrl(forPath: UserPaths.memberedClubsApi + "\(memberId)") else { return }
         let request = getRequest(url: url, method: .DELETE)
         dataTask(request: request, completion: completion)
     }
+    
+    
 }

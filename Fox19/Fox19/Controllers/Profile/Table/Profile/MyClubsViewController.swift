@@ -143,54 +143,27 @@ class MyClubsViewController: UIViewController {
     }
     
     private func getClubs(completion: @escaping () -> Void = {}) {
-        guard let account = UserDefaults.standard.string(forKey: "number") else { return }
-        guard let userId = userId else { return }
-        clubs = []
-        networkManager.getLikedClubs(userId: userId) { [weak self] result in
+        guard let userId = userId else {
+            showAlert(title: "Возникла ошибка!", message: "userId error")
+            return
+        }
+        networkManager.getMemberedClubs(userId: userId) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let likes):
-                guard !likes.results!.isEmpty else {
-                    self.messageToShow = "У вас нет клубов."
-                    DispatchQueue.main.async { self.tableView.reloadData() }
-                    return
-                }
-                var tempClubs: [Club] = []
-                likes.results?.forEach({
-                    let clubId = $0.club?.id
-                    ClubsNetworkManager.shared.getAllClubs(for: account) { result in
-                        switch result {
-                        case .success(let allClubs):
-                            allClubs.results.forEach({ (club) in
-                                guard club.id == clubId else { return }
-                                tempClubs.append(club)
-                            })
-                            self.clubs = tempClubs
-                            completion()
-                        case .failure(let error):
-                            self.showAlert(title: "Возникла ошибка.", message: "\(error)")
-                        }
-                    }
+            case .success( let likedClubs):
+                likedClubs.results.forEach({ [weak self] club in
+                    guard let self = self else { return }
+                    self.clubs.append(club.club)
                 })
-                self.likes = likes.results ?? []
             case .failure(let error):
-                self.showAlert(title: "Возникла ошибка.", message: "\(error)")
+                self.showAlert(title: "Возникла ошибка", message: "\(error)")
             }
         }
     }
     
+    //need API
     private func deleteClub(at index: IndexPath) {
-        guard let likeId = likes[index.row].id else { return }
-        networkManager.unlikeClub(likeIdToUnlike: likeId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                self.getClubs()
-                self.delegate?.reload()
-            case .failure(let error):
-                self.showAlert(title: "Возникла ошибка.", message: "\(error)")
-            }
-        }
+
     }
 }
 

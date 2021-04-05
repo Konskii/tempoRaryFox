@@ -123,6 +123,7 @@
 		4CF1898C254D26A100479481 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1898B254D26A100479481 /* RootViewController.swift */; };
 		5766317C257396DF00BE9DD8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766317B257396DF00BE9DD8 /* Header.swift */; };
 		8934DBD24E31AFA9EDBD3562 /* Pods_Fox19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2828861596B3D38CB6E53009 /* Pods_Fox19.framework */; };
+		AC1BE171261B2D76004AD477 /* MemberedClubsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BE170261B2D76004AD477 /* MemberedClubsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -245,6 +246,7 @@
 		4CF18978254ABADE00479481 /* SmsCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmsCodeViewController.swift; sourceTree = "<group>"; };
 		4CF1898B254D26A100479481 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		5766317B257396DF00BE9DD8 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		AC1BE170261B2D76004AD477 /* MemberedClubsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberedClubsModel.swift; sourceTree = "<group>"; };
 		C040D07E31E9EF91A0948145 /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -305,11 +307,8 @@
 		4C159D56256A936E0003EC3C /* User */ = {
 			isa = PBXGroup;
 			children = (
-				4C299EDC2555963F00B2E5E6 /* UserNetworkManager.swift */,
-				4CCC214125D13A8000D3CDDB /* UniversalNetwokManager.swift */,
 				4CCC214425D13AA600D3CDDB /* TestUserNetwrokManager.swift */,
 				4CCC214725D13AD300D3CDDB /* UserNetworkPaths.swift */,
-				4CA3914025EB758200A00529 /* OldUserNetworkManager.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -468,6 +467,7 @@
 				4C299ED9255595FF00B2E5E6 /* UserGetModel.swift */,
 				4C30A30A2585BAD700826337 /* AvatarModel.swift */,
 				4C30A30D2585BAE100826337 /* UserAvatarPutModel.swift */,
+				AC1BE170261B2D76004AD477 /* MemberedClubsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -475,6 +475,8 @@
 		4C299ED8255595E000B2E5E6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				AC1BE174261B4448004AD477 /* New */,
+				AC1BE173261B4424004AD477 /* Old */,
 				4C159D56256A936E0003EC3C /* User */,
 			);
 			path = Network;
@@ -802,6 +804,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AC1BE173261B4424004AD477 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				4C299EDC2555963F00B2E5E6 /* UserNetworkManager.swift */,
+				4CA3914025EB758200A00529 /* OldUserNetworkManager.swift */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
+		AC1BE174261B4448004AD477 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				4CCC214125D13A8000D3CDDB /* UniversalNetwokManager.swift */,
+			);
+			path = New;
+			sourceTree = "<group>";
+		};
 		F8EEA3B183E978D981BDC8C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -943,6 +962,7 @@
 				4C8CE918253F1C5A00339C62 /* AppDelegate.swift in Sources */,
 				4CF1898C254D26A100479481 /* RootViewController.swift in Sources */,
 				4C159D9725734EC50003EC3C /* ChampDetailFooter.swift in Sources */,
+				AC1BE171261B2D76004AD477 /* MemberedClubsModel.swift in Sources */,
 				4C299EEA255669C600B2E5E6 /* GameMember.swift in Sources */,
 				4CA3916425FF864F00A00529 /* ReviewsViewController.swift in Sources */,
 				4C159D6E2570F60B0003EC3C /* MyGamesNetworkManager.swift in Sources */,

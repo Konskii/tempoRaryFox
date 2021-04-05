@@ -140,21 +140,21 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     private func getLikedClubs(completion: @escaping () -> Void = {}) {
-        guard let userId = user?.id else { return }
-        networkManager.getLikedClubs(userId: userId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let likes):
-                var templikes: [String] = []
-                likes.results?.forEach({
-                    guard let clubName = $0.clubName else { return }
-                    templikes.append(clubName)
-                })
-                self.likedClubs = templikes.joined(separator: ", ")
-            case .failure(let error):
-                self.showAlert(title: "Возникла ошибка", message: "\(error)")
-            }
-        }
+//        guard let userId = user?.id else { return }
+//        networkManager.getLikedClubs(userId: userId) { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let likes):
+//                var templikes: [String] = []
+//                likes.results?.forEach({
+//                    guard let clubName = $0.clubName else { return }
+//                    templikes.append(clubName)
+//                })
+//                self.likedClubs = templikes.joined(separator: ", ")
+//            case .failure(let error):
+//                self.showAlert(title: "Возникла ошибка", message: "\(error)")
+//            }
+//        }
     }
     
     //MARK: - Life Cycle
