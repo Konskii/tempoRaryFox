@@ -145,6 +145,9 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         
         guard let statusesData = statusDelegate?.getStatuses() else {
             showAlert(title: "Возникла ошибка", message: "status delegate error"); return }
+        guard let newHandicap = statusDelegate?.getHandicap() else {
+            showAlert(title: "Возникла ошибка", message: "status delegate(handicap) error"); return
+        }
         
         let isGamer = statusesData[0]
         let isTrainer = statusesData[1]
@@ -156,7 +159,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
                         about: aboutToUpdate,
                         name: nameToUpdate,
                         lastName: lastNameToUpdate,
-                        handicap: self.user?.handicap,
+                        handicap: newHandicap,
                         isAdmin: self.user?.isAdmin,
                         isReferee: isReferee,
                         isGamer: isGamer,

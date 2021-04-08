@@ -86,6 +86,20 @@ class MyClubsViewController: UIViewController {
         return view
     }()
     
+    private lazy var addButton: UIButton = {
+        let view = UIButton(type: .system)
+        view.setTitle("+", for: .normal)
+        view.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 18)
+        view.tintColor = .white
+        view.backgroundColor = UIColor(red: 0.11, green: 0.173, blue: 0.306, alpha: 1)
+        view.layer.borderWidth = 2
+        view.layer.cornerRadius = 8
+        view.layer.borderColor = UIColor(red: 0.11, green: 0.173, blue: 0.306, alpha: 1).cgColor
+        view.addTarget(self, action: #selector(add), for: .touchUpInside)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         modalPresentationStyle = .overFullScreen
@@ -103,7 +117,12 @@ class MyClubsViewController: UIViewController {
         setupConstraints()
     }
     
+    @objc private func add() {
+        present(ClubsListViewController(), animated: true, completion: nil)
+    }
+    
     @objc private func edit() {
+        present(ProfileTableViewController(), animated: true, completion: nil)
         if tableView.isEditing {
             tableView.isEditing = false
         } else {
@@ -122,6 +141,7 @@ class MyClubsViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(editButton)
         view.addSubview(dismissButton)
+        view.addSubview(addButton)
         
         NSLayoutConstraint.activate([
             tableView.heightAnchor.constraint(equalToConstant: view.frame.height / 2),
@@ -129,10 +149,15 @@ class MyClubsViewController: UIViewController {
             tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            editButton.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20),
-            editButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            editButton.widthAnchor.constraint(equalTo: tableView.widthAnchor),
-            editButton.heightAnchor.constraint(equalToConstant: 48),
+            addButton.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            addButton.widthAnchor.constraint(equalToConstant: 48),
+            addButton.heightAnchor.constraint(equalTo: addButton.widthAnchor),
+            addButton.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20),
+            
+            editButton.bottomAnchor.constraint(equalTo: addButton.bottomAnchor),
+            editButton.heightAnchor.constraint(equalTo: addButton.heightAnchor),
+            editButton.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            editButton.trailingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -15),
         
             dismissButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 25),
             dismissButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),

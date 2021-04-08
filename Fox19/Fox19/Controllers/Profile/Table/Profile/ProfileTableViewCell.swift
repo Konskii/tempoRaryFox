@@ -165,7 +165,11 @@ class ProfileTableViewCell: UITableViewCell {
                 label.text = "Гандикап"
                 guard let handicap = data.handicap else { return }
                 textField.placeholder = "dd.d"
-                textField.text = "\(handicap)"
+                if handicap < 0 {
+                    textField.text = "+\(handicap * -1)"
+                } else {
+                    textField.text = "\(handicap)"
+                }
             case 3:
                 label.text = "Обо мне"
                 guard let aboutMe = data.about else { return }
