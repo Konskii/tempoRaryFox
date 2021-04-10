@@ -12,15 +12,37 @@ protocol ClubsListProtocol: class {
 }
 
 class ClubsListViewController: UIViewController {
-    
-    convenience init(userId: Int) {
+    //MARK: - Inits
+    convenience init(userId: Int, userClubs: [Club]) {
         self.init()
         self.userId = userId
+        self.userClubs = userClubs
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        getAllClubs()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Variabl;es
     private var userId: Int?
     
     weak var delegate: ClubsListProtocol?
+    
+    private var messageToShow = "Загружаем список клубов..." {
+        willSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    private var userClubs: [Club] = []
     
     private var clubs: [Club] = [] {
         willSet {
@@ -33,52 +55,65 @@ class ClubsListViewController: UIViewController {
     
     private let networkManager = TestUserNetwrokManager()
     
+    //MARK: - UI Elements
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: self.view.frame, style: .grouped)
         view.delegate = self
         view.dataSource = self
-        view.separatorStyle = .none
+        view.separatorStyle = .singleLine
         view.backgroundColor = .white
         view.showsVerticalScrollIndicator = false
         return view
     }()
     
+    //MARK: - Methods
     private func getAllClubs() {
         guard let number = UserDefaults.standard.string(forKey: "number") else { return }
+        messageToShow = "Загружаем список клубов..."
         ClubsNetworkManager.shared.getAllClubs(for: number) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let clubsResponse):
-                self.clubs = clubsResponse.results
+                var tempClubs: [Club] = []
+                clubsResponse.results.forEach({ clubInResponse in
+                    guard !self.userClubs.contains(clubInResponse) else { return }
+                    tempClubs.append(clubInResponse)
+                })
+                self.clubs = tempClubs
+                if tempClubs.isEmpty {
+                    self.messageToShow = "Невозможно добавить новые клубы"
+                }
             case .failure(let error):
                 self.showAlert(title: "Возникла ошибка", message: "\(error)")
+                self.messageToShow = "Возникла ошибка"
             }
         }
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        getAllClubs()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
     }
 }
 
+//MARK: - UITableViewDataSource
 extension ClubsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        clubs.count
+        if clubs.isEmpty {
+            return 1
+        } else {
+            return clubs.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        if let name = clubs[indexPath.row].name {
+        if clubs.isEmpty {
+            cell.textLabel?.text = messageToShow
+            cell.textLabel?.adjustsFontSizeToFitWidth = true
+        } else {
+            guard let name = clubs[indexPath.row].name else { return cell }
             cell.textLabel?.text = "\(name)"
         }
         return cell
@@ -87,6 +122,7 @@ extension ClubsListViewController: UITableViewDataSource {
     
 }
 
+//MARK: - UITableViewDelegate
 extension ClubsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let clubId = clubs.getElement(index: indexPath.row)?.id else { return }
@@ -102,7 +138,7 @@ extension ClubsListViewController: UITableViewDelegate {
                 } }
             case .failure(let error):
                 print("bad \(error)")
-                self.showAlert(title: "Dозникла ошибка", message: "\(error)")
+                self.showAlert(title: "Возникла ошибка", message: "\(error)")
             }
         }
     }

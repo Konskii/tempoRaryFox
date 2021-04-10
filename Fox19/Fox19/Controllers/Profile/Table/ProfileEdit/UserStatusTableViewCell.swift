@@ -9,13 +9,18 @@ import UIKit
 
 protocol ManageUpdatedUserStatusProtocol: class {
     /// - Returns: Массив булевых значений статуса типа [Игрок, Тренер, Судья]
-    func getStatuses() -> [Bool]
+    func getStatuses() -> UserGameStatusesModel
     func getHandicap() -> Double
 }
 
 protocol SetUserStatusesProtocol: class {
     /// - Returns: user'а, данные статуса которого нужно заполнить
     func giveData() -> User?
+}
+
+struct UserGameStatusesModel {
+    let isGamer: Bool
+    let isTrainer: Bool
 }
 
 class UserStatusTableViewCell: UITableViewCell {
@@ -177,11 +182,9 @@ class UserStatusTableViewCell: UITableViewCell {
 
 //MARK: - manageUpdatedUserStatusProtocol
 extension UserStatusTableViewCell: ManageUpdatedUserStatusProtocol {
-    func getStatuses() -> [Bool] {
-        return [
-            gamerStatusSwitch.isOn,
-            trainerStatusSwitch.isOn,
-        ]
+    func getStatuses() -> UserGameStatusesModel {
+        UserGameStatusesModel(isGamer: gamerStatusSwitch.isOn,
+                              isTrainer: trainerStatusSwitch.isOn)
     }
     
     func getHandicap() -> Double {

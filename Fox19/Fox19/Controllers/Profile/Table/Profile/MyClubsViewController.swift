@@ -7,22 +7,21 @@
 
 import UIKit
 
-protocol testProtocol: class {
-    func showDetailVC(club: Club)
+protocol MyClubsProtocol: class {
     func reload()
 }
 
 class MyClubsViewController: UIViewController {
     
+    //MARK: - Inits
     convenience init(userId: Int) {
         self.init()
         self.userId = userId
         getClubs()
     }
     
-    weak var delegate: testProtocol?
-    
-    private let networkManager = TestUserNetwrokManager()
+    //MARK: - Variables
+    weak var delegate: MyClubsProtocol?
     
     private var userId: Int?
     
@@ -43,10 +42,11 @@ class MyClubsViewController: UIViewController {
         }
     }
     
-    private var likes: [LikedClubsModel.LikedClubs] = []
-    
     private var messageToShow = "Проверяем ваши клубы..."
     
+    private let networkManager = TestUserNetwrokManager()
+    
+    //MARK: - UI Elements
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         view.backgroundColor = .white
@@ -105,27 +105,21 @@ class MyClubsViewController: UIViewController {
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
         view.backgroundColor = UIColor(white: 0, alpha: 0.3)
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setupConstraints()
-    }
-    
+    //MARK: - UserInteraction Methods
     @objc private func add() {
         guard let userId = userId else { return }
-        let vc = ClubsListViewController(userId: userId)
+        let vc = ClubsListViewController(userId: userId, userClubs: clubs)
         vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
     
     @objc private func edit() {
-        present(ProfileTableViewController(), animated: true, completion: nil)
         if tableView.isEditing {
             tableView.isEditing = false
         } else {
@@ -140,6 +134,7 @@ class MyClubsViewController: UIViewController {
         }
     }
     
+    //MARK: - Methods
     private func setupConstraints() {
         view.addSubview(tableView)
         view.addSubview(editButton)
@@ -170,7 +165,7 @@ class MyClubsViewController: UIViewController {
         
     }
     
-    private func getClubs(completion: @escaping () -> Void = {}) {
+    private func getClubs() {
         guard let userId = userId else {
             showAlert(title: "Возникла ошибка!", message: "userId error")
             return
@@ -194,8 +189,20 @@ class MyClubsViewController: UIViewController {
     private func deleteClub(at index: IndexPath) {
 
     }
+    
+    //MARK: - Life Cycle
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setupConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getClubs()
+    }
 }
 
+//MARK: - UITableViewDataSource
 extension MyClubsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if clubs.isEmpty {
@@ -218,6 +225,7 @@ extension MyClubsViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension MyClubsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
@@ -229,6 +237,7 @@ extension MyClubsViewController: UITableViewDelegate {
     }
 }
 
+//MARK: - ClubsListProtocol
 extension MyClubsViewController: ClubsListProtocol {
     func reload() {
         getClubs()

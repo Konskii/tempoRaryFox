@@ -22,7 +22,14 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     ///Аватарка пользователя
-    private var userImage: UIImage?
+    private var userImage: UIImage? {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     ///Чтобы убрать задержку при тапе на изменение аватарки
     private let imagePicker = UIImagePickerController()
@@ -121,11 +128,7 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
                                                         switch result {
                                                         case .success(let image):
                                                             self.userImage = image
-                                                            DispatchQueue.main.async {
-                                                                self.getLikedClubs() {
-                                                                    self.tableView.reloadData()
-                                                                }
-                                                            }
+                                                            self.getLikedClubs()
                                                         case .failure(_):
                                                             //TODO
                                                             return
@@ -139,7 +142,7 @@ class ProfileTableViewController: UIViewController, UIGestureRecognizerDelegate 
         }
     }
     
-    private func getLikedClubs(completion: @escaping () -> Void = {}) {
+    private func getLikedClubs() {
         guard let userId = user?.id else { return }
         networkManager.getMemberedClubs(userId: userId) { [weak self] result in
             guard let self = self else { return }
@@ -262,43 +265,7 @@ extension ProfileTableViewController: FillProfileCellProtocol {
     }
 }
 
-extension ProfileTableViewController: testProtocol {
-    func showDetailVC(club: Club) {
-        let vc = ClubDetailViewController()
-        guard let account = UserDefaults.standard.string(forKey: "number") else { return }
-        guard let clubId = club.id else {
-            self.showAlert(title: "Id клуба отсуствует.", message: "Попробуйте еще раз.")
-            return
-        }
-        ClubsNetworkManager.shared.getImageForClubCover(for: account, clubId: clubId) { (result) in
-            switch result {
-            case .success(let data):
-                let url = data.results?.first?.image
-                ClubsNetworkManager.shared.downloadImageForCover(from: url ?? "",
-                                                                 account: account) {
-                    (result) in
-                    switch result {
-                    case .success(let data):
-                        DispatchQueue.main.async {
-                            guard let coverImage = UIImage(data: data) else {
-                                self.showAlert(title: "Возникла ошибка.",
-                                               message: "Ошибка в изображении клуба")
-                                return
-                            }
-                            //MARK: - TODO Проверить зачем тут вызов идет??
-                            vc.setupWithData(club: club, coverImage: coverImage, itemIndex: 0)
-                            self.navigationController?.pushViewController(vc, animated: true)
-                        }
-                    case .failure(let error):
-                        self.showAlert(title: "Возникла ошибка.", message: "\(error)")
-                    }
-                }
-            case .failure(let error):
-                self.showAlert(title: "Возникла ошибка.", message: "\(error)")
-            }
-        }
-    }
-    
+extension ProfileTableViewController: MyClubsProtocol {
     func reload() {
         getLikedClubs()
     }

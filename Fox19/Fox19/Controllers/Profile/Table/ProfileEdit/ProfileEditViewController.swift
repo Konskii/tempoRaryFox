@@ -148,9 +148,7 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
         guard let newHandicap = statusDelegate?.getHandicap() else {
             showAlert(title: "Возникла ошибка", message: "status delegate(handicap) error"); return
         }
-        
-        let isGamer = statusesData[0]
-        let isTrainer = statusesData[1]
+
         guard let isReferee = user?.isReferee else { return }
         let user = User(id: userId,
                         phone: self.user?.phone,
@@ -162,8 +160,8 @@ class ProfileEditViewController: UIViewController, UIGestureRecognizerDelegate {
                         handicap: newHandicap,
                         isAdmin: self.user?.isAdmin,
                         isReferee: isReferee,
-                        isGamer: isGamer,
-                        isTrainer: isTrainer,
+                        isGamer: statusesData.isGamer,
+                        isTrainer: statusesData.isTrainer,
                         avatar: self.user?.avatar)
         
         networkManager.updateUser(user: user) { [weak self] result in
