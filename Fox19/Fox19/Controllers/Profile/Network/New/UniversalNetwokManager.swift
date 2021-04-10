@@ -41,6 +41,7 @@ class UniversalNetwokManager {
         case 404: return "Not Found"
         case 406: return "Not acceptable"
         case 422: return "Unprocessable"
+        case 500: return "Internal server error"
         default: return "Transfer error"
         }
     }

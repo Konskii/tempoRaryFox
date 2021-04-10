@@ -6,10 +6,14 @@
 //
 
 struct MemberedClubsModel: Codable {
-    let results: [MemberedClub]
+    let results: [MemberedClubModel]
 }
 
-struct MemberedClub: Codable {
+struct MemberedClubModel: Codable {
     let club: Club
     let userName: String
+}
+
+struct JoinClubModel: Codable {
+    let club: Int
 }

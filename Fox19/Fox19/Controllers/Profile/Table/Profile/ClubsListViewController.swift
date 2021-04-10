@@ -7,7 +7,20 @@
 
 import UIKit
 
+protocol ClubsListProtocol: class {
+    func reload()
+}
+
 class ClubsListViewController: UIViewController {
+    
+    convenience init(userId: Int) {
+        self.init()
+        self.userId = userId
+    }
+    
+    private var userId: Int?
+    
+    weak var delegate: ClubsListProtocol?
     
     private var clubs: [Club] = [] {
         willSet {
@@ -17,6 +30,8 @@ class ClubsListViewController: UIViewController {
             }
         }
     }
+    
+    private let networkManager = TestUserNetwrokManager()
     
     private lazy var tableView: UITableView = {
         let view = UITableView(frame: self.view.frame, style: .grouped)
@@ -73,5 +88,22 @@ extension ClubsListViewController: UITableViewDataSource {
 }
 
 extension ClubsListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let clubId = clubs.getElement(index: indexPath.row)?.id else { return }
+        guard let userId = userId else { return }
+        print("ok")
+        networkManager.joinClub(userId: userId, clubId: clubId) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                print("ok2")
+                DispatchQueue.main.async { self.dismiss(animated: true) {
+                    self.delegate?.reload()
+                } }
+            case .failure(let error):
+                print("bad \(error)")
+                self.showAlert(title: "Dозникла ошибка", message: "\(error)")
+            }
+        }
+    }
 }

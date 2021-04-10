@@ -57,5 +57,10 @@ class TestUserNetwrokManager: UniversalNetwokManager {
         dataTask(request: request, completion: completion)
     }
     
-    
+    func joinClub(userId: Int, clubId: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+        guard let url = getUrl(forPath: UserPaths.user + "/\(userId)" + UserPaths.memberedClubs) else { return }
+        guard let body = try? JSONEncoder().encode(JoinClubModel(club: clubId)) else { return }
+        let request = getRequest(url: url, method: .POST, body: body)
+        dataTask(request: request, completion: completion)
+    }
 }

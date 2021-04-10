@@ -118,7 +118,10 @@ class MyClubsViewController: UIViewController {
     }
     
     @objc private func add() {
-        present(ClubsListViewController(), animated: true, completion: nil)
+        guard let userId = userId else { return }
+        let vc = ClubsListViewController(userId: userId)
+        vc.delegate = self
+        present(vc, animated: true, completion: nil)
     }
     
     @objc private func edit() {
@@ -176,10 +179,11 @@ class MyClubsViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success( let likedClubs):
-                likedClubs.results.forEach({ [weak self] club in
-                    guard let self = self else { return }
-                    self.clubs.append(club.club)
+                var tempClubs: [Club] = []
+                likedClubs.results.forEach({
+                    tempClubs.append($0.club)
                 })
+                self.clubs = tempClubs
             case .failure(let error):
                 self.showAlert(title: "Возникла ошибка", message: "\(error)")
             }
@@ -222,5 +226,11 @@ extension MyClubsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension MyClubsViewController: ClubsListProtocol {
+    func reload() {
+        getClubs()
     }
 }
