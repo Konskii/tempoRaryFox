@@ -4,3 +4,4 @@ ${BUILT_PRODUCTS_DIR}/EZYGradientView/EZYGradientView.framework
 ${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework
 ${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework
 ${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework
+${BUILT_PRODUCTS_DIR}/ReadMoreTextView/ReadMoreTextView.framework

@@ -12,12 +12,14 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (3.3.3)
   - PhoneNumberKit/UIKit (3.3.3):
     - PhoneNumberKit/PhoneNumberKitCore
+  - ReadMoreTextView (3.0.1)
 
 DEPENDENCIES:
   - Cosmos (~> 23.0)
   - EZYGradientView (from `https://github.com/Niphery/EZYGradientView`)
   - MessageKit
   - PhoneNumberKit (~> 3.3)
+  - ReadMoreTextView
 
 SPEC REPOS:
   trunk:
@@ -25,6 +27,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - MessageKit
     - PhoneNumberKit
+    - ReadMoreTextView
 
 EXTERNAL SOURCES:
   EZYGradientView:
@@ -41,7 +44,8 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 8e7fc09e9cba75e0fee5da13450e15c194806f69
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   PhoneNumberKit: 4ce83273551c4d2ae10b7361162f4283dd02835f
+  ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
 
-PODFILE CHECKSUM: 198fda0d271e16d10a4bd038f0b3945461a173a2
+PODFILE CHECKSUM: 4ade5ee0cb1c12aed2fee609422733b5431eba49
 
 COCOAPODS: 1.10.1

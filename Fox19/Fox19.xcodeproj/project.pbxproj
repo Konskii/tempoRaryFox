@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C0AF67F2559199E00DCAEAC /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF67E2559199E00DCAEAC /* ProfileEditViewController.swift */; };
 		4C0AF686255A817900DCAEAC /* WelkomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */; };
 		4C0AF689255A987200DCAEAC /* MVCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF688255A987200DCAEAC /* MVCTest.swift */; };
 		4C0AF68C255A98C000DCAEAC /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF68B255A98C000DCAEAC /* TestView.swift */; };
@@ -21,7 +20,6 @@
 		4C159D4E256A930E0003EC3C /* GameCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D4D256A930E0003EC3C /* GameCreateModel.swift */; };
 		4C159D53256A93500003EC3C /* MyGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D52256A93500003EC3C /* MyGamesViewController.swift */; };
 		4C159D63256FADA00003EC3C /* GameCreateNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D62256FADA00003EC3C /* GameCreateNetworkManager.swift */; };
-		4C159D6B2570F2C00003EC3C /* UserStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D6A2570F2C00003EC3C /* UserStatusTableViewCell.swift */; };
 		4C159D6E2570F60B0003EC3C /* MyGamesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D6D2570F60B0003EC3C /* MyGamesNetworkManager.swift */; };
 		4C159D712570F64A0003EC3C /* SelectClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D702570F64A0003EC3C /* SelectClubViewController.swift */; };
 		4C159D762570F6A90003EC3C /* EditGameNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D752570F6A90003EC3C /* EditGameNetworkManager.swift */; };
@@ -31,8 +29,6 @@
 		4C159D9A257354BF0003EC3C /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D99257354BF0003EC3C /* DetailTableViewCell.swift */; };
 		4C159DB02574B2D40003EC3C /* ChampioshipmembersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159DAF2574B2D40003EC3C /* ChampioshipmembersModel.swift */; };
 		4C159DB32574BCCE0003EC3C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159DB22574BCCE0003EC3C /* Alert.swift */; };
-		4C1D5683254290B4002C0F49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5682254290B4002C0F49 /* ProfileViewController.swift */; };
-		4C1D5687254290C8002C0F49 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */; };
 		4C1D56942542B0F5002C0F49 /* TournamentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */; };
 		4C295CFE258F022C00FA6B82 /* EditGameUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C295CFD258F022C00FA6B82 /* EditGameUpdateModel.swift */; };
 		4C295D01258F023700FA6B82 /* UpdatedGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C295D00258F023700FA6B82 /* UpdatedGameModel.swift */; };
@@ -58,7 +54,6 @@
 		4C299F052557BF2600B2E5E6 /* SMSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299F042557BF2600B2E5E6 /* SMSResponse.swift */; };
 		4C30A30B2585BAD700826337 /* AvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C30A30A2585BAD700826337 /* AvatarModel.swift */; };
 		4C30A30E2585BAE100826337 /* UserAvatarPutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C30A30D2585BAE100826337 /* UserAvatarPutModel.swift */; };
-		4C30A3112585BB2E00826337 /* ProfileAvatarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C30A3102585BB2E00826337 /* ProfileAvatarHeader.swift */; };
 		4C8CE918253F1C5A00339C62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8CE917253F1C5A00339C62 /* AppDelegate.swift */; };
 		4C8CE91C253F1C5A00339C62 /* ClubsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8CE91B253F1C5A00339C62 /* ClubsViewController.swift */; };
 		4C8CE91F253F1C5A00339C62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C8CE91D253F1C5A00339C62 /* Main.storyboard */; };
@@ -91,7 +86,6 @@
 		4C9D415825B6C03500EEF0F9 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D415725B6C03400EEF0F9 /* UIImageView+extension.swift */; };
 		4C9D415B25B71A5B00EEF0F9 /* DitailGameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D415A25B71A5A00EEF0F9 /* DitailGameTableViewCell.swift */; };
 		4CA3914125EB758200A00529 /* OldUserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3914025EB758200A00529 /* OldUserNetworkManager.swift */; };
-		4CA3914425EB765200A00529 /* MyClubsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3914325EB765200A00529 /* MyClubsViewController.swift */; };
 		4CA3915D25FA665600A00529 /* LeaveReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3915C25FA665600A00529 /* LeaveReviewViewController.swift */; };
 		4CA3916025FBB72800A00529 /* Double+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3915F25FBB72800A00529 /* Double+extension.swift */; };
 		4CA3916425FF864F00A00529 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3916325FF864E00A00529 /* ReviewsViewController.swift */; };
@@ -122,16 +116,15 @@
 		4CF1897A254ABADE00479481 /* SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF18978254ABADE00479481 /* SmsCodeViewController.swift */; };
 		4CF1898C254D26A100479481 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1898B254D26A100479481 /* RootViewController.swift */; };
 		5766317C257396DF00BE9DD8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766317B257396DF00BE9DD8 /* Header.swift */; };
-		8934DBD24E31AFA9EDBD3562 /* Pods_Fox19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2828861596B3D38CB6E53009 /* Pods_Fox19.framework */; };
+		A8EEFE19DCD5E6EA5D8FCB76 /* Pods_Fox19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432823CBFF85ECB86027C756 /* Pods_Fox19.framework */; };
 		AC1BE171261B2D76004AD477 /* MemberedClubsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BE170261B2D76004AD477 /* MemberedClubsModel.swift */; };
 		AC8FE222261F32C400194BDA /* ArrayGetElementSafelyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8FE221261F32C400194BDA /* ArrayGetElementSafelyExtension.swift */; };
-		AC8FE225261F3C2700194BDA /* ClubsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8FE224261F3C2700194BDA /* ClubsListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2828861596B3D38CB6E53009 /* Pods_Fox19.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fox19.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D788087BD49B94124B69EBD /* Pods-Fox19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.release.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.release.xcconfig"; sourceTree = "<group>"; };
-		4C0AF67E2559199E00DCAEAC /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		31BD9C34CD5FCA5AD2C8DB02 /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
+		432823CBFF85ECB86027C756 /* Pods_Fox19.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fox19.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47A62339AD3B84829AC0E72F /* Pods-Fox19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.release.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.release.xcconfig"; sourceTree = "<group>"; };
 		4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelkomeViewController.swift; sourceTree = "<group>"; };
 		4C0AF688255A987200DCAEAC /* MVCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCTest.swift; sourceTree = "<group>"; };
 		4C0AF68B255A98C000DCAEAC /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -145,7 +138,6 @@
 		4C159D4D256A930E0003EC3C /* GameCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateModel.swift; sourceTree = "<group>"; };
 		4C159D52256A93500003EC3C /* MyGamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGamesViewController.swift; sourceTree = "<group>"; };
 		4C159D62256FADA00003EC3C /* GameCreateNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateNetworkManager.swift; sourceTree = "<group>"; };
-		4C159D6A2570F2C00003EC3C /* UserStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusTableViewCell.swift; sourceTree = "<group>"; };
 		4C159D6D2570F60B0003EC3C /* MyGamesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGamesNetworkManager.swift; sourceTree = "<group>"; };
 		4C159D702570F64A0003EC3C /* SelectClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClubViewController.swift; sourceTree = "<group>"; };
 		4C159D752570F6A90003EC3C /* EditGameNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameNetworkManager.swift; sourceTree = "<group>"; };
@@ -155,8 +147,6 @@
 		4C159D99257354BF0003EC3C /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		4C159DAF2574B2D40003EC3C /* ChampioshipmembersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampioshipmembersModel.swift; sourceTree = "<group>"; };
 		4C159DB22574BCCE0003EC3C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		4C1D5682254290B4002C0F49 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		4C295CFD258F022C00FA6B82 /* EditGameUpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameUpdateModel.swift; sourceTree = "<group>"; };
 		4C295D00258F023700FA6B82 /* UpdatedGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedGameModel.swift; sourceTree = "<group>"; };
@@ -182,7 +172,6 @@
 		4C299F042557BF2600B2E5E6 /* SMSResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSResponse.swift; sourceTree = "<group>"; };
 		4C30A30A2585BAD700826337 /* AvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarModel.swift; sourceTree = "<group>"; };
 		4C30A30D2585BAE100826337 /* UserAvatarPutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatarPutModel.swift; sourceTree = "<group>"; };
-		4C30A3102585BB2E00826337 /* ProfileAvatarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAvatarHeader.swift; sourceTree = "<group>"; };
 		4C8CE914253F1C5A00339C62 /* Fox19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fox19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C8CE917253F1C5A00339C62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C8CE91B253F1C5A00339C62 /* ClubsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsViewController.swift; sourceTree = "<group>"; };
@@ -217,7 +206,6 @@
 		4C9D415725B6C03400EEF0F9 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
 		4C9D415A25B71A5A00EEF0F9 /* DitailGameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DitailGameTableViewCell.swift; sourceTree = "<group>"; };
 		4CA3914025EB758200A00529 /* OldUserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldUserNetworkManager.swift; sourceTree = "<group>"; };
-		4CA3914325EB765200A00529 /* MyClubsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubsViewController.swift; sourceTree = "<group>"; };
 		4CA3915C25FA665600A00529 /* LeaveReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveReviewViewController.swift; sourceTree = "<group>"; };
 		4CA3915F25FBB72800A00529 /* Double+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+extension.swift"; sourceTree = "<group>"; };
 		4CA3916325FF864E00A00529 /* ReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
@@ -250,8 +238,6 @@
 		5766317B257396DF00BE9DD8 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		AC1BE170261B2D76004AD477 /* MemberedClubsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberedClubsModel.swift; sourceTree = "<group>"; };
 		AC8FE221261F32C400194BDA /* ArrayGetElementSafelyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayGetElementSafelyExtension.swift; sourceTree = "<group>"; };
-		AC8FE224261F3C2700194BDA /* ClubsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsListViewController.swift; sourceTree = "<group>"; };
-		C040D07E31E9EF91A0948145 /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,13 +245,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8934DBD24E31AFA9EDBD3562 /* Pods_Fox19.framework in Frameworks */,
+				A8EEFE19DCD5E6EA5D8FCB76 /* Pods_Fox19.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E4BA14CD034B01CBCE60C42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				432823CBFF85ECB86027C756 /* Pods_Fox19.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4C0AF691255C0AC100DCAEAC /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,31 +377,8 @@
 		4C1D568125429099002C0F49 /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				4C295CFA258F013F00FA6B82 /* ProfileEdit */,
-				4C295CF9258F013A00FA6B82 /* Profile */,
 			);
 			path = Table;
-			sourceTree = "<group>";
-		};
-		4C295CF9258F013A00FA6B82 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				4C1D5682254290B4002C0F49 /* ProfileViewController.swift */,
-				4C30A3102585BB2E00826337 /* ProfileAvatarHeader.swift */,
-				4C1D5686254290C8002C0F49 /* ProfileTableViewCell.swift */,
-				4CA3914325EB765200A00529 /* MyClubsViewController.swift */,
-				AC8FE224261F3C2700194BDA /* ClubsListViewController.swift */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		4C295CFA258F013F00FA6B82 /* ProfileEdit */ = {
-			isa = PBXGroup;
-			children = (
-				4C0AF67E2559199E00DCAEAC /* ProfileEditViewController.swift */,
-				4C159D6A2570F2C00003EC3C /* UserStatusTableViewCell.swift */,
-			);
-			path = ProfileEdit;
 			sourceTree = "<group>";
 		};
 		4C295CFB258F018D00FA6B82 /* Scroll */ = {
@@ -547,7 +518,7 @@
 				4C8CE916253F1C5A00339C62 /* Fox19 */,
 				4C8CE915253F1C5A00339C62 /* Products */,
 				A28762F2044180D0DEDC5194 /* Pods */,
-				F8EEA3B183E978D981BDC8C4 /* Frameworks */,
+				1E4BA14CD034B01CBCE60C42 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -804,8 +775,8 @@
 		A28762F2044180D0DEDC5194 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C040D07E31E9EF91A0948145 /* Pods-Fox19.debug.xcconfig */,
-				3D788087BD49B94124B69EBD /* Pods-Fox19.release.xcconfig */,
+				31BD9C34CD5FCA5AD2C8DB02 /* Pods-Fox19.debug.xcconfig */,
+				47A62339AD3B84829AC0E72F /* Pods-Fox19.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -827,14 +798,6 @@
 			path = New;
 			sourceTree = "<group>";
 		};
-		F8EEA3B183E978D981BDC8C4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2828861596B3D38CB6E53009 /* Pods_Fox19.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -842,11 +805,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C8CE928253F1C5D00339C62 /* Build configuration list for PBXNativeTarget "Fox19" */;
 			buildPhases = (
-				48741B13AED351D66D2854C4 /* [CP] Check Pods Manifest.lock */,
+				6B243B6976F7B57300E72684 /* [CP] Check Pods Manifest.lock */,
 				4C8CE910253F1C5A00339C62 /* Sources */,
 				4C8CE911253F1C5A00339C62 /* Frameworks */,
 				4C8CE912253F1C5A00339C62 /* Resources */,
-				EF3915A0C92407D834552104 /* [CP] Embed Pods Frameworks */,
+				CB38028D9FDFD245109F88E2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -905,7 +868,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		48741B13AED351D66D2854C4 /* [CP] Check Pods Manifest.lock */ = {
+		6B243B6976F7B57300E72684 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -927,7 +890,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EF3915A0C92407D834552104 /* [CP] Embed Pods Frameworks */ = {
+		CB38028D9FDFD245109F88E2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -963,7 +926,6 @@
 				4C299EBD2551445000B2E5E6 /* LocalDataProvider.swift in Sources */,
 				4CF18979254ABADE00479481 /* WelkomeViewController(old).swift in Sources */,
 				4C9D415825B6C03500EEF0F9 /* UIImageView+extension.swift in Sources */,
-				4CA3914425EB765200A00529 /* MyClubsViewController.swift in Sources */,
 				4C95759A25C2CA2B00A58985 /* MChat.swift in Sources */,
 				4C8CE918253F1C5A00339C62 /* AppDelegate.swift in Sources */,
 				4CF1898C254D26A100479481 /* RootViewController.swift in Sources */,
@@ -984,8 +946,6 @@
 				4CE84C1625EA4A79001A255E /* CreateClubLikeModel.swift in Sources */,
 				4C159D2D25693C910003EC3C /* CanAddCell.swift in Sources */,
 				4C9D415B25B71A5B00EEF0F9 /* DitailGameTableViewCell.swift in Sources */,
-				AC8FE225261F3C2700194BDA /* ClubsListViewController.swift in Sources */,
-				4C1D5683254290B4002C0F49 /* ProfileViewController.swift in Sources */,
 				4C0AF689255A987200DCAEAC /* MVCTest.swift in Sources */,
 				4CCC214825D13AD300D3CDDB /* UserNetworkPaths.swift in Sources */,
 				4C299EE7255667F300B2E5E6 /* GamesNetworkManager.swift in Sources */,
@@ -1000,7 +960,6 @@
 				4CBEB32B254EA64F0042B4EC /* StartViewController.swift in Sources */,
 				4C299EF625566A7F00B2E5E6 /* GameTableViewCell.swift in Sources */,
 				4C30A30E2585BAE100826337 /* UserAvatarPutModel.swift in Sources */,
-				4C0AF67F2559199E00DCAEAC /* ProfileEditViewController.swift in Sources */,
 				4CA3916825FF8BBE00A00529 /* ReviewsCollectionViewCell.swift in Sources */,
 				4C299EB62551340100B2E5E6 /* ClubImagesModel.swift in Sources */,
 				4C9D414E25B55B4300EEF0F9 /* HeaderForDerailView.swift in Sources */,
@@ -1033,7 +992,6 @@
 				4CF189622542B56900479481 /* RulesTableViewCell.swift in Sources */,
 				4C159D872570FEB80003EC3C /* ClubReviews.swift in Sources */,
 				4C299ECB2555197A00B2E5E6 /* TournamentsNetworkManager.swift in Sources */,
-				4C1D5687254290C8002C0F49 /* ProfileTableViewCell.swift in Sources */,
 				4C159DB32574BCCE0003EC3C /* Alert.swift in Sources */,
 				4CCC214225D13A8000D3CDDB /* UniversalNetwokManager.swift in Sources */,
 				4C8F467A25D8FB0800451AE5 /* StringExtension.swift in Sources */,
@@ -1043,7 +1001,6 @@
 				4C8F467625D8F18700451AE5 /* CleanChatController.swift in Sources */,
 				4C9D411325B0229000EEF0F9 /* GameCollectionCell.swift in Sources */,
 				4C0AF68C255A98C000DCAEAC /* TestView.swift in Sources */,
-				4C159D6B2570F2C00003EC3C /* UserStatusTableViewCell.swift in Sources */,
 				4C9D411B25B283F800EEF0F9 /* UILabel+extension.swift in Sources */,
 				4CBEB349254EB54A0042B4EC /* CodeVareficationModel.swift in Sources */,
 				4C95759D25C2CDA600A58985 /* ChatMessage.swift in Sources */,
@@ -1061,7 +1018,6 @@
 				4C159D3525693EF30003EC3C /* GameCreateView.swift in Sources */,
 				4CF189582542B4BA00479481 /* UserForExample.swift in Sources */,
 				4C95758625C28EDD00A58985 /* ChatViewController.swift in Sources */,
-				4C30A3112585BB2E00826337 /* ProfileAvatarHeader.swift in Sources */,
 				4C159D712570F64A0003EC3C /* SelectClubViewController.swift in Sources */,
 				4C8CE961254150EF00339C62 /* TopView.swift in Sources */,
 			);
@@ -1207,7 +1163,7 @@
 		};
 		4C8CE929253F1C5D00339C62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C040D07E31E9EF91A0948145 /* Pods-Fox19.debug.xcconfig */;
+			baseConfigurationReference = 31BD9C34CD5FCA5AD2C8DB02 /* Pods-Fox19.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1230,7 +1186,7 @@
 		};
 		4C8CE92A253F1C5D00339C62 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D788087BD49B94124B69EBD /* Pods-Fox19.release.xcconfig */;
+			baseConfigurationReference = 47A62339AD3B84829AC0E72F /* Pods-Fox19.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

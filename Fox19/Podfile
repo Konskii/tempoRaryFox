@@ -8,6 +8,7 @@ pod 'EZYGradientView', :git => 'https://github.com/Niphery/EZYGradientView'
 pod 'PhoneNumberKit', '~> 3.3'
 pod 'MessageKit'
 pod 'Cosmos', '~> 23.0'
+pod 'ReadMoreTextView'
   # Pods for Fox19
 
 end
