@@ -13,16 +13,10 @@
 		4C159D23256652F90003EC3C /* DynamicalLabelSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D22256652F90003EC3C /* DynamicalLabelSize.swift */; };
 		4C159D2A25693C7A0003EC3C /* PlayersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D2925693C7A0003EC3C /* PlayersCell.swift */; };
 		4C159D2D25693C910003EC3C /* CanAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D2C25693C910003EC3C /* CanAddCell.swift */; };
-		4C159D3525693EF30003EC3C /* GameCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D3425693EF30003EC3C /* GameCreateView.swift */; };
-		4C159D3A25693F070003EC3C /* GameCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D3925693F070003EC3C /* GameCreateViewController.swift */; };
 		4C159D46256A54F70003EC3C /* ExtensionForUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D45256A54F70003EC3C /* ExtensionForUIScrollView.swift */; };
 		4C159D49256A789C0003EC3C /* TournamentsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D48256A789C0003EC3C /* TournamentsDetailViewController.swift */; };
-		4C159D4E256A930E0003EC3C /* GameCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D4D256A930E0003EC3C /* GameCreateModel.swift */; };
 		4C159D53256A93500003EC3C /* MyGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D52256A93500003EC3C /* MyGamesViewController.swift */; };
-		4C159D63256FADA00003EC3C /* GameCreateNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D62256FADA00003EC3C /* GameCreateNetworkManager.swift */; };
 		4C159D6E2570F60B0003EC3C /* MyGamesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D6D2570F60B0003EC3C /* MyGamesNetworkManager.swift */; };
-		4C159D712570F64A0003EC3C /* SelectClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D702570F64A0003EC3C /* SelectClubViewController.swift */; };
-		4C159D762570F6A90003EC3C /* EditGameNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D752570F6A90003EC3C /* EditGameNetworkManager.swift */; };
 		4C159D872570FEB80003EC3C /* ClubReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D862570FEB80003EC3C /* ClubReviews.swift */; };
 		4C159D93257334000003EC3C /* ChampDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D92257334000003EC3C /* ChampDetailHeader.swift */; };
 		4C159D9725734EC50003EC3C /* ChampDetailFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C159D9625734EC40003EC3C /* ChampDetailFooter.swift */; };
@@ -36,11 +30,6 @@
 		4C264BB2262E9DDC0001B3D6 /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C264BB1262E9DDC0001B3D6 /* TitleSupplementaryView.swift */; };
 		4C264BB5262EA3F50001B3D6 /* CoachCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C264BB4262EA3F50001B3D6 /* CoachCollectionViewCell.swift */; };
 		4C264BB8262EC5FC0001B3D6 /* MiddleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C264BB7262EC5FB0001B3D6 /* MiddleView.swift */; };
-		4C295CFE258F022C00FA6B82 /* EditGameUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C295CFD258F022C00FA6B82 /* EditGameUpdateModel.swift */; };
-		4C295D01258F023700FA6B82 /* UpdatedGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C295D00258F023700FA6B82 /* UpdatedGameModel.swift */; };
-		4C295D07258F029100FA6B82 /* EditGameHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C295D06258F029100FA6B82 /* EditGameHeader.swift */; };
-		4C295D0A258F029900FA6B82 /* EditGameUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C295D09258F029900FA6B82 /* EditGameUserCell.swift */; };
-		4C295D0D258F02A100FA6B82 /* EditGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C295D0C258F02A100FA6B82 /* EditGameViewController.swift */; };
 		4C299EA6254FD79500B2E5E6 /* SmsVareficationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EA5254FD79500B2E5E6 /* SmsVareficationViewController.swift */; };
 		4C299EAD2550FBAB00B2E5E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EAC2550FBAB00B2E5E6 /* LoginViewController.swift */; };
 		4C299EB22551181F00B2E5E6 /* ClubsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C299EB12551181F00B2E5E6 /* ClubsModel.swift */; };
@@ -149,16 +138,10 @@
 		4C159D22256652F90003EC3C /* DynamicalLabelSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicalLabelSize.swift; sourceTree = "<group>"; };
 		4C159D2925693C7A0003EC3C /* PlayersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersCell.swift; sourceTree = "<group>"; };
 		4C159D2C25693C910003EC3C /* CanAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanAddCell.swift; sourceTree = "<group>"; };
-		4C159D3425693EF30003EC3C /* GameCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateView.swift; sourceTree = "<group>"; };
-		4C159D3925693F070003EC3C /* GameCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateViewController.swift; sourceTree = "<group>"; };
 		4C159D45256A54F70003EC3C /* ExtensionForUIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionForUIScrollView.swift; sourceTree = "<group>"; };
 		4C159D48256A789C0003EC3C /* TournamentsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsDetailViewController.swift; sourceTree = "<group>"; };
-		4C159D4D256A930E0003EC3C /* GameCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateModel.swift; sourceTree = "<group>"; };
 		4C159D52256A93500003EC3C /* MyGamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGamesViewController.swift; sourceTree = "<group>"; };
-		4C159D62256FADA00003EC3C /* GameCreateNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCreateNetworkManager.swift; sourceTree = "<group>"; };
 		4C159D6D2570F60B0003EC3C /* MyGamesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGamesNetworkManager.swift; sourceTree = "<group>"; };
-		4C159D702570F64A0003EC3C /* SelectClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClubViewController.swift; sourceTree = "<group>"; };
-		4C159D752570F6A90003EC3C /* EditGameNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameNetworkManager.swift; sourceTree = "<group>"; };
 		4C159D862570FEB80003EC3C /* ClubReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubReviews.swift; sourceTree = "<group>"; };
 		4C159D92257334000003EC3C /* ChampDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampDetailHeader.swift; sourceTree = "<group>"; };
 		4C159D9625734EC40003EC3C /* ChampDetailFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampDetailFooter.swift; sourceTree = "<group>"; };
@@ -172,11 +155,6 @@
 		4C264BB1262E9DDC0001B3D6 /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		4C264BB4262EA3F50001B3D6 /* CoachCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachCollectionViewCell.swift; sourceTree = "<group>"; };
 		4C264BB7262EC5FB0001B3D6 /* MiddleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleView.swift; sourceTree = "<group>"; };
-		4C295CFD258F022C00FA6B82 /* EditGameUpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameUpdateModel.swift; sourceTree = "<group>"; };
-		4C295D00258F023700FA6B82 /* UpdatedGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedGameModel.swift; sourceTree = "<group>"; };
-		4C295D06258F029100FA6B82 /* EditGameHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameHeader.swift; sourceTree = "<group>"; };
-		4C295D09258F029900FA6B82 /* EditGameUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameUserCell.swift; sourceTree = "<group>"; };
-		4C295D0C258F02A100FA6B82 /* EditGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameViewController.swift; sourceTree = "<group>"; };
 		4C299EA5254FD79500B2E5E6 /* SmsVareficationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmsVareficationViewController.swift; sourceTree = "<group>"; };
 		4C299EAC2550FBAB00B2E5E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C299EB12551181F00B2E5E6 /* ClubsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsModel.swift; sourceTree = "<group>"; };
@@ -317,10 +295,6 @@
 		4C159D3325693ED60003EC3C /* CreateGame */ = {
 			isa = PBXGroup;
 			children = (
-				4C295CFB258F018D00FA6B82 /* Scroll */,
-				4C159D61256FAD6C0003EC3C /* Network */,
-				4C159D5F256FAD390003EC3C /* Models */,
-				4C159D702570F64A0003EC3C /* SelectClubViewController.swift */,
 			);
 			path = CreateGame;
 			sourceTree = "<group>";
@@ -344,47 +318,11 @@
 			path = User;
 			sourceTree = "<group>";
 		};
-		4C159D5F256FAD390003EC3C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4C159D4D256A930E0003EC3C /* GameCreateModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		4C159D61256FAD6C0003EC3C /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				4C159D62256FADA00003EC3C /* GameCreateNetworkManager.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		4C159D732570F6830003EC3C /* EditGame */ = {
 			isa = PBXGroup;
 			children = (
-				4C295D03258F026400FA6B82 /* Table */,
-				4C159D792570F6C70003EC3C /* Models */,
-				4C159D742570F69F0003EC3C /* Network */,
 			);
 			path = EditGame;
-			sourceTree = "<group>";
-		};
-		4C159D742570F69F0003EC3C /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				4C159D752570F6A90003EC3C /* EditGameNetworkManager.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		4C159D792570F6C70003EC3C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4C295CFD258F022C00FA6B82 /* EditGameUpdateModel.swift */,
-				4C295D00258F023700FA6B82 /* UpdatedGameModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		4C159D9125732FEE0003EC3C /* Detail */ = {
@@ -409,25 +347,6 @@
 				4C299ED7255595D700B2E5E6 /* Models */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		4C295CFB258F018D00FA6B82 /* Scroll */ = {
-			isa = PBXGroup;
-			children = (
-				4C159D3425693EF30003EC3C /* GameCreateView.swift */,
-				4C159D3925693F070003EC3C /* GameCreateViewController.swift */,
-			);
-			path = Scroll;
-			sourceTree = "<group>";
-		};
-		4C295D03258F026400FA6B82 /* Table */ = {
-			isa = PBXGroup;
-			children = (
-				4C295D06258F029100FA6B82 /* EditGameHeader.swift */,
-				4C295D09258F029900FA6B82 /* EditGameUserCell.swift */,
-				4C295D0C258F02A100FA6B82 /* EditGameViewController.swift */,
-			);
-			path = Table;
 			sourceTree = "<group>";
 		};
 		4C299EB0255117F700B2E5E6 /* Models */ = {
@@ -992,7 +911,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C295D0A258F029900FA6B82 /* EditGameUserCell.swift in Sources */,
 				4C8CE91C253F1C5A00339C62 /* ClubsViewController.swift in Sources */,
 				4C299EB22551181F00B2E5E6 /* ClubsModel.swift in Sources */,
 				4C0AF686255A817900DCAEAC /* WelkomeViewController.swift in Sources */,
@@ -1020,7 +938,6 @@
 				4C7D9F47263689F00097B3B8 /*  UITextField+separatorLineExtension.swift in Sources */,
 				4CF1895E2542B54400479481 /* RulesViewController.swift in Sources */,
 				4CBEB32E254EAA590042B4EC /* SignUpViewController.swift in Sources */,
-				4C295D07258F029100FA6B82 /* EditGameHeader.swift in Sources */,
 				4C8CE938253F1DD500339C62 /* MainTabBarController.swift in Sources */,
 				4CF1897A254ABADE00479481 /* SmsCodeViewController.swift in Sources */,
 				4C159D49256A789C0003EC3C /* TournamentsDetailViewController.swift in Sources */,
@@ -1034,9 +951,7 @@
 				4C9D415525B6A32500EEF0F9 /* UIColor+Extension.swift in Sources */,
 				4C264BB8262EC5FC0001B3D6 /* MiddleView.swift in Sources */,
 				4C7D9F6126368C6E0097B3B8 /* ProfileService.swift in Sources */,
-				4C295D0D258F02A100FA6B82 /* EditGameViewController.swift in Sources */,
 				4C299EED25566A0600B2E5E6 /* GameModel.swift in Sources */,
-				4C159D3A25693F070003EC3C /* GameCreateViewController.swift in Sources */,
 				4CBEB350254FA0090042B4EC /* AuthenticationModel.swift in Sources */,
 				4C299F052557BF2600B2E5E6 /* SMSResponse.swift in Sources */,
 				4CF189492542B3EF00479481 /* OnePlayerTableViewCell.swift in Sources */,
@@ -1059,8 +974,6 @@
 				4CF189702549292000479481 /* KeychainManager.swift in Sources */,
 				4C299EF325566A5900B2E5E6 /* GameViewController.swift in Sources */,
 				4C95759225C294B100A58985 /* MSender.swift in Sources */,
-				4C159D4E256A930E0003EC3C /* GameCreateModel.swift in Sources */,
-				4C295D01258F023700FA6B82 /* UpdatedGameModel.swift in Sources */,
 				4C159D53256A93500003EC3C /* MyGamesViewController.swift in Sources */,
 				4C1D56942542B0F5002C0F49 /* TournamentsCollectionViewCell.swift in Sources */,
 				4CE84C0E25E8D953001A255E /* LikedClubsModel.swift in Sources */,
@@ -1070,7 +983,6 @@
 				4C7D9F6326368C6E0097B3B8 /* GetHandicapToShow.swift in Sources */,
 				4C299EBA2551349000B2E5E6 /* ClubsNetworkManager.swift in Sources */,
 				4C299EDD2555963F00B2E5E6 /* UserNetworkManager.swift in Sources */,
-				4C159D63256FADA00003EC3C /* GameCreateNetworkManager.swift in Sources */,
 				4CF189452542B3E600479481 /* OnePlayerViewController.swift in Sources */,
 				4C6DD3F62623178E00632537 /* UniversalNetwokManager.swift in Sources */,
 				4C299EDA2555960000B2E5E6 /* UserGetModel.swift in Sources */,
@@ -1100,21 +1012,17 @@
 				4CBEB349254EB54A0042B4EC /* CodeVareficationModel.swift in Sources */,
 				4C95759D25C2CDA600A58985 /* ChatMessage.swift in Sources */,
 				4CA3914125EB758200A00529 /* OldUserNetworkManager.swift in Sources */,
-				4C159D762570F6A90003EC3C /* EditGameNetworkManager.swift in Sources */,
 				4C9D411725B1553700EEF0F9 /* UIButton+extension.swift in Sources */,
 				4CCC213F25D13A4300D3CDDB /* UIViewController+alertExtension.swift in Sources */,
 				4C299EA6254FD79500B2E5E6 /* SmsVareficationViewController.swift in Sources */,
 				4C159DB02574B2D40003EC3C /* ChampioshipmembersModel.swift in Sources */,
 				4C299ECF255519A000B2E5E6 /* TournamentsModel.swift in Sources */,
 				4C9D411E25B284B100EEF0F9 /* UIFont+extension.swift in Sources */,
-				4C295CFE258F022C00FA6B82 /* EditGameUpdateModel.swift in Sources */,
 				4C7D9F4F26368C210097B3B8 /* ProfileEditHeader.swift in Sources */,
 				4C159D46256A54F70003EC3C /* ExtensionForUIScrollView.swift in Sources */,
 				4CCC214B25D13AFD00D3CDDB /* UIImage+compressExtension.swift in Sources */,
-				4C159D3525693EF30003EC3C /* GameCreateView.swift in Sources */,
 				4CF189582542B4BA00479481 /* UserForExample.swift in Sources */,
 				4C95758625C28EDD00A58985 /* ChatViewController.swift in Sources */,
-				4C159D712570F64A0003EC3C /* SelectClubViewController.swift in Sources */,
 				4C8CE961254150EF00339C62 /* TopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

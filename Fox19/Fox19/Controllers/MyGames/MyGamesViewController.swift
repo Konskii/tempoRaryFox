@@ -142,8 +142,8 @@ extension MyGamesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let gameMembersCount = games[indexPath.row].gamersCount else { errorAlertMessage(message: "gameMembersCount"); return }
         guard let gameId = games[indexPath.row].id else { errorAlertMessage(message: "gameId"); return }
-        let vc = EditGameViewController(gameId: gameId, gameMembersCount: gameMembersCount, game: games[indexPath.row])
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = EditGameViewController(gameId: gameId, gameMembersCount: gameMembersCount, game: games[indexPath.row])
+//        navigationController?.pushViewController(vc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
