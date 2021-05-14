@@ -1,0 +1,51 @@
+PODS:
+  - Cosmos (23.0.0)
+  - EZYGradientView (1.5.1)
+  - InputBarAccessoryView (4.3.3):
+    - InputBarAccessoryView/Core (= 4.3.3)
+  - InputBarAccessoryView/Core (4.3.3)
+  - MessageKit (3.1.0):
+    - InputBarAccessoryView (~> 4.3.0)
+  - PhoneNumberKit (3.3.3):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.3)
+    - PhoneNumberKit/UIKit (= 3.3.3)
+  - PhoneNumberKit/PhoneNumberKitCore (3.3.3)
+  - PhoneNumberKit/UIKit (3.3.3):
+    - PhoneNumberKit/PhoneNumberKitCore
+  - ReadMoreTextView (3.0.1)
+
+DEPENDENCIES:
+  - Cosmos (~> 23.0)
+  - EZYGradientView (from `https://github.com/Niphery/EZYGradientView`)
+  - MessageKit
+  - PhoneNumberKit (~> 3.3)
+  - ReadMoreTextView
+
+SPEC REPOS:
+  trunk:
+    - Cosmos
+    - InputBarAccessoryView
+    - MessageKit
+    - PhoneNumberKit
+    - ReadMoreTextView
+
+EXTERNAL SOURCES:
+  EZYGradientView:
+    :git: https://github.com/Niphery/EZYGradientView
+
+CHECKOUT OPTIONS:
+  EZYGradientView:
+    :commit: e8cc7bf2fb77557af214289288ebc96776ffbf57
+    :git: https://github.com/Niphery/EZYGradientView
+
+SPEC CHECKSUMS:
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
+  EZYGradientView: f13e7a9e774b906c66d617fb04a13c8853ba25b4
+  InputBarAccessoryView: 8e7fc09e9cba75e0fee5da13450e15c194806f69
+  MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
+  PhoneNumberKit: 4ce83273551c4d2ae10b7361162f4283dd02835f
+  ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
+
+PODFILE CHECKSUM: 4ade5ee0cb1c12aed2fee609422733b5431eba49
+
+COCOAPODS: 1.10.1
