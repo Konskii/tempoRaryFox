@@ -139,6 +139,10 @@
 		4CF1897A254ABADE00479481 /* SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF18978254ABADE00479481 /* SmsCodeViewController.swift */; };
 		4CF1898C254D26A100479481 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1898B254D26A100479481 /* RootViewController.swift */; };
 		5766317C257396DF00BE9DD8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766317B257396DF00BE9DD8 /* Header.swift */; };
+		AC705382264EA67100F95C75 /* NewTournamentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC705381264EA67100F95C75 /* NewTournamentsViewController.swift */; };
+		AC705389264EA71700F95C75 /* NewTournamentsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC705388264EA71700F95C75 /* NewTournamentsNetworkManager.swift */; };
+		AC70538C264EA93E00F95C75 /* TournamentsNetworkPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC70538B264EA93E00F95C75 /* TournamentsNetworkPaths.swift */; };
+		AC70538F264EAEB900F95C75 /* NewTournamentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC70538E264EAEB900F95C75 /* NewTournamentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -275,6 +279,10 @@
 		4CF18978254ABADE00479481 /* SmsCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmsCodeViewController.swift; sourceTree = "<group>"; };
 		4CF1898B254D26A100479481 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		5766317B257396DF00BE9DD8 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		AC705381264EA67100F95C75 /* NewTournamentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewTournamentsViewController.swift; path = Fox19/Controllers/NewTournamentsViewController.swift; sourceTree = SOURCE_ROOT; };
+		AC705388264EA71700F95C75 /* NewTournamentsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTournamentsNetworkManager.swift; sourceTree = "<group>"; };
+		AC70538B264EA93E00F95C75 /* TournamentsNetworkPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsNetworkPaths.swift; sourceTree = "<group>"; };
+		AC70538E264EAEB900F95C75 /* NewTournamentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTournamentTableViewCell.swift; sourceTree = "<group>"; };
 		C6022976F05079CFDE8AAC64 /* Pods-Fox19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.release.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.release.xcconfig"; sourceTree = "<group>"; };
 		E3AB1578AEB6F54EC5F644F7 /* Pods_Fox19.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fox19.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50A566FD199CED7D3206456 /* Pods-Fox19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fox19.debug.xcconfig"; path = "Target Support Files/Pods-Fox19/Pods-Fox19.debug.xcconfig"; sourceTree = "<group>"; };
@@ -657,6 +665,7 @@
 		4C8CE94C253F23DC00339C62 /* Tournaments */ = {
 			isa = PBXGroup;
 			children = (
+				AC70537C264EA63300F95C75 /* New */,
 				4C159D9125732FEE0003EC3C /* Detail */,
 				4C299EC82555194700B2E5E6 /* Network */,
 				4C299EC92555195300B2E5E6 /* Models */,
@@ -874,6 +883,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AC70537C264EA63300F95C75 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				AC705381264EA67100F95C75 /* NewTournamentsViewController.swift */,
+				AC705388264EA71700F95C75 /* NewTournamentsNetworkManager.swift */,
+				AC70538B264EA93E00F95C75 /* TournamentsNetworkPaths.swift */,
+				AC70538E264EAEB900F95C75 /* NewTournamentTableViewCell.swift */,
+			);
+			path = New;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1021,6 +1041,7 @@
 				4CF1895E2542B54400479481 /* RulesViewController.swift in Sources */,
 				4CBEB32E254EAA590042B4EC /* SignUpViewController.swift in Sources */,
 				4C295D07258F029100FA6B82 /* EditGameHeader.swift in Sources */,
+				AC70538C264EA93E00F95C75 /* TournamentsNetworkPaths.swift in Sources */,
 				4C8CE938253F1DD500339C62 /* MainTabBarController.swift in Sources */,
 				4CF1897A254ABADE00479481 /* SmsCodeViewController.swift in Sources */,
 				4C159D49256A789C0003EC3C /* TournamentsDetailViewController.swift in Sources */,
@@ -1030,8 +1051,10 @@
 				4C7D9F4A26368C100097B3B8 /* ClubsListViewController.swift in Sources */,
 				4C0AF689255A987200DCAEAC /* MVCTest.swift in Sources */,
 				4CCC214825D13AD300D3CDDB /* UserNetworkPaths.swift in Sources */,
+				AC705389264EA71700F95C75 /* NewTournamentsNetworkManager.swift in Sources */,
 				4C299EE7255667F300B2E5E6 /* GamesNetworkManager.swift in Sources */,
 				4C9D415525B6A32500EEF0F9 /* UIColor+Extension.swift in Sources */,
+				AC70538F264EAEB900F95C75 /* NewTournamentTableViewCell.swift in Sources */,
 				4C264BB8262EC5FC0001B3D6 /* MiddleView.swift in Sources */,
 				4C7D9F6126368C6E0097B3B8 /* ProfileService.swift in Sources */,
 				4C295D0D258F02A100FA6B82 /* EditGameViewController.swift in Sources */,
@@ -1065,6 +1088,7 @@
 				4C1D56942542B0F5002C0F49 /* TournamentsCollectionViewCell.swift in Sources */,
 				4CE84C0E25E8D953001A255E /* LikedClubsModel.swift in Sources */,
 				4C95759625C2BC2500A58985 /* ChatNetworkManager.swift in Sources */,
+				AC705382264EA67100F95C75 /* NewTournamentsViewController.swift in Sources */,
 				4C7D9F6226368C6E0097B3B8 /* GetHandicapForServer.swift in Sources */,
 				4CF1894C2542B41500479481 /* PlayersViewController.swift in Sources */,
 				4C7D9F6326368C6E0097B3B8 /* GetHandicapToShow.swift in Sources */,
