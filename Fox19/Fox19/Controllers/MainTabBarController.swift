@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController {
         clubsVC.tabBarItem.image = UIImage(named: "Clubs")
         clubsVC.tabBarItem.title = "Клубы"
 
-        let tournamentsVC = TournamentsViewController()
+        let tournamentsVC = NewTournamentsViewController()
         let tournamentsVCNav = UINavigationController(rootViewController: tournamentsVC)
 
         tournamentsVC.tabBarItem.image = UIImage(named: "Tournaments")
