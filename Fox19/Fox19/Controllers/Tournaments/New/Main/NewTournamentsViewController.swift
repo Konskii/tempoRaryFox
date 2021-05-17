@@ -90,7 +90,6 @@ extension NewTournamentsViewController: UITableViewDataSource {
             return cell }
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-DD'T'HH:mm:ssZ"
-        print(formatter.date(from: isoDate))
         cell.setup(tournament: .init(name: name, date: isoDate))
         return cell
     }
@@ -100,5 +99,11 @@ extension NewTournamentsViewController: UITableViewDataSource {
 extension NewTournamentsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         88
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = NewDetailTournamentsViewController(tournament: tournaments[indexPath.row])
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

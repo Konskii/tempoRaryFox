@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		222FEFF033AF85610C9A0D02 /* Pods_Fox19.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AB1578AEB6F54EC5F644F7 /* Pods_Fox19.framework */; };
+		3B39AD602651E13B007B9999 /* TournamentJoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B39AD5F2651E13B007B9999 /* TournamentJoinModel.swift */; };
 		4C0AF686255A817900DCAEAC /* WelkomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */; };
 		4C0AF689255A987200DCAEAC /* MVCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF688255A987200DCAEAC /* MVCTest.swift */; };
 		4C0AF68C255A98C000DCAEAC /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0AF68B255A98C000DCAEAC /* TestView.swift */; };
@@ -150,6 +151,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B39AD5F2651E13B007B9999 /* TournamentJoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentJoinModel.swift; sourceTree = "<group>"; };
 		4C0AF685255A817900DCAEAC /* WelkomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelkomeViewController.swift; sourceTree = "<group>"; };
 		4C0AF688255A987200DCAEAC /* MVCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCTest.swift; sourceTree = "<group>"; };
 		4C0AF68B255A98C000DCAEAC /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B39AD5E2651DFB4007B9999 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				4C159D9125732FEE0003EC3C /* Detail */,
+				4C299EC82555194700B2E5E6 /* Network */,
+				4C299EC92555195300B2E5E6 /* Models */,
+				4C8CE94D253F240800339C62 /* TournamentsViewController.swift */,
+				4C159D48256A789C0003EC3C /* TournamentsDetailViewController.swift */,
+				4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
 		4C0AF691255C0AC100DCAEAC /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,13 +688,8 @@
 		4C8CE94C253F23DC00339C62 /* Tournaments */ = {
 			isa = PBXGroup;
 			children = (
+				3B39AD5E2651DFB4007B9999 /* Old */,
 				AC70537C264EA63300F95C75 /* New */,
-				4C159D9125732FEE0003EC3C /* Detail */,
-				4C299EC82555194700B2E5E6 /* Network */,
-				4C299EC92555195300B2E5E6 /* Models */,
-				4C8CE94D253F240800339C62 /* TournamentsViewController.swift */,
-				4C159D48256A789C0003EC3C /* TournamentsDetailViewController.swift */,
-				4C1D56932542B0F5002C0F49 /* TournamentsCollectionViewCell.swift */,
 			);
 			path = Tournaments;
 			sourceTree = "<group>";
@@ -934,6 +944,7 @@
 			isa = PBXGroup;
 			children = (
 				AC7053912650F85500F95C75 /* FillableTournamentModel.swift */,
+				3B39AD5F2651E13B007B9999 /* TournamentJoinModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1187,6 +1198,7 @@
 				4CF189582542B4BA00479481 /* UserForExample.swift in Sources */,
 				4C95758625C28EDD00A58985 /* ChatViewController.swift in Sources */,
 				4C159D712570F64A0003EC3C /* SelectClubViewController.swift in Sources */,
+				3B39AD602651E13B007B9999 /* TournamentJoinModel.swift in Sources */,
 				4C8CE961254150EF00339C62 /* TopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

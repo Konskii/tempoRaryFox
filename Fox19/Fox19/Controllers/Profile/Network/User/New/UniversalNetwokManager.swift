@@ -62,6 +62,7 @@ class UniversalNetwokManager {
     }
     
     func dataTask<T: Codable>(request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) {
+        print(request.url)
         URLSession.shared.dataTask(with: request) { [self] data, response, error in
             if error != nil { completion(.failure(handleError())) }
             guard let response = response as? HTTPURLResponse else { return }
@@ -69,8 +70,11 @@ class UniversalNetwokManager {
                 completion(.failure(handleError(withHttpCode: response.statusCode)))
                 return
             }
-            guard let data = data else { completion(.failure(handleError())); return }
+            guard let data = data else { completion(.failure(handleError()));
+                print("data")
+                return }
             guard let parsedData = try? JSONDecoder().decode(T.self, from: data) else {
+                print(try? JSONSerialization.jsonObject(with: data, options: []))
                 completion(.failure(handleError()))
                 return
             }
